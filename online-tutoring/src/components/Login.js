@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import firebase from "../firebase";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import emailjs from '@emailjs/browser';
+import emailjs from "@emailjs/browser";
+import './Login.css'; 
+import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom"; 
+
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -9,7 +12,7 @@ function Login() {
   const [randomCode, setRandomCode] = useState(null);
   const [userCode, setUserCode] = useState("");
   const auth = getAuth();
- 
+
   const sendVerificationCode = async () => {
     try {
       // Check if credentials are correct by attempting to sign in
@@ -20,22 +23,31 @@ function Login() {
       const max = 999999;
       const generatedCode = Math.floor(Math.random() * (max - min + 1)) + min;
       setRandomCode(generatedCode);
-      
+
       const formValues = {
         toemail: email,
         message: generatedCode,
       };
-      
-      emailjs.send("service_obyxgvu", "template_zhy667a", formValues, "BujL3gtXVBlpKdIYE")
-        .then((result) => {
-          alert("Code has been sent. Check your email!")
-          console.log("Code has been sent");
-        }, (error) => {
-          console.log(error.text);
-        });
+
+      emailjs
+        .send(
+          "service_obyxgvu",
+          "template_zhy667a",
+          formValues,
+          "BujL3gtXVBlpKdIYE"
+        )
+        .then(
+          (result) => {
+            alert("Code has been sent. Check your email!");
+            console.log("Code has been sent");
+          },
+          (error) => {
+            console.log(error.text);
+          }
+        );
     } catch (error) {
       console.error("Invalid credentials:", error);
-      alert("Invalid credentials. Please try again.");  // Inform the user about the incorrect credentials
+      alert("Invalid credentials. Please try again.");
     }
   };
 
@@ -43,8 +55,6 @@ function Login() {
     if (parseInt(userCode) === randomCode) {
       console.log("Verification successful");
       setRandomCode(null);
-      // Since the user is already logged in after credential check, no need to sign in again.
-      // <---- REDIRECT TO USER HOMEPAGE ------->
     } else {
       console.log("Verification failed");
       alert("Verification failed. Please try again.");
@@ -64,7 +74,11 @@ function Login() {
         placeholder="Password"
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button onClick={sendVerificationCode}>Send Verification Code</button>
+      {/* Add a black "Send Verification Code" button */}
+      <button className="send-verification-button" onClick={sendVerificationCode}>
+        Send Verification Code
+      </button>
+
       {randomCode && (
         <div>
           <h3>Enter verification code sent to your email</h3>
