@@ -45,8 +45,7 @@ function Registration() {
         type="password"
         placeholder="Password"
         onChange={(e) => setPassword(e.target.value)}
-      />
-      <p> Please ensure your password has at least 8 characters, includes an uppercase letter, a lowercase letter, a digit, and a special character.</p>
+      /> 
       <button onClick={handleRegistration}>Register</button>
     </div>
   );
