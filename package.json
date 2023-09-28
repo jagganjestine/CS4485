@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@types/react": "^18.2.21",
+    "firebase": "^10.3.1",
+    "next": "^13.4.19"
+  }
+}
