@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import emailjs from "@emailjs/browser";
 import './Login.css'; 
+import firebase from "./firebase";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom"; 
+
 
 
 function Login() {
@@ -12,6 +14,7 @@ function Login() {
   const [randomCode, setRandomCode] = useState(null);
   const [userCode, setUserCode] = useState("");
   const auth = getAuth();
+
 
   const sendVerificationCode = async () => {
     try {
@@ -38,7 +41,7 @@ function Login() {
         )
         .then(
           (result) => {
-            alert("Code has been sent. Check your email!");
+            // alert("Code has been sent. Check your email!");
             console.log("Code has been sent");
           },
           (error) => {
@@ -55,6 +58,23 @@ function Login() {
     if (parseInt(userCode) === randomCode) {
       console.log("Verification successful");
       setRandomCode(null);
+      var userUID = auth.currentUser.uid;
+      console.log(userUID); // This will grab the current user logged in
+
+      // POST this to backend so that we can access it
+      // axios.post('/set-uid', {uid: 'userUID'})
+      
+      // FLASK CODE
+      /*
+      @app.route('/set-uid', methods=['POST'])
+      def set_uid():
+        global UID
+        UID = request.form['uid']
+        return "OK"
+      */
+      
+
+
     } else {
       console.log("Verification failed");
       alert("Verification failed. Please try again.");

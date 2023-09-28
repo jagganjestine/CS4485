@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
+import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB8zytC5xoZqScK-aIrmr_90Gfly8RRG3o",
@@ -10,7 +11,8 @@ const firebaseConfig = {
   storageBucket: "online-tutoring-e6a08.appspot.com",
   messagingSenderId: "557888095740",
   appId: "1:557888095740:web:e413917b69178cd3579e79",
-  measurementId: "G-2GTZYXNWKB"
+  measurementId: "G-2GTZYXNWKB",
+  databaseURL: "https://online-tutoring-e6a08-default-rtdb.firebaseio.com/"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -22,5 +24,6 @@ const firebase = {
   analytics,
   auth,
 };
+const database = getDatabase(app);
 
 export default firebase;
