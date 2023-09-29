@@ -1,0 +1,56 @@
+.navbar {
+    display: flex; /* Use flexbox to control alignment */
+    justify-content: space-between; /* Space items evenly, pushing the button to the right */
+    align-items: center; /* Center items vertically within the navbar */
+    background-color: white; 
+    font-family: 'Inter', sans-serif;    
+    font-weight: bold;
+    font-size: large;
+    padding: 25px; 
+    border-bottom: 1px solid #ccc; 
+  }
+
+  .signup-container {
+    margin-right: 40px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar ul {
+    margin-left: 50px;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .navbar li {
+    display: inline;
+    margin-right: 40px;
+  }
+  
+  .navbar a {
+    text-decoration: none;
+    color: black; 
+  }
+
+  .signup {
+    background-color: black;
+    font-family: 'Inter', sans-serif;    
+    font-weight: bold;
+    font-size:large;
+    color: white;
+    border:none;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 20px;
+  }
+  .signup:hover {
+    color: black;
+    background-color:orange;
+    transition:0.7s;
+  }
+  
+  
+  .navbar a:hover {
+    color: orange; 
+    transition: 0.5s;
+  }
