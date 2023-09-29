@@ -3,10 +3,125 @@
 ul {
   list-style: none; 
   padding: 0;
-  margin: 0; 
 }
 
 li {
   display: inline; 
   margin-right: 10px; 
+}
+
+.login-title {
+  text-align: center;
+  margin-top: 20px; 
+  font-size: 40px; 
+  color: white; 
+}
+
+.proportion {
+  width: 450px; 
+  box-align: right;
+  color: white;
+}
+
+.send-verification-button {
+  background-color: black;
+  color: white; 
+  border: none; 
+  padding: 10px 20px; 
+  cursor: pointer; 
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.verification-code-container {
+  display: flex;
+  align-items: center;
+}
+
+.verification-code {
+  margin-right: 10px;
+}
+
+.verify-login-button {
+  background-color: black;
+  color: white; 
+  border: none; 
+  padding: 10px 20px; 
+  cursor: pointer; 
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 30px;
+}
+
+.verify-login-button:hover {
+  background-color: #333; 
+}
+
+.send-verification-button:hover {
+  background-color: #333; 
+}
+
+.login-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 90vh; 
+  
+}
+
+.login-form {
+  text-align: left; 
+  padding: 110px; 
+  background-color: #EF915C; 
+  width: 1200px;
+}
+
+.login-form input[type="email"],
+.login-form input[type="number"],
+.login-form input[type="password"] {
+  color: white; 
+  font-size: 18px;
+  width: 100%; 
+  height: 40px; 
+}
+
+.remember-me {
+  margin-top: 30px;
+  color: white;
+}
+
+.verification-code {
+  width: 215px; 
+}
+
+.sign-up-button {
+  position: fixed;
+  top: 20px; 
+  right: 60px; 
+  background-color: black; 
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.sign-up-button:hover {
+  background-color: #333; 
+}
+
+.sign-up-container {
+  position: fixed;
+  top: 10px;
+  right: 170px;
+  display: flex;
+  align-items: center;
+}
+
+.sign-up-container p {
+  margin-right: 10px; 
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
 }
