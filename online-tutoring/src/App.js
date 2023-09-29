@@ -8,6 +8,7 @@ import Registration from './components/Registration';
 import Logout from './components/Logout';
 import NotFound from "./components/NotFound";
 import TutorRegistration from './components/RegistrationTutors';
+import RegistrationSelection from './components/RegistrationSelection';
 
 
 function App() {
@@ -23,7 +24,10 @@ function App() {
               <Link to="/homepage">Homepage</Link>
             </li>
             <li>
-              <Link to="/registration">Registration</Link>
+              <Link to="/registrationselection">Registration Selection</Link>
+            </li>
+            <li>
+            <Link to="/registration">Registration</Link>
             </li>
             <li>
               <Link to="/registrationtutors">Registration for Tutors</Link>
@@ -35,10 +39,10 @@ function App() {
         </nav>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/homepage" element={<Homepage />} /> {/* Use 'element' prop */}
+          <Route path="/homepage" element={<Homepage />} /> 
           <Route path="/registration" element={<Registration />} />
           <Route path="/registrationtutors" element={<TutorRegistration />} />
-
+          <Route path="/registrationselection" element={<RegistrationSelection />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

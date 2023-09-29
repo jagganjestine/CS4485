@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import './Login.css'; 
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import emailjs from "@emailjs/browser";
-import './Login.css'; 
 import firebase from "./firebase";
-import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom"; 
+import { Link } from "react-router-dom"; 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import './Login.css'; 
 
 
 function Login() {
@@ -15,13 +14,34 @@ function Login() {
   const [password, setPassword] = useState("");
   const [randomCode, setRandomCode] = useState(null);
   const [userCode, setUserCode] = useState("");
+
+  //remember me functionality 
+  const [rememberMe, setRememberMe] = useState(false); 
   const auth = getAuth();
+  const navigate = useNavigate();
+
+   // Check if "Remember Me" is enabled when the component mounts
+   useEffect(() => {
+    const isRemembered = localStorage.getItem('rememberedEmail');
+    if (isRemembered) {
+      setEmail(isRemembered);
+      setRememberMe(true);
+    }
+  }, []);
 
 
   const sendVerificationCode = async () => {
     try {
       // Check if credentials are correct by attempting to sign in
       await signInWithEmailAndPassword(auth, email, password);
+
+      if (rememberMe) {
+        // Store user information in local storage if "Remember Me" is enabled
+        localStorage.setItem('rememberedEmail', email);
+      } else {
+        // Clear any previously stored information
+        localStorage.removeItem('rememberedEmail');
+      }
 
       // If signInWithEmailAndPassword doesn't throw an error, credentials are correct
       const min = 100000;
@@ -62,6 +82,7 @@ function Login() {
       setRandomCode(null);
       var userUID = auth.currentUser.uid;
       console.log(userUID); // This will grab the current user logged in
+      navigate("/homepage");
 
       // POST this to backend so that we can access it
       // axios.post('/set-uid', {uid: 'userUID'})
@@ -81,6 +102,10 @@ function Login() {
       console.log("Verification failed");
       alert("Verification failed. Please try again.");
     }
+  };
+
+  const handleRememberMeChange = () => {
+    setRememberMe(!rememberMe); // Toggle the "Remember Me" state
   };
 
   return (
@@ -115,6 +140,8 @@ function Login() {
       type="checkbox"
       id="rememberMe"
       name="rememberMe"
+      checked={rememberMe}
+      onChange={handleRememberMeChange} // Added onChange handler
     />
     <label htmlFor="rememberMe">Remember Me</label> {/*ADD LINK TO REMEMBER ME*/ }
   </div>
@@ -135,17 +162,6 @@ function Login() {
       />
             <div style={{ marginBottom: '20px' }} />
 
-      {randomCode && (
-        <div>
-          <h3>Enter verification code sent to your email</h3>
-          <input
-            type="number"
-            placeholder="Verification Code"
-            onChange={(e) => setUserCode(e.target.value)}
-          />
-\        </div>
-      )}
-
    <button
       className="verify-login-button"
       style={{ marginLeft: '70px' }}
@@ -153,12 +169,11 @@ function Login() {
 
     <div className="sign-up-container">
     <p>Don't have an account?</p>
-    <Link to="/registration"> <button className="sign-up-button">Sign Up</button> </Link>
-    </div>
-
+    <Link to="/registrationselection"> <button className="sign-up-button">Sign Up</button> </Link>
+            </div>
+          </div>
+        </div>
       </div>
-      </div>
-    </div>
     </div>
   );
 }
