@@ -9,6 +9,7 @@ import Logout from './components/Logout';
 import NotFound from "./components/NotFound";
 import TutorRegistration from './components/RegistrationTutors';
 import Navbar from './components/Navbar';
+import Landing from './components/Landing';
 
 function Routing() {
   return (
@@ -20,7 +21,7 @@ function Routing() {
           <Route path="/homepage" element={<Homepage />} /> {/* Use 'element' prop */}
           <Route path="/registration" element={<Registration />} />
           <Route path="/registrationtutors" element={<TutorRegistration />} />
-
+          <Route path="/landing" element={<Landing />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

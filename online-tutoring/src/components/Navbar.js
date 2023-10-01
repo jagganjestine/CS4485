@@ -1,7 +1,14 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate} from 'react-router-dom'
 import './Navbar.css'
+import Registration from './Registration'
 const Navbar = () => {
+
+  const navigate = useNavigate();
+  
+  const navigateRegister = () => {
+    navigate('/Registration');
+  }
   return (
 
     <nav className='navbar'>
@@ -21,9 +28,12 @@ const Navbar = () => {
         <li>
           <Link to="/logout">Logout</Link>
         </li>
+        <li>
+          <Link to="/landing">Landing</Link>
+        </li>
         </ul>
         <div className='signup-container'>
-          <button className='signup'>Sign Up</button>
+          <button className='signup'onClick={navigateRegister}>Sign Up</button>
         </div>
       
     </nav>
