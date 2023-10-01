@@ -1,16 +1,37 @@
 import React from 'react'
 import { Link, useNavigate} from 'react-router-dom'
 import './Navbar.css'
+import { useState, useEffect } from 'react'
 import Registration from './Registration'
 const Navbar = () => {
 
   const navigate = useNavigate();
-  
   const navigateRegister = () => {
     navigate('/Registration');
   }
-  return (
 
+  const [isSticky, setIsSticky] = useState(false);
+
+  // Function to handle scrolling and toggle the sticky class
+  const handleScroll = () => {
+    if (window.pageYOffset > 0) {
+      setIsSticky(true);
+    } else {
+      setIsSticky(false);
+    }
+  };
+
+  // Add an event listener for the scroll event
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      // Remove the event listener when the component unmounts
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  return (
+    <div id="navbar1" className={isSticky ? 'navbar sticky' : 'navbar'}>
     <nav className='navbar'>
       <ul>
         <li>
@@ -35,8 +56,8 @@ const Navbar = () => {
         <div className='signup-container'>
           <button className='signup'onClick={navigateRegister}>Sign Up</button>
         </div>
-      
     </nav>
+    </div>
   )
 }
 
