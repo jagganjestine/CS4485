@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import firebase from "./firebase";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
+import "./Registration.css";
 
 function Registration() {
   const [email, setEmail] = useState("");
@@ -56,16 +57,48 @@ function Registration() {
   };
 
   return (
-    <div>
+    <div className="registration-container">
       <h2>Registration</h2>
-      <input type="text" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} />
-      <input type="text" placeholder="Last Name" onChange={(e) => setLastName(e.target.value)} />
-      <input type="date" placeholder="Birthday" onChange={(e) => setBirthday(e.target.value)} />
-      <input type="text" placeholder="School" onChange={(e) => setSchool(e.target.value)} />
-      <input type="text" placeholder="Major" onChange={(e) => setMajor(e.target.value)} />
-      <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-      <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-      <button onClick={handleRegistration}>Register</button>
+
+      <h2>Are you a</h2>
+      <div className="button-container">
+      <button className="student-button">Student</button>
+      <h2>OR</h2>
+      <button className="instructor-button">Instructor</button>
+      </div>
+
+      <div className="form-group">
+      <input type="first name" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} />
+      </div>
+
+      <div className="form-group">
+      <input type="last name" placeholder="Last Name" onChange={(e) => setLastName(e.target.value)} />     
+      </div>
+
+      <div className="form-group">
+      <input type="date" placeholder="Birthday" onChange={(e) => setBirthday(e.target.value)} />    
+      </div>
+
+      <div className="form-group">
+      <input type="school" placeholder="School" onChange={(e) => setSchool(e.target.value)} />     
+      </div>
+
+      <div className="form-group">
+      <input type="major" placeholder="Major" onChange={(e) => setMajor(e.target.value)} />     
+      </div>
+
+      <div className="form-group">
+      <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)}/>
+      </div>
+      
+      <div className="form-group"> <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
+      </div>
+      <p className="password-requirements">
+        Please ensure your password has at least 8 characters, includes an uppercase letter, a digit, and a special character.
+      </p>
+      <button className="register-button" onClick={handleRegistration}>
+        Register
+        </button>
     </div>
   );
 }

@@ -1,0 +1,74 @@
+/* Registration.css */
+.registration-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background: linear-gradient(to right, rgba(230, 120, 17, 0.993), rgb(224, 195, 163));
+    background-color: rgb(218, 132, 33);
+  }
+  
+  .button-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .student-button,
+  .instructor-button {
+    flex: 1;
+    margin: 50px; /* Adjust margin as needed */
+    height: 60px;
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+
+  .student-button:hover,.instructor-button:hover {
+    background-color: #585858;
+  }
+
+  h2 {
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  input[type="first name"],
+  input[type="last name"],
+  input[type="date"],
+  input[type="school"],
+  input[type="major"],
+  input[type="email"],
+  input[type="password"] {
+    width: 75%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .password-requirements {
+    font-size: 12px;
+    color: #000000;
+  }
+  
+  .register-button {
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .register-button:hover {
+    background-color: #585858;
+  }
+  
