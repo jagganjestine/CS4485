@@ -6,7 +6,7 @@ function RegistrationSelection() {
     return (
         <div className="registration-container">
           <div className="registration-form">
-            <h1>Are you a</h1>
+            <h1 className="rsHeader">Are you a</h1>
             <div className="buttons-container">
               <Link to="/registration" className="registration-button">Student</Link>
               <span className="or-text">or</span>

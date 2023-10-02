@@ -20,7 +20,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   }
   
-  h1 {
+  .rsHeader {
     color: #EF915C;
     font-size: 24px;
     align-content: center;
