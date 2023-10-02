@@ -68,6 +68,7 @@ li {
   justify-content: center; 
   align-items: center; 
   height: 90vh; 
+  border-radius: 20px;
 }
 
 .login-form {

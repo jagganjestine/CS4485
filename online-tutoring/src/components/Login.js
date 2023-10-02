@@ -14,6 +14,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [randomCode, setRandomCode] = useState(null);
   const [userCode, setUserCode] = useState("");
+  const [verificationSent, setVerificationSent] = useState(false); 
 
   //remember me functionality 
   const [rememberMe, setRememberMe] = useState(false); 
@@ -65,6 +66,7 @@ function Login() {
           (result) => {
             // alert("Code has been sent. Check your email!");
             console.log("Code has been sent");
+            setVerificationSent(true); // set verification to true
           },
           (error) => {
             console.log(error.text);
@@ -151,26 +153,33 @@ function Login() {
         Send Verification Code
       </button>
       <div style={{ marginBottom: '20px' }} /> 
-      <div className="verification-code-container">
-      <TextField
-        type="number"
-        label="Verification Code"
-        variant="standard"
-        className="verification-code"
-        value={userCode}
-        onChange={(e) => setUserCode(e.target.value)}
-      />
-            <div style={{ marginBottom: '20px' }} />
+      {verificationSent && (
+            <div className="verification-code-container">
+              <TextField
+                type="number"
+                label="Verification Code"
+                variant="standard"
+                className="verification-code"
+                value={userCode}
+                onChange={(e) => setUserCode(e.target.value)}
+              />
+              <div style={{ marginBottom: '20px' }} />
 
-   <button
-      className="verify-login-button"
-      style={{ marginLeft: '70px' }}
-      onClick={verifyCode}> Verify and Login </button>
-
-    <div className="sign-up-container">
-    <p>Don't have an account?</p>
-    <Link to="/registrationselection"> <button className="sign-up-button">Sign Up</button> </Link>
+              <button
+                className="verify-login-button"
+                style={{ marginLeft: '70px' }}
+                onClick={verifyCode}
+              >
+                Verify and Login
+              </button>
             </div>
+          )}
+
+          <div className="sign-up-container">
+            <p>Don't have an account?</p>
+            <Link to="/registrationselection">
+              <button className="sign-up-button">Sign Up</button>
+            </Link>
           </div>
         </div>
       </div>
