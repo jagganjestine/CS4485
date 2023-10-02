@@ -10,24 +10,26 @@ import NotFound from "./components/NotFound";
 import TutorRegistration from './components/RegistrationTutors';
 import Navbar from './components/Navbar';
 import Landing from './components/Landing';
+import RegistrationSelection from './components/RegistrationSelection';
 
 function Routing() {
   return (
     <Router>
       <div className="App">
-      <Navbar />
+        <Navbar />
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/homepage" element={<Homepage />} /> {/* Use 'element' prop */}
+          <Route path="/homepage" element={<Homepage />} /> 
           <Route path="/registration" element={<Registration />} />
           <Route path="/registrationtutors" element={<TutorRegistration />} />
           <Route path="/landing" element={<Landing />} />
           <Route path="/logout" element={<Logout />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="/registrationselection" element={<RegistrationSelection />} />
+          <Route path="" element={<NotFound />} />
         </Routes>
       </div>
     </Router>
-  )
+  );
 }
 
-export default Routing
+export default Routing;
