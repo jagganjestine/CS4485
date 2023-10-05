@@ -1,18 +1,10 @@
-ul {
-  list-style: none; 
-  padding: 0;
-}
-
-li {
-  display: inline; 
-  margin-right: 10px; 
-}
 
 .login-title {
   text-align: center;
   margin-top: 20px; 
   font-size: 40px; 
   color: white; 
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
 }
 
 .proportion {
@@ -22,13 +14,14 @@ li {
 }
 
 .send-verification-button {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
+  font-weight: 500;
+  font-size:medium;
   background-color: black;
   color: white; 
   border: none; 
   padding: 10px 20px; 
   cursor: pointer; 
-  font-weight: bold;
-  font-size: 16px;
   border-radius: 5px;
 }
 
@@ -47,18 +40,23 @@ li {
   border: none; 
   padding: 10px 20px; 
   cursor: pointer; 
-  font-weight: bold;
-  font-size: 16px;
   margin-top: 30px;
   border-radius: 5px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
+  font-weight: 500;
+  font-size:medium;
 }
 
 .verify-login-button:hover {
-  background-color: #333; 
+  color: black;
+  background-color:white;
+  transition:0.7s; 
 }
 
 .send-verification-button:hover {
-  background-color: #333; 
+  color: black;
+  background-color:white;
+  transition:0.7s;
 }
 
 .login-container {
@@ -72,16 +70,22 @@ li {
 
 .login-form {
   text-align: left; 
-  padding: 110px; 
-  background-image: linear-gradient(to bottom, #F19E6F, #E9702C);
+  padding: 90px; 
+  font-size: 20px;
+  background: linear-gradient(135deg, #FFA500, #FF6347);
+  border: 1px solid #FFA500;
+  border-radius: 50px;
   width: 1200px;
+  height: 60vh;
 }
 
 .login-form input[type="email"],
 .login-form input[type="number"],
 .login-form input[type="password"] {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
+  font-weight: 500;
+  font-size:medium;
   color: white; 
-  font-size: 18px;
   width: 100%; 
   height: 40px; 
 }
@@ -95,35 +99,25 @@ li {
   width: 215px; 
 }
 
-.sign-up-button {
-  position: fixed;
-  top: 20px; 
-  right: 60px; 
-  background-color: black; 
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 16px;
-  border-radius: 5px;
+.bottom-nav {
+  background-color: hsl(34, 100%, 50%);
+  height: 300px;
 }
 
-.sign-up-button:hover {
-  background-color: #333; 
+.links  {
+  color:white;
+  text-align: left;
+  padding-left: 250px;
+  padding-top:50px;
+  font-size: 20px;
 }
 
-.sign-up-container {
-  position: fixed;
-  top: 10px;
-  right: 170px;
-  display: flex;
-  align-items: center;
+.bottom-nav a {
+  text-decoration: none;
+  color: white; 
 }
 
-.sign-up-container p {
-  margin-right: 10px; 
-  color: black;
-  font-size: 18px;
-  font-weight: bold;
+.bottom-nav :hover {
+  color:black;
+  transition: 0.5s;
 }

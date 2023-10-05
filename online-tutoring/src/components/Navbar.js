@@ -54,7 +54,9 @@ const Navbar = () => {
         </li>
         </ul>
         <div className='signup-container'>
-          <button className='signup'onClick={navigateRegister}>Sign Up</button>
+        <Link to="/registrationselection">
+        <button className='signup'onClick={navigateRegister}>Sign Up</button>
+            </Link>
         </div>
     </nav>
     </div>

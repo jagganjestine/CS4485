@@ -4,9 +4,15 @@ import './Login.css';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import emailjs from "@emailjs/browser";
 import firebase from "./firebase";
-import { Link } from "react-router-dom"; 
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import './Hero.css'
+import './Landing.css'
+import Routing from '../Routing'
+import { Link, BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import RegistrationTutors from './RegistrationTutors'
+import Registration from './Registration'
+import Logout from './Logout'
+import HomePage from './Homepage'
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -141,7 +147,7 @@ function Login() {
       checked={rememberMe}
       onChange={handleRememberMeChange} // Added onChange handler
     />
-    <label htmlFor="rememberMe">Remember Me</label> {/*ADD LINK TO REMEMBER ME*/ }
+    <label htmlFor="rememberMe">Remember Me</label> 
   </div>
 
   <div style={{ marginBottom: '30px' }} /> 
@@ -170,15 +176,46 @@ function Login() {
               </button>
             </div>
           )}
-
-          <div className="sign-up-container">
-            <p>Don't have an account?</p>
-            <Link to="/registrationselection">
-              <button className="sign-up-button">Sign Up</button>
-            </Link>
-          </div>
         </div>
       </div>
+
+      <div className='bottom-nav'>
+            <div className='links'>
+            <Link to="/">Login</Link>
+            <Routes>
+                <Route path="/login" element={<Login />} />
+            </Routes>
+
+            <br />
+
+            <Link to="/homepage">Home page</Link>
+            <Routes>
+                <Route path="/homepage" element={<HomePage />} />
+            </Routes>
+
+            <br />
+            
+            <Link to="/registrationtutors">Registration for Tutors</Link>
+            <Routes>
+                <Route path="/registrationtutors" element={<RegistrationTutors />} />
+            </Routes>
+
+            <br />
+
+            <Link to="/registration">Registration</Link>
+            <Routes>
+                <Route path="/registration" element={<Registration />} />
+            </Routes>
+
+            <br />
+
+            <Link to="/logout">Logout</Link>
+            <Routes>
+                <Route path="/logout" element={<Logout />} />
+            </Routes>
+        </div>
+      </div>
+
     </div>
   );
 }
