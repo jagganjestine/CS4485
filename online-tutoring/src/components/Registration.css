@@ -1,11 +1,16 @@
 /* Registration.css */
 .registration-container {
   border-radius: 50px;
-  width: 1700px; /* Set the width of the box */
+  width: 1500px; /* Set the width of the box */
   height: 100px; /* Set the height of the box */
   background: linear-gradient(135deg, #FFA500, #FF6347); /* Orange gradient colors */
   border: 1px solid #FFA500; /* Optional: Add a border with the same color as the starting gradient color */
   font-size: 20px; /* Set the font size */
+  position: fixed; /* Set the position to fixed */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  right: 50%;
+  transform: translate(-50%, -50%); /* Center the box */
   }
   
   .button-container {
@@ -36,6 +41,7 @@
   
   .form-group {
     margin-bottom: 15px;
+    display: block;
   }
   
   input[type="first name"],
