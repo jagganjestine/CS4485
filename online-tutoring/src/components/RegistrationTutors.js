@@ -2,6 +2,16 @@ import React, { useState } from "react";
 import firebase from "./firebase";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
+import "./RegistrationTutors.css"
+import Login from './Login'
+import Logout from './Logout'
+import HomePage from './Homepage'
+import Routing from '../Routing'
+import RegistrationTutors from './RegistrationTutors'
+import Registration from './Registration'
+import { Link, BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+
 
 function TutorRegistration() {
   const [firstName, setFirstName] = useState("");
@@ -77,6 +87,9 @@ function TutorRegistration() {
 
   return (
     <div>
+      <div className="test">
+  <div className="tutor-registration-container">
+    <div>
       <h2>Tutor Registration</h2>
       <input type="text" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} />
       <input type="text" placeholder="Last Name" onChange={(e) => setLastName(e.target.value)} />
@@ -110,6 +123,48 @@ function TutorRegistration() {
 
       <button onClick={handleRegistration}>Register as Tutor</button>
     </div>
+    </div>
+    </div>
+    <div className='bottom-nav'>
+            <div className='links'>
+            <Link to="/">Login</Link>
+            <Routes>
+                <Route path="/login" element={<Login />} />
+            </Routes>
+
+            <br />
+
+            <Link to="/homepage">Home page</Link>
+            <Routes>
+                <Route path="/homepage" element={<HomePage />} />
+            </Routes>
+
+            <br />
+            
+            <Link to="/registrationtutors">Registration for Tutors</Link>
+            <Routes>
+                <Route path="/registrationtutors" element={<RegistrationTutors />} />
+            </Routes>
+
+            <br />
+
+            <Link to="/registration">Registration</Link>
+            <Routes>
+                <Route path="/registration" element={<Registration />} />
+            </Routes>
+
+            <br />
+
+            <Link to="/logout">Logout</Link>
+            <Routes>
+                <Route path="/logout" element={<Logout />} />
+            </Routes>
+        </div>
+      </div>
+      </div>
+    
+
+    
   );
 }
 

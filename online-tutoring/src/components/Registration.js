@@ -61,8 +61,6 @@ function Registration() {
       <div>
       <h2>Student Registration</h2>
 
-      
-
       <div className="form-group">
       <input type="first name" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} />
       </div>
