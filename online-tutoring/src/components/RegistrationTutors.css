@@ -6,7 +6,8 @@
     border: 1px solid #FFA500;
     border-radius: 50px;
     width: 1200px;
-    height: 40vh;
+    height: 60vh;
+    
    
   }
 
@@ -36,3 +37,22 @@
     color:black;
     transition: 0.5s;
 }
+
+.form-group {
+    margin-bottom: 15px;
+    display: block;
+  }
+
+  input[type="first name"],
+  input[type="last name"],
+  input[type="phone number"],
+  input[type="school]"],
+  input[type="about me"],
+  input[type="hours"],
+  input[type="email"],
+  input[type="password"] {
+    width: 75%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }

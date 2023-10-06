@@ -87,18 +87,18 @@ function TutorRegistration() {
 
   return (
     <div>
-      <div className="test">
+  <div className="test">
   <div className="tutor-registration-container">
     <div>
       <h2>Tutor Registration</h2>
-      <input type="text" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} />
-      <input type="text" placeholder="Last Name" onChange={(e) => setLastName(e.target.value)} />
-      <input type="text" placeholder="Phone Number" onChange={(e) => setPhoneNumber(e.target.value)} />
-      <input type="date" placeholder="Birthday" onChange={(e) => setBirthday(e.target.value)} />
-      <textarea placeholder="About Me" onChange={(e) => setAboutMe(e.target.value)}></textarea>
-      <input type="text" placeholder="Available Hours (e.g. 9am-5pm)" onChange={(e) => setAvailableHours(e.target.value)} />
-      <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-      <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+      <div className="form-group"> <input type="first name" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} /> </div>
+      <div className="form-group"> <input type="last name" placeholder="Last Name" onChange={(e) => setLastName(e.target.value)} /> </div>
+      <div className="form-group"> <input type="phone number" placeholder="Phone Number" onChange={(e) => setPhoneNumber(e.target.value)} /> </div>
+      <div className="form-group"> <input type="date" placeholder="Birthday" onChange={(e) => setBirthday(e.target.value)} /> </div>
+      <div className="form-group"> <textarea type= "about me" placeholder="About Me" rows={4} cols={115} onChange={(e) => setAboutMe(e.target.value)}></textarea> </div>
+      <div className="form-group"> <input type="hours" placeholder="Available Hours (e.g. 9am-5pm)" onChange={(e) => setAvailableHours(e.target.value)} /> </div>
+      <div className="form-group"> <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} /> </div>
+      <div className="form-group"> <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} /> </div>
 
       <div>
         <h3>Subjects Taught</h3>
@@ -125,6 +125,7 @@ function TutorRegistration() {
     </div>
     </div>
     </div>
+    
     <div className='bottom-nav'>
             <div className='links'>
             <Link to="/">Login</Link>
