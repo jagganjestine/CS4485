@@ -1,0 +1,58 @@
+.tutor-registration-container {
+    text-align: left; 
+    padding: 50px;
+    font-size: 20px;
+    background: linear-gradient(135deg, #FFA500, #FF6347);
+    border: 1px solid #FFA500;
+    border-radius: 50px;
+    width: 1200px;
+    height: 60vh;
+    
+   
+  }
+
+.test {
+    padding-bottom: 500px;
+}
+
+.bottom-nav {
+    background-color: hsl(34, 100%, 50%);
+    height: 300px;
+}
+
+.links  {
+    color:white;
+    text-align: left;
+    padding-left: 250px;
+    padding-top:50px;
+    font-size: 20px;
+}
+
+.bottom-nav a {
+    text-decoration: none;
+    color: white; 
+}
+
+.bottom-nav :hover {
+    color:black;
+    transition: 0.5s;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: block;
+  }
+
+  input[type="first name"],
+  input[type="last name"],
+  input[type="phone number"],
+  input[type="school]"],
+  input[type="about me"],
+  input[type="hours"],
+  input[type="email"],
+  input[type="password"] {
+    width: 75%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }

@@ -7,7 +7,7 @@ const Navbar = () => {
 
   const navigate = useNavigate();
   const navigateRegister = () => {
-    navigate('/Registration');
+    navigate('/registrationselection');
   }
 
   const [isSticky, setIsSticky] = useState(false);

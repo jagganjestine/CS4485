@@ -58,14 +58,8 @@ function Registration() {
 
   return (
     <div className="registration-container">
-      <h2>Registration</h2>
-
-      <h2>Are you a</h2>
-      <div className="button-container">
-      <button className="student-button">Student</button>
-      <h2>OR</h2>
-      <button className="instructor-button">Instructor</button>
-      </div>
+      <div>
+      <h2>Student Registration</h2>
 
       <div className="form-group">
       <input type="first name" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} />
@@ -99,6 +93,7 @@ function Registration() {
       <button className="register-button" onClick={handleRegistration}>
         Register
         </button>
+    </div>
     </div>
   );
 }
