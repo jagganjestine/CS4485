@@ -34,7 +34,7 @@ function HomePage() {
   }, [auth, db]);
 
   // If userData hasn't been fetched yet, show loading state
-  if (!userData.first_name) return <div>Loading...</div>;
+  if (!userData.first_name) return <div>Please login</div>;
 
   // If the user is a tutor, show the tutor-specific homepage
   if (userType === "tutor") {
