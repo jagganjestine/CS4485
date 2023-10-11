@@ -2,7 +2,6 @@
 .bottom-nav {
     background-color: hsl(34, 100%, 50%);
     height: 200px;
-    bottom: 0;
     width: 100%;
 }
 

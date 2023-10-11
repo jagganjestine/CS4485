@@ -1,0 +1,60 @@
+.selection-page {
+    padding: 400px;
+}
+
+.registration-container {
+    border-radius: 50px;
+    width: 800px; /* Set the width of the box */
+    height: 500px; /* Set the height of the box */
+    background: linear-gradient(135deg, #FFA500, #FF6347); /* Orange gradient colors */
+    border: 1px solid #FFA500; /* Optional: Add a border with the same color as the starting gradient color */
+    text-align: center;
+    color: white; /* Set text color to white for better readability */
+    font-size: 20px; /* Set the font size */
+    display: flex;
+    justify-content: center; /* Horizontally center content */
+    align-items: center; /* Vertically center content */
+  }
+  
+  .registration-form {
+    background-color: #FFFFFF;
+    width: 350px; 
+    height: 150px;
+    padding: 50px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .rsHeader {
+    color: orange;
+    text-align: center;
+    font-size: 35px;
+  }
+  
+  .buttons-container {
+    margin-top: 20px;
+  }
+  
+  .registration-button:hover {
+    color: black;
+    background-color:orange;
+    transition:0.7s;
+  }
+  
+  .registration-button {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 25px;
+    margin: 0 10px;
+    border-radius: 15px;
+  }
+
+  .or-text {
+    color: orange;
+    font-size: 35px; 
+    margin: 10px; 
+  }
