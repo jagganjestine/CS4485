@@ -1,0 +1,22 @@
+.bottom-nav {
+    background-color: hsl(34, 100%, 50%);
+    height: 300px;
+}
+
+.links  {
+    color:white;
+    text-align: left;
+    padding-left: 250px;
+    padding-top:50px;
+    font-size: 20px;
+}
+
+.bottom-nav a {
+    text-decoration: none;
+    color: white; 
+}
+
+.bottom-nav :hover {
+    color:black;
+    transition: 0.5s;
+}

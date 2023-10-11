@@ -2,8 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 85vh;
-    background-image: linear-gradient(to bottom, #F19E6F, #E9702C);
+    height: 90vh;
+    background: linear-gradient(135deg, #FFA500, #FF6347);
     margin-left: 30px; 
     margin-right: 30px; 
     margin-top: 40px;
@@ -21,9 +21,8 @@
   }
   
   .rsHeader {
-    color: #EF915C;
-    font-size: 24px;
-    align-content: center;
+    color: orange;
+    text-align: center;
     font-size: 35px;
   }
   
@@ -32,7 +31,9 @@
   }
   
   .registration-button:hover {
-    background-color: #333; 
+    color: black;
+    background-color:orange;
+    transition:0.7s;
   }
   
   .registration-button {
@@ -43,15 +44,35 @@
     cursor: pointer;
     font-size: 25px;
     margin: 0 10px;
-    border-radius: 5px;
+    border-radius: 15px;
   }
 
   .or-text {
-    color: #EF915C;
+    color: orange;
     font-size: 35px; 
     margin: 10px; 
   }
   
-  .buttons-container a {
+  .bottom-nav {
+    background-color: hsl(34, 100%, 50%);
+    height: 300px;
+    margin-top: 500px;
+  }
+
+  .bottom-nav a {
     text-decoration: none;
+    color: white; 
+  }
+  
+  .links  {
+    color:white;
+    text-align: left;
+    padding-left: 250px;
+    padding-top:50px;
+    font-size: 20px;
+  }
+  
+  .bottom-nav :hover {
+    color:black;
+    transition: 0.5s;
   }

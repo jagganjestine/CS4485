@@ -7,8 +7,6 @@
     border-radius: 50px;
     width: 1200px;
     height: 60vh;
-    
-   
   }
 
 .test {
@@ -53,6 +51,6 @@
   input[type="password"] {
     width: 75%;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  /*border: 1px solid #ccc;
+    border-radius: 5px;*/
   }

@@ -1,11 +1,12 @@
-  .sticky {
+ .sticky {
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 100;
     background-color: white; /* Change the background color when sticky */
     border-bottom: 1px solid #ccc; /* Retain the border when sticky */
-  }
+  } 
+  
     
   .navbar {
     display: flex; /* Use flexbox to control alignment */
