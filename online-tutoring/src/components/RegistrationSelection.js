@@ -11,7 +11,8 @@ import BottomNav from './BottomNav'
 
 function RegistrationSelection() {
     return (
-        <div>
+      <div className="container">
+        <BottomNav />
         <div className="registration-container">
           <div className="registration-form">
             <h1 className="rsHeader">Are you a</h1>
@@ -22,12 +23,8 @@ function RegistrationSelection() {
             </div>
           </div>
         </div>
-
-    <BottomNav />
-    
-    </div>
-
-      );
-    }
+      </div>
+    );
+}
 
 export default RegistrationSelection;

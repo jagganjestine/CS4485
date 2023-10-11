@@ -9,6 +9,7 @@ import RegistrationTutors from './RegistrationTutors'
 import Registration from './Registration'
 import Logout from './Logout'
 import HomePage from './Homepage'
+import BottomNav from './BottomNav'
 
 const Landing = () => {
   return (
@@ -31,45 +32,7 @@ const Landing = () => {
             </div>
         </div>
       </div>
-
-      <div className='bottom-nav'>
-        <div className='links'>
-            <Link to="/">Login</Link>
-            <Routes>
-                <Route path="/login" element={<Login />} />
-            </Routes>
-
-            <br />
-
-            <Link to="/homepage">Home page</Link>
-            <Routes>
-                <Route path="/homepage" element={<HomePage />} />
-            </Routes>
-
-            <br />
-            
-            <Link to="/registrationtutors">Registration for Tutors</Link>
-            <Routes>
-                <Route path="/registrationtutors" element={<RegistrationTutors />} />
-            </Routes>
-
-            <br />
-
-            <Link to="/registration">Registration</Link>
-            <Routes>
-                <Route path="/registration" element={<Registration />} />
-            </Routes>
-
-            <br />
-
-            <Link to="/logout">Logout</Link>
-            <Routes>
-                <Route path="/logout" element={<Logout />} />
-            </Routes>
-
-
-        </div>
-      </div>
+      <BottomNav />
     </div>
   )
 }
