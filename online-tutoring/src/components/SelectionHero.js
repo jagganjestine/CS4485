@@ -5,8 +5,7 @@ const SelectionHero = () => {
   return (
     <div className="selection-page">
         <div className="registration-container">
-            <div className="registration-form">
-              <h1 className="rsHeader">Are you a</h1>
+          <h2 className="rsHeader">What are you registering as?</h2>
               <div className="buttons-container">
                 <Link to="/registration" style={{ textDecoration: 'none' }}className="registration-button">Student</Link>
                 <span className="or-text">or</span>
@@ -14,7 +13,7 @@ const SelectionHero = () => {
               </div>
             </div>
         </div>
-      </div>
+    
   )
 }
 
