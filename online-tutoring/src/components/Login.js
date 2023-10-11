@@ -5,14 +5,13 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import emailjs from "@emailjs/browser";
 import firebase from "./firebase";
 import TextField from '@mui/material/TextField';
-import './Hero.css'
-import './Landing.css'
 import Routing from '../Routing'
 import { Link, BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import RegistrationTutors from './RegistrationTutors'
 import Registration from './Registration'
 import Logout from './Logout'
 import HomePage from './Homepage'
+
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -119,15 +118,18 @@ function Login() {
       <div className="login-form">
       <h1 className="login-title">Login</h1>
 
+
       {/*Text field for email and password*/}
       <TextField
       type="email"
       label="Email"
+      id="standard-basic"
       variant="standard"
       className="proportion"
       value={email}
       onChange={(e) => setEmail(e.target.value)}
-    />
+
+/>
     <div style={{ marginBottom: '20px' }} /> 
 
     <TextField

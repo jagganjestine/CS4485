@@ -7,9 +7,12 @@
     border-radius: 50px;
     width: 1200px;
     height: 60vh;
+<<<<<<< HEAD
     align-self: center;
     
    
+=======
+>>>>>>> 3a942630de76d4bb9f3530e3ae54e8068da78041
   }
 
 .test {
@@ -54,6 +57,6 @@
   input[type="password"] {
     width: 75%;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  /*border: 1px solid #ccc;
+    border-radius: 5px;*/
   }
