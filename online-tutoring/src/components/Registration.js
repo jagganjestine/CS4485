@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import firebase from "./firebase";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
+import { useNavigate } from "react-router-dom";
 import "./Registration.css";
 
 function Registration() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -41,19 +43,28 @@ function Registration() {
 
   const handleRegistration = async () => {
     if (!isPasswordStrong(password)) {
-      alert("Password is too weak. Please ensure your password has at least 8 characters, includes an uppercase letter, a lowercase letter, a digit, and a special character.");
-      return;
+        alert("Password is too weak. Please ensure your password has at least 8 characters, includes an uppercase letter, a lowercase letter, a digit, and a special character.");
+        return;
     }
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      writeUserData(userCredential.user.uid, firstName, lastName, email, birthday, school, major);
-      console.log("Success");
-      // REDIRECT TO LOGIN PAGE
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        writeUserData(userCredential.user.uid, firstName, lastName, email, birthday, school, major);
+        console.log("Success");
+        redirectToLogin();
     } catch (error) {
-      alert("Something went wrong, Please try again.")
-      console.error(error);
+        if (error.code === 'auth/email-already-in-use') {
+            alert("Email is already in use. Please press the 'Go to Login' button.");
+        } else {
+            alert("Something went wrong, Please try again.")
+        }
+        console.error(error);
     }
+};
+
+
+  const redirectToLogin = () => {
+    navigate("/login");
   };
 
   return (
@@ -93,6 +104,10 @@ function Registration() {
       <button className="register-button" onClick={handleRegistration}>
         Register
         </button>
+        
+      <button className="login-redirect-button" onClick={redirectToLogin}>
+        Already have an account? Login!
+      </button>
     </div>
     </div>
   );

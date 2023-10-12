@@ -70,9 +70,23 @@
     border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
-  }
-  
-  .register-button:hover {
+    margin-right: 15px;
+}
+
+.register-button:hover {
     background-color: #585858;
-  }
+}
+
+.login-redirect-button {
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.login-redirect-button:hover {
+    background-color: #585858;
+}
   
