@@ -117,7 +117,7 @@ return (
     <div>
       {searchResults.map(tutor => (
         <div key={tutor.id}>
-          <h3>{tutor.first_name} {tutor.last_name}</h3>
+          <h3>{tutor.first_name} {tutor.last_name} {tutor.phone_number}</h3>
           <p>Subjects: {Object.keys(tutor.subjects).filter(subject => tutor.subjects[subject] === true).join(', ')}</p>
           {/* Display other tutor details if needed */}
         </div>
