@@ -12,6 +12,7 @@
   left: 50%; /* Center horizontally */
   right: 50%;
   transform: translate(-50%, -50%); /* Center the box */
+  padding-bottom: 30px;
   }
   
   .button-container {

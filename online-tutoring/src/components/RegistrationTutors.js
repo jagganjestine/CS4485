@@ -14,6 +14,7 @@ import BottomNav from "./BottomNav";
 
 
 
+
 function TutorRegistration() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -91,18 +92,19 @@ function TutorRegistration() {
   <div className="test">
   <div className="tutor-registration-container">
     <div>
-      <h2>Tutor Registration</h2>
-      <div className="form-group"> <input type="first name" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} /> </div>
-      <div className="form-group"> <input type="last name" placeholder="Last Name" onChange={(e) => setLastName(e.target.value)} /> </div>
-      <div className="form-group"> <input type="phone number" placeholder="Phone Number" onChange={(e) => setPhoneNumber(e.target.value)} /> </div>
-      <div className="form-group"> <input type="date" placeholder="Birthday" onChange={(e) => setBirthday(e.target.value)} /> </div>
-      <div className="form-group"> <textarea type= "about me" placeholder="About Me" rows={4} cols={115} onChange={(e) => setAboutMe(e.target.value)}></textarea> </div>
-      <div className="form-group"> <input type="hours" placeholder="Available Hours (e.g. 9am-5pm)" onChange={(e) => setAvailableHours(e.target.value)} /> </div>
-      <div className="form-group"> <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} /> </div>
-      <div className="form-group"> <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} /> </div>
+      <h1 className="tutor-reg-title">Tutor Registration</h1>
+      <div className="form-group-2"> <input type="first name" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} /> </div>
+      <div className="form-group-2"> <input type="last name" placeholder="Last Name" onChange={(e) => setLastName(e.target.value)} /> </div>
+      <div className="form-group-2"> <input type="phone number" placeholder="Phone Number" onChange={(e) => setPhoneNumber(e.target.value)} /> </div>
+      <div className="form-group-2"> <input type="date" placeholder="Birthday" onChange={(e) => setBirthday(e.target.value)} /> </div>
+      <div className="form-group-2"> <textarea type= "about me" placeholder="About Me" rows={6} cols={94} onChange={(e) => setAboutMe(e.target.value)}></textarea> </div>
+      <div className="form-group-2"> <input type="hours" placeholder="Available Hours (e.g. 9am-5pm)" onChange={(e) => setAvailableHours(e.target.value)} /> </div>
+      <div className="form-group-2"> <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} /> </div>
+      <div className="form-group-2"> <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} /> </div>
 
       <div>
-        <h3>Subjects Taught</h3>
+        <h3 className="tutor-reg-title">Subjects Taught</h3>
+        <div className="subject-checkboxes">
         <label>
           <input type="checkbox" name="Math" onChange={handleSubjectChange} />
           Math
@@ -120,9 +122,10 @@ function TutorRegistration() {
           History
         </label>
         {/* You can add other subjects as needed */}
+        </div>
       </div>
-
-      <button onClick={handleRegistration}>Register as Tutor</button>
+    
+    <div className="tut-reg-button-format"> <button className="register-button-2" onClick={handleRegistration}>Register as Tutor</button> </div>
     </div>
     </div>
     </div>

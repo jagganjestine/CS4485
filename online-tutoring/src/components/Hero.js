@@ -5,7 +5,7 @@ const Hero = () => {
 
   const navigate = useNavigate();
   const navigateRegister = () => {
-    navigate('/Registration');
+    navigate('/RegistrationSelection');
   }
   return (
     <div className = "hero-container">
