@@ -64,7 +64,7 @@ function Registration() {
 
 
   const redirectToLogin = () => {
-    navigate("/login");
+    navigate("/");
   };
 
   return (

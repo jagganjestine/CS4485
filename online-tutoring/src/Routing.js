@@ -19,7 +19,7 @@ function Routing() {
       <div className="App">
         <Navbar />
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
           <Route path="/homepage" element={<Homepage />} /> 
           <Route path="/registration" element={<Registration />} />
           <Route path="/registrationtutors" element={<TutorRegistration />} />
