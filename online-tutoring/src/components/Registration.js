@@ -30,13 +30,17 @@ function Registration() {
   };
   // Hash the password and store the hash password
   const writeUserData = (userId, firstName, lastName, email, birthday, school, major) => {
+    
     set(ref(db, 'users/' + userId), {
       first_name: firstName,
       last_name: lastName,
       email: email,
       birthday: birthday,
       school: school,
-      major: major
+      major: major,
+      favoriteTutors: []
+  
+      
 
     });
   };
