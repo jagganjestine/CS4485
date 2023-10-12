@@ -91,13 +91,22 @@ function TutorRegistration() {
   <div className="test">
   <div className="tutor-registration-container">
     <div>
-      <h2>Tutor Registration</h2>
+      <h2 className="tutor-title">Tutor Registration</h2>
+      {/*<TextField label="First Name" variant="standard" className="verification-code" onChange={(e) => setFirstName(e.target.value)}/></div>*/}
       <div className="form-group"> <input type="first name" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} /> </div>
       <div className="form-group"> <input type="last name" placeholder="Last Name" onChange={(e) => setLastName(e.target.value)} /> </div>
       <div className="form-group"> <input type="phone number" placeholder="Phone Number" onChange={(e) => setPhoneNumber(e.target.value)} /> </div>
       <div className="form-group"> <input type="date" placeholder="Birthday" onChange={(e) => setBirthday(e.target.value)} /> </div>
-      <div className="form-group"> <textarea type= "about me" placeholder="About Me" rows={4} cols={115} onChange={(e) => setAboutMe(e.target.value)}></textarea> </div>
-      <div className="form-group"> <input type="hours" placeholder="Available Hours (e.g. 9am-5pm)" onChange={(e) => setAvailableHours(e.target.value)} /> </div>
+      <div style={{ marginTop: '10px' }}>
+    <textarea
+    style={{ width: '77%' }}  
+    placeholder="About Me"
+    rows={4}
+    cols={115}
+    onChange={(e) => setAboutMe(e.target.value)}
+  ></textarea> <div style={{ marginTop: '10px' }}></div>
+    </div>      
+<div className="form-group"> <input type="hours" placeholder="Available Hours (e.g. 9am-5pm)" onChange={(e) => setAvailableHours(e.target.value)} /> </div>
       <div className="form-group"> <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} /> </div>
       <div className="form-group"> <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} /> </div>
 
@@ -121,8 +130,9 @@ function TutorRegistration() {
         </label>
         {/* You can add other subjects as needed */}
       </div>
-
-      <button onClick={handleRegistration}>Register as Tutor</button>
+      <div style={{ marginTop: '20px' }}> 
+      <button className="register-tutor-button" style={{ margin: '0 auto' }} onClick={handleRegistration}
+        >Register as Tutor </button> </div>
     </div>
     </div>
     </div>
