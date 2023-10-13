@@ -1,8 +1,7 @@
 
 .bottom-nav {
-    background-color: hsl(34, 100%, 50%);
+    background-color: linear-gradient(135deg, #FFA500, #FF6347);
     height: 200px;
-    bottom: 0;
     width: 100%;
 }
 

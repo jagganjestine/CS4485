@@ -11,6 +11,7 @@ import RegistrationTutors from './RegistrationTutors'
 import Registration from './Registration'
 import { Link, BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import BottomNav from "./BottomNav";
+import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 
 
 
@@ -123,6 +124,60 @@ function TutorRegistration() {
         </label>
         {/* You can add other subjects as needed */}
         </div>
+        <div className="background-check-questions">
+        <h3 className="tutor-reg-title">Background Check Information</h3>
+        <h4 className="background-check-questions">Felony Convictions</h4>
+        <p1 className="background-check-questions">Have you ever been convicted of a felony?*</p1>
+        <FormGroup>
+          <FormControlLabel className="checkboxes" control={<Checkbox />} label="Yes"></FormControlLabel>
+        </FormGroup>
+        <FormGroup>
+          <FormControlLabel className="checkboxes" control={<Checkbox />} label="No"></FormControlLabel>
+        </FormGroup>
+        <h4 className="background-check-questions">Misdemeanor Convictions</h4>
+        <p1 className="background-check-questions">Have you ever been convicted of a misdemeanor?*</p1>
+        <FormGroup>
+          <FormControlLabel className="checkboxes" control={<Checkbox />} label="Yes"></FormControlLabel>
+        </FormGroup>
+        <FormGroup>
+          <FormControlLabel className="checkboxes" control={<Checkbox />} label="No"></FormControlLabel>
+        </FormGroup>
+        <h4 className="background-check-questions">Pending Charges</h4>
+        <p1 className="background-check-questions">Do you currently have any pending criminal charges against you?*</p1>
+        <FormGroup>
+          <FormControlLabel className="checkboxes" control={<Checkbox />} label="Yes"></FormControlLabel>
+        </FormGroup>
+        <FormGroup>
+          <FormControlLabel className="checkboxes" control={<Checkbox />} label="No"></FormControlLabel>
+        </FormGroup>
+        <h4 className="background-check-questions">Probation or Parole</h4>
+        <p1 className="background-check-questions">Are you currently on probation or parole?*</p1>
+        <FormGroup>
+          <FormControlLabel className="checkboxes" control={<Checkbox />} label="Yes"></FormControlLabel>
+        </FormGroup>
+        <FormGroup>
+          <FormControlLabel className="checkboxes" control={<Checkbox />} label="No"></FormControlLabel>
+        </FormGroup>
+        <h4 className="background-check-questions">Criminal Conviction Related to Position</h4>
+        <p1 className="background-check-questions">Have you ever been convicted of a crime that is directly related to the position for which you are applying?*</p1>
+        <FormGroup>
+          <FormControlLabel className="checkboxes" control={<Checkbox />} label="Yes"></FormControlLabel>
+        </FormGroup>
+        <FormGroup>
+          <FormControlLabel className="checkboxes" control={<Checkbox />} label="No"></FormControlLabel>
+        </FormGroup>
+        <h4 className="background-check-questions">Unauthorized Use/Disclosure</h4>
+        <p1 className="background-check-questions">Have you ever been found guilty or convicted of unauthorized use, disclosure, or theft of proprietary or confidential information?*</p1>
+        <FormGroup>
+          <FormControlLabel className="checkboxes" control={<Checkbox />} label="Yes"></FormControlLabel>
+        </FormGroup>
+        <FormGroup>
+          <FormControlLabel className="checkboxes" control={<Checkbox />} label="No"></FormControlLabel>
+        </FormGroup>
+
+        </div>
+        
+
       </div>
     
     <div className="tut-reg-button-format"> <button className="register-button-2" onClick={handleRegistration}>Register as Tutor</button> </div>
