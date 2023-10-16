@@ -35,11 +35,13 @@
   padding-left: 10px;
   display: flex;
   align-items: center;
+  color: white;
 
 }
 
 checkboxes .MuiFormControlLabel-root + .MuiFormControlLabel-root {
   margin-left: 10px; /* Adjust as needed for horizontal spacing */
+  color: white;
 }
 
 .subject-checkboxes {
