@@ -4,6 +4,7 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
 import { useNavigate } from "react-router-dom";
 import "./Registration.css";
+import { TextField } from "@mui/material";
 
 function Registration() {
   const navigate = useNavigate();
@@ -77,30 +78,36 @@ function Registration() {
       <h2>Student Registration</h2>
 
       <div className="form-group">
-      <input type="first name" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} />
+      {/* <TextField id="standard-basic" variant="standard" type="first name" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} /> */}
+      <TextField type="first name" label="First Name" id="standard-basic" variant="standard" className="proportion" value={firstName} onChange={(e) => setFirstName(e.target.value)}></TextField>
       </div>
 
       <div className="form-group">
-      <input type="last name" placeholder="Last Name" onChange={(e) => setLastName(e.target.value)} />     
+      {/* <TextField type="last name" placeholder="Last Name" onChange={(e) => setLastName(e.target.value)} /> */}
+      <TextField type="last name" label="Last Name" id="standard-basic" variant="standard" className="proportion" value={lastName} onChange={(e) => setLastName(e.target.value)}></TextField>    
       </div>
 
       <div className="form-group">
-      <input type="date" placeholder="Birthday" onChange={(e) => setBirthday(e.target.value)} />    
+      { /* <TextField type="date" placeholder="Birthday" onChange={(e) => setBirthday(e.target.value)} /> */}
+      <TextField type="date" label="Birthday" id="standard-basic" variant="standard" className="proportion" value={birthday} onChange={(e) => setBirthday(e.target.value)} InputLabelProps={{shrink: true }}></TextField>
       </div>
 
       <div className="form-group">
-      <input type="school" placeholder="School" onChange={(e) => setSchool(e.target.value)} />     
+      {/*<TextField type="school" placeholder="School" onChange={(e) => setSchool(e.target.value)} /> */} 
+      <TextField type="school" label="School" id="standard-basic" variant="standard" className="proportion" value={school} onChange={(e) => setSchool(e.target.value)}></TextField>
       </div>
 
       <div className="form-group">
-      <input type="major" placeholder="Major" onChange={(e) => setMajor(e.target.value)} />     
+      { /* <TextField type="major" placeholder="Major" onChange={(e) => setMajor(e.target.value)} /> */}
+      <TextField type="major" label="Major" id="standard-basic" variant="standard" className="proportion" value={major} onChange={(e) => setMajor(e.target.value)}></TextField>
       </div>
 
       <div className="form-group">
-      <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)}/>
+      <TextField type="email" label="Email" id="standard-basic" variant="standard" className="proportion" value={email} onChange={(e) => setEmail(e.target.value)}></TextField>
       </div>
       
-      <div className="form-group"> <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
+      <div className="form-group">  
+      <TextField type="password" label="Password" id="standard-basic" variant="standard" className="proportion" value={password} onChange={(e) => setPassword(e.target.value)}></TextField>
       </div>
       <p className="password-requirements">
         Please ensure your password has at least 8 characters, includes an uppercase letter, a digit, and a special character.

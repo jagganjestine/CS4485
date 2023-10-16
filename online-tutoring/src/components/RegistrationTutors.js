@@ -12,6 +12,9 @@ import Registration from './Registration'
 import { Link, BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import BottomNav from "./BottomNav";
 import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
+import TextField from '@mui/material/TextField';
+import '@mui/material'
+
 
 
 
@@ -89,97 +92,86 @@ function TutorRegistration() {
   };
 
   return (
-    <div>
+  <div>
   <div className="test">
   <div className="tutor-registration-container">
     <div>
       <h1 className="tutor-reg-title">Tutor Registration</h1>
-      <div className="form-group-2"> <input type="first name" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} /> </div>
-      <div className="form-group-2"> <input type="last name" placeholder="Last Name" onChange={(e) => setLastName(e.target.value)} /> </div>
-      <div className="form-group-2"> <input type="phone number" placeholder="Phone Number" onChange={(e) => setPhoneNumber(e.target.value)} /> </div>
-      <div className="form-group-2"> <input type="date" placeholder="Birthday" onChange={(e) => setBirthday(e.target.value)} /> </div>
-      <div className="form-group-2"> <textarea type= "about me" placeholder="About Me" rows={6} cols={94} onChange={(e) => setAboutMe(e.target.value)}></textarea> </div>
-      <div className="form-group-2"> <input type="hours" placeholder="Available Hours (e.g. 9am-5pm)" onChange={(e) => setAvailableHours(e.target.value)} /> </div>
-      <div className="form-group-2"> <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} /> </div>
-      <div className="form-group-2"> <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} /> </div>
+      <div className="form-group-2"> <TextField type="first name" label="First Name" id="standard-basic" variant="standard" className="proportion2" value={firstName} onChange={(e) => setFirstName(e.target.value)}></TextField></div>
+      <div className="form-group-2"> <TextField type="last name" label="Last Name" id="standard-basic" variant="standard" className="proportion2" value={lastName} onChange={(e) => setLastName(e.target.value)}></TextField></div>
+      <div className="form-group-2"> <TextField type="phone number" label="Phone Number" id="standard-basic" variant="standard" className="proportion2" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}></TextField></div>
+      <div className="form-group-2"> <TextField type="date" label="Birthday" id="standard-basic" variant="standard" className="proportion2" value={birthday} onChange={(e) => setBirthday(e.target.value)} InputLabelProps={{shrink: true }}></TextField></div>
+      <div className="form-group-2"> <textarea type= "about me" placeholder="About Me" id="standard-basic" variant="standard" className="proportion2" rows={6} cols={94} onChange={(e) => setAboutMe(e.target.value)}></textarea> </div>
+      <div className="form-group-2"> <TextField type="hours" label="Available Hours" id="standard-basic" variant="standard" className="proportion2" value={availableHours} onChange={(e) => setAvailableHours(e.target.value)}></TextField> </div>
+      <div className="form-group-2"> <TextField type="email" label="Email" id="standard-basic" variant="standard" className="proportion2" value={email} onChange={(e) => setEmail(e.target.value)}></TextField> </div>
+      {/* <TextField type="email" label="Email" id="standard-basic" variant="standard" className="proportion2" value={email} onChange={(e) => setEmail(e.target.value)} ></TextField> */}
+      <div className="form-group-2"> <TextField type="password" label="Password" id="standard-basic" variant="standard" className="proportion2" value={password} onChange={(e) => setPassword(e.target.value)}></TextField> </div>
 
       <div>
         <h3 className="tutor-reg-title">Subjects Taught</h3>
         <div className="subject-checkboxes">
-        <label>
-          <input type="checkbox" name="Math" onChange={handleSubjectChange} />
-          Math
-        </label>
-        <label>
-          <input type="checkbox" name="English" onChange={handleSubjectChange} />
-          English
-        </label>
-        <label>
-          <input type="checkbox" name="Science" onChange={handleSubjectChange} />
-          Science
-        </label>
-        <label>
-          <input type="checkbox" name="History" onChange={handleSubjectChange} />
-          History
-        </label>
-        {/* You can add other subjects as needed */}
+        <FormGroup className="checkboxes">
+          <div>
+          <FormControlLabel control={<Checkbox onChange={handleSubjectChange}/>} label="Math" style={{ '& .MuiCheckbox-root.Mui-checked': { color: 'white' } }}></FormControlLabel>
+          <FormControlLabel control={<Checkbox onChange={handleSubjectChange}/>} label="English" style={{ '& .MuiCheckbox-root.Mui-checked': { color: 'white' } }}></FormControlLabel>
+          <FormControlLabel control={<Checkbox onChange={handleSubjectChange}/>} label="Science" style={{ '& .MuiCheckbox-root.Mui-checked': { color: 'white' } }}></FormControlLabel>
+          <FormControlLabel control={<Checkbox onChange={handleSubjectChange}/>} label="History" style={{ '& .MuiCheckbox-root.Mui-checked': { color: 'white' } }}></FormControlLabel>
+          {/* You can add other subjects as needed */}
+          </div>
+        </FormGroup>
         </div>
         <div className="background-check-questions">
         <h3 className="tutor-reg-title">Background Check Information</h3>
         <h4 className="background-check-questions">Felony Convictions</h4>
         <p1 className="background-check-questions">Have you ever been convicted of a felony?*</p1>
-        <FormGroup>
-          <FormControlLabel className="checkboxes" control={<Checkbox />} label="Yes"></FormControlLabel>
-        </FormGroup>
-        <FormGroup>
-          <FormControlLabel className="checkboxes" control={<Checkbox />} label="No"></FormControlLabel>
+        <FormGroup className="checkboxes">
+          <div>
+          <FormControlLabel control={<Checkbox />} label="Yes" style={{ '& .MuiCheckbox-root.Mui-checked': { color: 'white' } }}></FormControlLabel>
+          <FormControlLabel control={<Checkbox />} label="No"></FormControlLabel>
+          </div>
         </FormGroup>
         <h4 className="background-check-questions">Misdemeanor Convictions</h4>
         <p1 className="background-check-questions">Have you ever been convicted of a misdemeanor?*</p1>
-        <FormGroup>
-          <FormControlLabel className="checkboxes" control={<Checkbox />} label="Yes"></FormControlLabel>
-        </FormGroup>
-        <FormGroup>
-          <FormControlLabel className="checkboxes" control={<Checkbox />} label="No"></FormControlLabel>
+        <FormGroup className="checkboxes" style={{ '& .MuiCheckbox-root.Mui-checked': { color: 'white' } }}>
+          <div>
+          <FormControlLabel control={<Checkbox />} label="Yes"></FormControlLabel>
+          <FormControlLabel control={<Checkbox />} label="No"></FormControlLabel>
+          </div>
         </FormGroup>
         <h4 className="background-check-questions">Pending Charges</h4>
         <p1 className="background-check-questions">Do you currently have any pending criminal charges against you?*</p1>
-        <FormGroup>
-          <FormControlLabel className="checkboxes" control={<Checkbox />} label="Yes"></FormControlLabel>
-        </FormGroup>
-        <FormGroup>
-          <FormControlLabel className="checkboxes" control={<Checkbox />} label="No"></FormControlLabel>
+        <FormGroup className="checkboxes" style={{ '& .MuiCheckbox-root.Mui-checked': { color: 'white' } }}>
+          <div>
+          <FormControlLabel control={<Checkbox />} label="Yes"></FormControlLabel>
+          <FormControlLabel control={<Checkbox />} label="No"></FormControlLabel>
+          </div>
         </FormGroup>
         <h4 className="background-check-questions">Probation or Parole</h4>
         <p1 className="background-check-questions">Are you currently on probation or parole?*</p1>
-        <FormGroup>
-          <FormControlLabel className="checkboxes" control={<Checkbox />} label="Yes"></FormControlLabel>
-        </FormGroup>
-        <FormGroup>
-          <FormControlLabel className="checkboxes" control={<Checkbox />} label="No"></FormControlLabel>
+        <FormGroup className="checkboxes" style={{ '& .MuiCheckbox-root.Mui-checked': { color: 'white' } }}>
+          <div>
+          <FormControlLabel control={<Checkbox />} label="Yes"></FormControlLabel>
+          <FormControlLabel control={<Checkbox />} label="No"></FormControlLabel>
+          </div>
         </FormGroup>
         <h4 className="background-check-questions">Criminal Conviction Related to Position</h4>
         <p1 className="background-check-questions">Have you ever been convicted of a crime that is directly related to the position for which you are applying?*</p1>
-        <FormGroup>
-          <FormControlLabel className="checkboxes" control={<Checkbox />} label="Yes"></FormControlLabel>
-        </FormGroup>
-        <FormGroup>
-          <FormControlLabel className="checkboxes" control={<Checkbox />} label="No"></FormControlLabel>
+        <FormGroup className="checkboxes" style={{ '& .MuiCheckbox-root.Mui-checked': { color: 'white' } }}>
+          <div>
+          <FormControlLabel control={<Checkbox />} label="Yes"></FormControlLabel>
+          <FormControlLabel control={<Checkbox />} label="No"></FormControlLabel>
+          </div>
         </FormGroup>
         <h4 className="background-check-questions">Unauthorized Use/Disclosure</h4>
         <p1 className="background-check-questions">Have you ever been found guilty or convicted of unauthorized use, disclosure, or theft of proprietary or confidential information?*</p1>
-        <FormGroup>
-          <FormControlLabel className="checkboxes" control={<Checkbox />} label="Yes"></FormControlLabel>
+        <FormGroup className="checkboxes" style={{ '& .MuiCheckbox-root.Mui-checked': { color: 'white' } }}>
+          <div>
+          <FormControlLabel control={<Checkbox />} label="Yes"></FormControlLabel>
+          <FormControlLabel control={<Checkbox />} label="No"></FormControlLabel>
+          </div>
         </FormGroup>
-        <FormGroup>
-          <FormControlLabel className="checkboxes" control={<Checkbox />} label="No"></FormControlLabel>
-        </FormGroup>
-
         </div>
-        
-
       </div>
-    
     <div className="tut-reg-button-format"> <button className="register-button-2" onClick={handleRegistration}>Register as Tutor</button> </div>
     </div>
     </div>
