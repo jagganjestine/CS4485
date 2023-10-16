@@ -1,20 +1,51 @@
 .tutor-registration-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-size: 20px;
-  background: linear-gradient(135deg, #FFA500, #FF6347);
-  border: 1px solid #FFA500;
-  border-radius: 50px;
-  width: 1000px;
-  height: 100vh;
-  margin: 0 auto;
+    text-align: left; 
+    padding: 50px;
+    font-size: 20px;
+    background: linear-gradient(135deg, #FFA500, #FF6347);
+    border: 1px solid #FFA500;
+    border-radius: 50px;
+    width: 1000px;
+    height: 200vh;
   }
 
 .test {
-    padding-bottom: 500px;
+    padding-bottom: 300px;
+    padding-left: 350px;
+}
+
+.tutor-reg-title {
+    text-align: center; 
+    color: white; 
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
+  }
+
+  .proportion2 {
+    width: 450px; 
+    box-align: right;
+  }
+
+  .background-check-questions {
+    text-align: center; 
+    color: white; 
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
+  }
+
+.checkboxes {
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+
+}
+
+checkboxes .MuiFormControlLabel-root + .MuiFormControlLabel-root {
+  margin-left: 10px; /* Adjust as needed for horizontal spacing */
+}
+
+.subject-checkboxes {
+    text-align: center;
+    color: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
 }
 
 .bottom-nav {
@@ -40,9 +71,24 @@
     transition: 0.5s;
 }
 
-.form-group {
+.form-group-2 {
     margin-bottom: 15px;
+    text-align: center;
     display: block;
+  }
+
+  .register-button-2 {
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+
+  .tut-reg-button-format {
+    padding-top: 30px;
+    text-align: center;
   }
 
   input[type="first name"],
@@ -82,5 +128,14 @@
   margin-top: 20px; 
   font-size: 43px; 
   color: black; 
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.MuiCheckbox-root.Mui-checked {
+  color: white; /* Change the color to white when checked */
+}
+
+.proportion2 {
+  width: 700px; 
+  box-align: right;
 }
