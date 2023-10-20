@@ -22,23 +22,25 @@ function HomePage() {
   const subjects = ["Math", "English", "Science", "History"]; // You can extend this list
 
   // Fetch students's upcoming appointments with tutors
-  const fetchUpcomingAppointments = async () => {
+  const fetchUpcomingAppointments = () => {
     const appointmentsRef = ref(db, `appointments`);
-    const snapshot = await get(appointmentsRef);
-    const allAppointments = snapshot.val();
-    const userAppointments = Object.values(allAppointments || {}).filter(appointment => appointment.userId === auth.currentUser.uid);
+    onValue(appointmentsRef, async (snapshot) => {
+      const allAppointments = snapshot.val();
+      const userAppointments = Object.values(allAppointments || {}).filter(appointment => appointment.userId === auth.currentUser.uid);
+      
+      // Fetching tutor names for each appointment
+      const populatedAppointments = await Promise.all(userAppointments.map(async appointment => {
+        const tutorRef = ref(db, 'tutors/' + appointment.tutorId);
+        const tutorSnapshot = await get(tutorRef);
+        const tutorData = tutorSnapshot.val();
+        appointment.tutorName = tutorData.first_name + ' ' + tutorData.last_name;
+        return appointment;
+      }));
   
-    // Fetching tutor names for each appointment
-    const populatedAppointments = await Promise.all(userAppointments.map(async appointment => {
-      const tutorRef = ref(db, 'tutors/' + appointment.tutorId);
-      const tutorSnapshot = await get(tutorRef);
-      const tutorData = tutorSnapshot.val();
-      appointment.tutorName = tutorData.first_name + ' ' + tutorData.last_name;
-      return appointment;
-    }));
-  
-    setUpcomingAppointments(populatedAppointments);
+      setUpcomingAppointments(populatedAppointments);
+    });
   };
+  
   
   // Fetch tutor's appointments with students
   const fetchTutorAppointments = () => {
@@ -63,7 +65,6 @@ function HomePage() {
 
 // Cancel appointments fucntion for both tutor and students
 const handleCancelAppointment = async (appointmentId) => {
-  console.log('Inside cancelAppointment with appointmentId:', appointmentId);
   try {
     const appointmentRef = ref(db, `appointments/${appointmentId}`);
     await remove(appointmentRef); // This will delete the appointment entry
@@ -293,10 +294,7 @@ if (userType === "tutor") {
       <p>Tutor: {appointment.tutorName}</p>
       <p>Date: {appointment.date}</p>
       <p>Time: {appointment.time}</p>
-      <button onClick={() => {
-        console.log('Button clicked with appointmentId:', appointment.id);
-        handleCancelAppointment(appointment.id);
-      }}>Cancel</button>
+      <button onClick={() => handleCancelAppointment(appointment.id)}>Cancel</button>
       {/* Add more appointment details if needed */}
     </div>
   ))}
