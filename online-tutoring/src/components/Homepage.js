@@ -21,24 +21,24 @@ function HomePage() {
 
   const subjects = ["Math", "English", "Science", "History"]; // You can extend this list
 
-  const fetchUpcomingAppointments = () => {
+  const fetchUpcomingAppointments = async () => {
     const appointmentsRef = ref(db, `appointments`);
-    onValue(appointmentsRef, async (snapshot) => {
-      const allAppointments = snapshot.val();
-      const userAppointments = Object.values(allAppointments || {}).filter(appointment => appointment.userId === auth.currentUser.uid);
-
-      // Fetching tutor names for each appointment
-      for (let i = 0; i < userAppointments.length; i++) {
-        const tutorRef = ref(db, 'tutors/' + userAppointments[i].tutorId);
-        await onValue(tutorRef, (snapshot) => {
-          const tutorData = snapshot.val();
-          userAppointments[i].tutorName = tutorData.first_name + ' ' + tutorData.last_name;
-        });
-      }
-
-      setUpcomingAppointments(userAppointments);
-    });
+    const snapshot = await get(appointmentsRef);
+    const allAppointments = snapshot.val();
+    const userAppointments = Object.values(allAppointments || {}).filter(appointment => appointment.userId === auth.currentUser.uid);
+  
+    // Fetching tutor names for each appointment
+    const populatedAppointments = await Promise.all(userAppointments.map(async appointment => {
+      const tutorRef = ref(db, 'tutors/' + appointment.tutorId);
+      const tutorSnapshot = await get(tutorRef);
+      const tutorData = tutorSnapshot.val();
+      appointment.tutorName = tutorData.first_name + ' ' + tutorData.last_name;
+      return appointment;
+    }));
+  
+    setUpcomingAppointments(populatedAppointments);
   };
+  
 
   const fetchTutorAppointments = () => {
     const appointmentsRef = ref(db, `appointments`);
@@ -155,6 +155,7 @@ function HomePage() {
         if (data) {
           setUserData(data);
           setUserType("user");
+          fetchUpcomingAppointments();
         } else {
           // If not found in /users, try the /tutors branch
           const tutorRef = ref(db, 'tutors/' + auth.currentUser.uid);
@@ -163,18 +164,18 @@ function HomePage() {
             if (tutorData) {
               setUserData(tutorData);
               setUserType("tutor");
+              fetchUpcomingAppointments();
+  
+              if (userType === "tutor") {
+                fetchTutorAppointments();
+              }
             }
           });
         }
       });
-      fetchUpcomingAppointments();
-
-      if (userType === "tutor") {
-        fetchTutorAppointments();
-      }
     }
   }, [auth, db, userType]);
-
+  
 
 
   // If userData hasn't been fetched yet, show loading state
