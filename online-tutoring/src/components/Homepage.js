@@ -100,16 +100,20 @@ function HomePage() {
       time: appointmentTime
       // if you decide to include subject, add it here
     };
-
+  
     try {
       await set(ref(db, `appointments/${auth.currentUser.uid}_${selectedTutor.id}`), newAppointment);
       setShowScheduleModal(false);  // Close the modal
       alert("Appointment scheduled successfully!");  // Just for feedback
+  
+      fetchUpcomingAppointments(); // Fetch the updated appointments list after scheduling
+  
     } catch (error) {
       console.error("Error scheduling appointment:", error);
       alert("There was an error scheduling the appointment. Please try again.");
     }
   };
+  
 
   // Add tutor to user's favorite list
   const addFavoriteTutor = (tutorName) => {
