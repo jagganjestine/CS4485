@@ -21,6 +21,7 @@ function HomePage() {
 
   const subjects = ["Math", "English", "Science", "History"]; // You can extend this list
 
+  // Fetch students's upcoming appointments with tutors
   const fetchUpcomingAppointments = async () => {
     const appointmentsRef = ref(db, `appointments`);
     const snapshot = await get(appointmentsRef);
@@ -39,7 +40,7 @@ function HomePage() {
     setUpcomingAppointments(populatedAppointments);
   };
   
-
+  // Fetch tutor's appointments with students
   const fetchTutorAppointments = () => {
     const appointmentsRef = ref(db, `appointments`);
     onValue(appointmentsRef, async (snapshot) => {
@@ -61,7 +62,7 @@ function HomePage() {
 };
 
 
-
+  // Handle search for tutors based on name or subjects
   const handleSearch = () => {
     const tutorsRef = ref(db, 'tutors');
 
@@ -90,6 +91,7 @@ function HomePage() {
     });
   };
 
+  // Handle scheduling of new appointments
   const handleScheduleAppointment = async () => {
     const newAppointment = {
       tutorId: selectedTutor.id,
@@ -109,7 +111,7 @@ function HomePage() {
     }
   };
 
-
+  // Add tutor to user's favorite list
   const addFavoriteTutor = (tutorName) => {
     // Check if the tutor is already in the favorite list
     if (userData.favoriteTutors && userData.favoriteTutors.includes(tutorName)) {
@@ -122,6 +124,8 @@ function HomePage() {
     set(ref(db, `users/${auth.currentUser.uid}/favoriteTutors`), updatedFavorites);
     setUserData(prevState => ({ ...prevState, favoriteTutors: updatedFavorites }));
   };
+
+  // Remove tutor from user's favorite list
   const handleDeleteFavorite = async (tutorId) => {
     // Create a copy of the favoriteTutors array without the selected tutorId
     const updatedFavorites = userData.favoriteTutors.filter(id => id !== tutorId);
@@ -136,7 +140,7 @@ function HomePage() {
     }));
   };
 
-
+  // Handle change in subject checkboxes
   const handleSubjectChange = (subject) => {
     setSearchResults([]);  // Clear the search results
     setCheckedSubjects(prevState => ({
@@ -145,7 +149,7 @@ function HomePage() {
     }));
   };
 
-
+  // Fetch user data on component mount and decide whether the user is a general user or a tutor
   useEffect(() => {
     if (auth.currentUser) {
       // First, try to find the user in the /users branch
@@ -181,7 +185,7 @@ function HomePage() {
   // If userData hasn't been fetched yet, show loading state
   if (!userData.first_name) return <div>Please login</div>;
 
-  // If the user is a tutor, show the tutor-specific homepage
+  
   // If the user is a tutor, show the tutor-specific homepage
 if (userType === "tutor") {
   return (
@@ -241,6 +245,7 @@ if (userType === "tutor") {
           </div>
         ))}
       </div>
+
       {/*Display favorite tutor list*/}
       <div>
         <h4>----Favorite Tutors----</h4>
@@ -251,7 +256,8 @@ if (userType === "tutor") {
           </div>
         ))}
       </div>
-
+      
+      {/*Display upcoming appointments*/}
       <div>
         <h3>Your Upcoming Appointments</h3>
         {upcomingAppointments.map((appointment, index) => (
@@ -264,7 +270,8 @@ if (userType === "tutor") {
         ))}
       </div>
 
-
+      {/*Code for the popup that displays when user trys to schedule appointment*/}
+      {/* DONT MESS W IT :) */}  
       {showScheduleModal && (
         <div className="modal">
           <h3>Schedule an appointment with {selectedTutor.first_name} {selectedTutor.last_name}</h3>
@@ -274,7 +281,9 @@ if (userType === "tutor") {
           <button onClick={() => setShowScheduleModal(false)}>Cancel</button>
         </div>
       )}
-    </div>
+      {/* DONT MESS W IT :) */} 
+
+    </div>//End div for entire return statement
   );
 }
 
