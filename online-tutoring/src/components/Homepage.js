@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import './Homepage.css'
-import { getDatabase, ref, onValue, query, orderByChild, equalTo, set, get } from "firebase/database";
+import { getDatabase, ref, onValue, query, orderByChild, equalTo, set, get, remove } from "firebase/database";
 import { getAuth } from "firebase/auth";
 
 function HomePage() {
@@ -63,9 +63,10 @@ function HomePage() {
 
 // Cancel appointments fucntion for both tutor and students
 const handleCancelAppointment = async (appointmentId) => {
+  console.log('Inside cancelAppointment with appointmentId:', appointmentId);
   try {
     const appointmentRef = ref(db, `appointments/${appointmentId}`);
-    await set(appointmentRef, null); // This will delete the appointment entry
+    await remove(appointmentRef); // This will delete the appointment entry
 
     // Now, fetch the updated list
     if (userType === "user") {
@@ -112,7 +113,9 @@ const handleCancelAppointment = async (appointmentId) => {
 
   // Handle scheduling of new appointments
   const handleScheduleAppointment = async () => {
+    const appointmentId = `${auth.currentUser.uid}_${selectedTutor.id}_${Date.now()}`; // Added a unique identifier
     const newAppointment = {
+      id: appointmentId,
       tutorId: selectedTutor.id,
       userId: auth.currentUser.uid,
       date: appointmentDate,
@@ -121,7 +124,7 @@ const handleCancelAppointment = async (appointmentId) => {
     };
   
     try {
-      await set(ref(db, `appointments/${auth.currentUser.uid}_${selectedTutor.id}`), newAppointment);
+      await set(ref(db, `appointments/${appointmentId}`), newAppointment); 
       setShowScheduleModal(false);  // Close the modal
       alert("Appointment scheduled successfully!");  // Just for feedback
   
@@ -132,6 +135,7 @@ const handleCancelAppointment = async (appointmentId) => {
       alert("There was an error scheduling the appointment. Please try again.");
     }
   };
+  
   
 
   // Add tutor to user's favorite list
@@ -282,18 +286,21 @@ if (userType === "tutor") {
       </div>
       
       {/*Display upcoming appointments*/}
-      <div>
-        <h3>Your Upcoming Appointments</h3>
-        {upcomingAppointments.map((appointment, index) => (
-          <div key={index}>
-            <p>Tutor: {appointment.tutorName}</p> {/* Updated line */}
-            <p>Date: {appointment.date}</p>
-            <p>Time: {appointment.time}</p>
-            <button onClick={() => handleCancelAppointment(appointment.id)}>Cancel</button>
-            {/* Add more appointment details if needed */}
-          </div>
-        ))}
-      </div>
+<div>
+  <h3>Your Upcoming Appointments</h3>
+  {upcomingAppointments.map((appointment, index) => (
+    <div key={index}>
+      <p>Tutor: {appointment.tutorName}</p>
+      <p>Date: {appointment.date}</p>
+      <p>Time: {appointment.time}</p>
+      <button onClick={() => {
+        console.log('Button clicked with appointmentId:', appointment.id);
+        handleCancelAppointment(appointment.id);
+      }}>Cancel</button>
+      {/* Add more appointment details if needed */}
+    </div>
+  ))}
+</div>
 
       {/*Code for the popup that displays when user trys to schedule appointment*/}
       {/* DONT MESS W IT :) */}  
