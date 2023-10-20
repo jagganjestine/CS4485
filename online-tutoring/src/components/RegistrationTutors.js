@@ -23,7 +23,13 @@ function TutorRegistration() {
   const [birthday, setBirthday] = useState("");
   const [aboutMe, setAboutMe] = useState("");
   const [availableHours, setAvailableHours] = useState("");
-  
+  const [felonyConvictions, setFelonyConvictions] = useState(null);
+  const [misdemeanorConvictions, setMisdemeanorConvictions] = useState(null);
+  const [pendingCharges, setPendingCharges] = useState(null);
+  const [probationOrParole, setProbationOrParole] = useState(null);
+  const [criminalConvictionRelated, setCriminalConvictionRelated] = useState(null);
+  const [unauthorizedUseDisclosure, setUnauthorizedUseDisclosure] = useState(null);
+
 
   const [subjects, setSubjects] = useState({
     Math: false,
@@ -70,11 +76,16 @@ function TutorRegistration() {
   };
 
   const handleRegistration = async () => {
+    if (felonyConvictions === 'yes' || misdemeanorConvictions === 'yes' || pendingCharges === 'yes' || probationOrParole === 'yes' || criminalConvictionRelated === 'yes' || unauthorizedUseDisclosure === 'yes') {
+      alert("Registration failed due to background check. Please ensure all responses are accurate.");
+      return;
+    }
+
     if (!isPasswordStrong(password)) {
       alert("Password is too weak. Please ensure your password has at least 8 characters, includes an uppercase letter, a lowercase letter, a digit, and a special character.");
       return;
     }
-
+    
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       writeTutorData(userCredential.user.uid, firstName, lastName, email, phoneNumber, birthday, subjects, aboutMe, availableHours);
@@ -130,6 +141,80 @@ function TutorRegistration() {
         </label>
         {/* You can add other subjects as needed */}
       </div>
+<div>
+  <h3>Felony Convictions</h3>
+  <label>
+    <input type="radio" name="felonyConvictions" value="yes" onChange={(e) => setFelonyConvictions(e.target.value)} />
+    Yes
+  </label>
+  <label>
+    <input type="radio" name="felonyConvictions" value="no" onChange={(e) => setFelonyConvictions(e.target.value)} />
+    No
+  </label>
+</div>
+
+<div>
+  <h3>Misdemeanor Convictions</h3>
+  <label>
+    <input type="radio" name="misdemeanorConvictions" value="yes" onChange={(e) => setMisdemeanorConvictions(e.target.value)} />
+    Yes
+  </label>
+  <label>
+    <input type="radio" name="misdemeanorConvictions" value="no" onChange={(e) => setMisdemeanorConvictions(e.target.value)} />
+    No
+  </label>
+</div>
+
+<div>
+  <h3>Pending Charges</h3>
+  <label>
+    <input type="radio" name="pendingCharges" value="yes" onChange={(e) => setPendingCharges(e.target.value)} />
+    Yes
+  </label>
+  <label>
+    <input type="radio" name="pendingCharges" value="no" onChange={(e) => setPendingCharges(e.target.value)} />
+    No
+  </label>
+</div>
+
+<div>
+  <h3>Probation or Parole</h3>
+  <label>
+    <input type="radio" name="probationOrParole" value="yes" onChange={(e) => setProbationOrParole(e.target.value)} />
+    Yes
+  </label>
+  <label>
+    <input type="radio" name="probationOrParole" value="no" onChange={(e) => setProbationOrParole(e.target.value)} />
+    No
+  </label>
+</div>
+
+<div>
+  <h3>Criminal Conviction Related to Position</h3>
+  <label>
+    <input type="radio" name="criminalConvictionRelated" value="yes" onChange={(e) => setCriminalConvictionRelated(e.target.value)} />
+    Yes
+  </label>
+  <label>
+    <input type="radio" name="criminalConvictionRelated" value="no" onChange={(e) => setCriminalConvictionRelated(e.target.value)} />
+    No
+  </label>
+</div>
+
+<div>
+  <h3>Unauthorized Use/Disclosure</h3>
+  <label>
+    <input type="radio" name="unauthorizedUseDisclosure" value="yes" onChange={(e) => setUnauthorizedUseDisclosure(e.target.value)} />
+    Yes
+  </label>
+  <label>
+    <input type="radio" name="unauthorizedUseDisclosure" value="no" onChange={(e) => setUnauthorizedUseDisclosure(e.target.value)} />
+    No
+  </label>
+</div>
+
+
+      
       <div style={{ marginTop: '20px' }}> 
       <button className="register-tutor-button" style={{ margin: '0 auto' }} onClick={handleRegistration}
         >Register as Tutor </button> </div>
