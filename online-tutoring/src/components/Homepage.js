@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import './Homepage.css'
 import { getDatabase, ref, onValue, query, orderByChild, equalTo, set } from "firebase/database";
 import { getAuth } from "firebase/auth";
 
@@ -8,10 +9,56 @@ function HomePage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [checkedSubjects, setCheckedSubjects] = useState({});
+  const [showScheduleModal, setShowScheduleModal] = useState(false);
+  const [selectedTutor, setSelectedTutor] = useState(null);
+  const [appointmentDate, setAppointmentDate] = useState("");
+  const [appointmentTime, setAppointmentTime] = useState("");
+  const [upcomingAppointments, setUpcomingAppointments] = useState([]);
+
+
   const auth = getAuth();
   const db = getDatabase();
 
   const subjects = ["Math", "English", "Science", "History"]; // You can extend this list
+
+  const fetchUpcomingAppointments = () => {
+    const appointmentsRef = ref(db, `appointments`);
+    onValue(appointmentsRef, async (snapshot) => {
+      const allAppointments = snapshot.val();
+      const userAppointments = Object.values(allAppointments || {}).filter(appointment => appointment.userId === auth.currentUser.uid);
+
+      // Fetching tutor names for each appointment
+      for (let i = 0; i < userAppointments.length; i++) {
+        const tutorRef = ref(db, 'tutors/' + userAppointments[i].tutorId);
+        await onValue(tutorRef, (snapshot) => {
+          const tutorData = snapshot.val();
+          userAppointments[i].tutorName = tutorData.first_name + ' ' + tutorData.last_name;
+        });
+      }
+
+      setUpcomingAppointments(userAppointments);
+    });
+  };
+
+  const fetchTutorAppointments = () => {
+    const appointmentsRef = ref(db, `appointments`);
+    onValue(appointmentsRef, async (snapshot) => {
+      const allAppointments = snapshot.val();
+      const tutorAppointments = Object.values(allAppointments || {}).filter(appointment => appointment.tutorId === auth.currentUser.uid);
+
+      // Fetching student names for each appointment
+      for (let i = 0; i < tutorAppointments.length; i++) {
+        const studentRef = ref(db, 'users/' + tutorAppointments[i].userId);
+        await onValue(studentRef, (snapshot) => {
+          const studentData = snapshot.val();
+          tutorAppointments[i].studentName = studentData.first_name + ' ' + studentData.last_name;
+        });
+      }
+
+      setUpcomingAppointments(tutorAppointments);
+    });
+};
+
 
   const handleSearch = () => {
     const tutorsRef = ref(db, 'tutors');
@@ -40,6 +87,26 @@ function HomePage() {
       setSearchResults(tutorsArray);
     });
   };
+
+  const handleScheduleAppointment = async () => {
+    const newAppointment = {
+      tutorId: selectedTutor.id,
+      userId: auth.currentUser.uid,
+      date: appointmentDate,
+      time: appointmentTime
+      // if you decide to include subject, add it here
+    };
+
+    try {
+      await set(ref(db, `appointments/${auth.currentUser.uid}_${selectedTutor.id}`), newAppointment);
+      setShowScheduleModal(false);  // Close the modal
+      alert("Appointment scheduled successfully!");  // Just for feedback
+    } catch (error) {
+      console.error("Error scheduling appointment:", error);
+      alert("There was an error scheduling the appointment. Please try again.");
+    }
+  };
+
 
   const addFavoriteTutor = (tutorName) => {
     // Check if the tutor is already in the favorite list
@@ -98,23 +165,39 @@ function HomePage() {
           });
         }
       });
+      fetchUpcomingAppointments();
+
+      if (userType === "tutor") {
+        fetchTutorAppointments();
+      }
     }
-  }, [auth, db]);
+  }, [auth, db, userType]);
+
+
 
   // If userData hasn't been fetched yet, show loading state
   if (!userData.first_name) return <div>Please login</div>;
 
   // If the user is a tutor, show the tutor-specific homepage
-  if (userType === "tutor") {
-    return (
-      <div>
-        <h2>Welcome Back, Tutor {userData.first_name} {userData.last_name}!</h2>
-        <p>About Me: {userData.about_me}</p>
-        <p>Available Hours: {userData.available_hours}</p>
-        {/* Add more tutor-specific details here */}
-      </div>
-    );
-  }
+  // If the user is a tutor, show the tutor-specific homepage
+if (userType === "tutor") {
+  return (
+    <div>
+      {/* ... your existing code ... */}
+      
+      <h3>Your Upcoming Appointments with Students</h3>
+      {upcomingAppointments.map((appointment, index) => (
+        <div key={index}>
+          <p>Student: {appointment.studentName}</p>
+          <p>Date: {appointment.date}</p>
+          <p>Time: {appointment.time}</p>
+          {/* Add more appointment details if needed */}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 
   // If the user is a general user
   return (
@@ -145,9 +228,10 @@ function HomePage() {
         {searchResults.map(tutor => (
           <div key={tutor.id}>
             <h3>{tutor.first_name} {tutor.last_name}</h3>
-          <h4>{tutor.phone_number}</h4>
+            <h4>{tutor.phone_number}</h4>
             <p>Subjects: {Object.keys(tutor.subjects).filter(subject => tutor.subjects[subject] === true).join(', ')}</p>
             <button onClick={() => addFavoriteTutor(`${tutor.first_name} ${tutor.last_name}`)}>Add to Favorites</button>
+            <button onClick={() => { setSelectedTutor(tutor); setShowScheduleModal(true); }}>Schedule Appointment</button>
             {/* Display other tutor details if needed */}
           </div>
         ))}
@@ -163,7 +247,28 @@ function HomePage() {
         ))}
       </div>
 
+      <div>
+        <h3>Your Upcoming Appointments</h3>
+        {upcomingAppointments.map((appointment, index) => (
+          <div key={index}>
+            <p>Tutor: {appointment.tutorName}</p> {/* Updated line */}
+            <p>Date: {appointment.date}</p>
+            <p>Time: {appointment.time}</p>
+            {/* Add more appointment details if needed */}
+          </div>
+        ))}
+      </div>
 
+
+      {showScheduleModal && (
+        <div className="modal">
+          <h3>Schedule an appointment with {selectedTutor.first_name} {selectedTutor.last_name}</h3>
+          <input type="date" value={appointmentDate} onChange={(e) => setAppointmentDate(e.target.value)} />
+          <input type="time" value={appointmentTime} onChange={(e) => setAppointmentTime(e.target.value)} />
+          <button onClick={handleScheduleAppointment}>Confirm Appointment</button>
+          <button onClick={() => setShowScheduleModal(false)}>Cancel</button>
+        </div>
+      )}
     </div>
   );
 }

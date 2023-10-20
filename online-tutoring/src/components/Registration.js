@@ -73,7 +73,7 @@ function Registration() {
   };
 
   return (
-    <div className="registration-container">
+    <div className="new_registration-container">
       <div>
       <h2>Student Registration</h2>
 
@@ -112,13 +112,15 @@ function Registration() {
       <p className="password-requirements">
         Please ensure your password has at least 8 characters, includes an uppercase letter, a digit, and a special character.
       </p>
+      <div className="buttons-container">
       <button className="register-button" onClick={handleRegistration}>
         Register
-        </button>
-        
+      </button>
       <button className="login-redirect-button" onClick={redirectToLogin}>
         Already have an account? Login!
       </button>
+    </div>
+
     </div>
     </div>
   );
