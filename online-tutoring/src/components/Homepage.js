@@ -183,7 +183,9 @@ function HomePage() {
 if (userType === "tutor") {
   return (
     <div>
-      {/* ... your existing code ... */}
+      <h2>Welcome Back, Tutor {userData.first_name} {userData.last_name}!</h2>
+        <p>About Me: {userData.about_me}</p>
+        <p>Available Hours: {userData.available_hours}</p>
       
       <h3>Your Upcoming Appointments with Students</h3>
       {upcomingAppointments.map((appointment, index) => (
