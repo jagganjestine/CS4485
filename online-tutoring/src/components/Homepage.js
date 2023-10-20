@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import './Homepage.css'
-import { getDatabase, ref, onValue, query, orderByChild, equalTo, set } from "firebase/database";
+import { getDatabase, ref, onValue, query, orderByChild, equalTo, set, get } from "firebase/database";
 import { getAuth } from "firebase/auth";
 
 function HomePage() {
@@ -47,17 +47,19 @@ function HomePage() {
       const tutorAppointments = Object.values(allAppointments || {}).filter(appointment => appointment.tutorId === auth.currentUser.uid);
 
       // Fetching student names for each appointment
-      for (let i = 0; i < tutorAppointments.length; i++) {
-        const studentRef = ref(db, 'users/' + tutorAppointments[i].userId);
-        await onValue(studentRef, (snapshot) => {
-          const studentData = snapshot.val();
-          tutorAppointments[i].studentName = studentData.first_name + ' ' + studentData.last_name;
-        });
+      const populatedAppointments = [];
+      for (let appointment of tutorAppointments) {
+        const studentRef = ref(db, 'users/' + appointment.userId);
+        const studentSnapshot = await get(studentRef);  // <-- Use get instead of onValue
+        const studentData = studentSnapshot.val();
+        appointment.studentName = studentData.first_name + ' ' + studentData.last_name;
+        populatedAppointments.push(appointment);
       }
 
-      setUpcomingAppointments(tutorAppointments);
+      setUpcomingAppointments(populatedAppointments);
     });
 };
+
 
 
   const handleSearch = () => {
