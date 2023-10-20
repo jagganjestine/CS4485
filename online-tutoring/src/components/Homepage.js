@@ -61,6 +61,25 @@ function HomePage() {
     });
 };
 
+// Cancel appointments fucntion for both tutor and students
+const handleCancelAppointment = async (appointmentId) => {
+  try {
+    const appointmentRef = ref(db, `appointments/${appointmentId}`);
+    await set(appointmentRef, null); // This will delete the appointment entry
+
+    // Now, fetch the updated list
+    if (userType === "user") {
+      fetchUpcomingAppointments();
+    } else {
+      fetchTutorAppointments();
+    }
+    alert("Appointment canceled successfully!");
+  } catch (error) {
+    console.error("Error canceling appointment:", error);
+    alert("There was an error canceling the appointment. Please try again.");
+  }
+};
+
 
   // Handle search for tutors based on name or subjects
   const handleSearch = () => {
@@ -204,6 +223,7 @@ if (userType === "tutor") {
           <p>Student: {appointment.studentName}</p>
           <p>Date: {appointment.date}</p>
           <p>Time: {appointment.time}</p>
+          <button onClick={() => handleCancelAppointment(appointment.id)}>Cancel</button>
           {/* Add more appointment details if needed */}
         </div>
       ))}
@@ -269,6 +289,7 @@ if (userType === "tutor") {
             <p>Tutor: {appointment.tutorName}</p> {/* Updated line */}
             <p>Date: {appointment.date}</p>
             <p>Time: {appointment.time}</p>
+            <button onClick={() => handleCancelAppointment(appointment.id)}>Cancel</button>
             {/* Add more appointment details if needed */}
           </div>
         ))}
