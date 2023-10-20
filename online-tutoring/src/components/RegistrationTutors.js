@@ -85,7 +85,7 @@ function TutorRegistration() {
       alert("Password is too weak. Please ensure your password has at least 8 characters, includes an uppercase letter, a lowercase letter, a digit, and a special character.");
       return;
     }
-    
+
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       writeTutorData(userCredential.user.uid, firstName, lastName, email, phoneNumber, birthday, subjects, aboutMe, availableHours);
@@ -99,133 +99,133 @@ function TutorRegistration() {
 
   return (
     <div>
-  <div className="test">
-  <div className="tutor-registration-container">
-    <div>
-      <h2 className="tutor-title">Tutor Registration</h2>
-      {/*<TextField label="First Name" variant="standard" className="verification-code" onChange={(e) => setFirstName(e.target.value)}/></div>*/}
-      <div className="form-group"> <input type="first name" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} /> </div>
-      <div className="form-group"> <input type="last name" placeholder="Last Name" onChange={(e) => setLastName(e.target.value)} /> </div>
-      <div className="form-group"> <input type="phone number" placeholder="Phone Number" onChange={(e) => setPhoneNumber(e.target.value)} /> </div>
-      <div className="form-group"> <input type="date" placeholder="Birthday" onChange={(e) => setBirthday(e.target.value)} /> </div>
-      <div style={{ marginTop: '10px' }}>
-    <textarea
-    style={{ width: '77%' }}  
-    placeholder="About Me"
-    rows={4}
-    cols={115}
-    onChange={(e) => setAboutMe(e.target.value)}
-  ></textarea> <div style={{ marginTop: '10px' }}></div>
-    </div>      
-<div className="form-group"> <input type="hours" placeholder="Available Hours (e.g. 9am-5pm)" onChange={(e) => setAvailableHours(e.target.value)} /> </div>
-      <div className="form-group"> <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} /> </div>
-      <div className="form-group"> <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} /> </div>
+      <div className="test">
+        <div className="tutor-registration-container">
+          <div>
+            <h2 className="tutor-title">Tutor Registration</h2>
+            {/*<TextField label="First Name" variant="standard" className="verification-code" onChange={(e) => setFirstName(e.target.value)}/></div>*/}
+            <div className="form-group"> <input type="first name" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} /> </div>
+            <div className="form-group"> <input type="last name" placeholder="Last Name" onChange={(e) => setLastName(e.target.value)} /> </div>
+            <div className="form-group"> <input type="phone number" placeholder="Phone Number" onChange={(e) => setPhoneNumber(e.target.value)} /> </div>
+            <div className="form-group"> <input type="date" placeholder="Birthday" onChange={(e) => setBirthday(e.target.value)} /> </div>
+            <div style={{ marginTop: '10px' }}>
+              <textarea
+                style={{ width: '77%' }}
+                placeholder="About Me"
+                rows={4}
+                cols={115}
+                onChange={(e) => setAboutMe(e.target.value)}
+              ></textarea> <div style={{ marginTop: '10px' }}></div>
+            </div>
+            <div className="form-group"> <input type="hours" placeholder="Available Hours (e.g. 9am-5pm)" onChange={(e) => setAvailableHours(e.target.value)} /> </div>
+            <div className="form-group"> <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} /> </div>
+            <div className="form-group"> <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} /> </div>
 
-      <div>
-        <h3>Subjects Taught</h3>
-        <label>
-          <input type="checkbox" name="Math" onChange={handleSubjectChange} />
-          Math
-        </label>
-        <label>
-          <input type="checkbox" name="English" onChange={handleSubjectChange} />
-          English
-        </label>
-        <label>
-          <input type="checkbox" name="Science" onChange={handleSubjectChange} />
-          Science
-        </label>
-        <label>
-          <input type="checkbox" name="History" onChange={handleSubjectChange} />
-          History
-        </label>
-        {/* You can add other subjects as needed */}
+            <div>
+              <h3>Subjects Taught</h3>
+              <label>
+                <input type="checkbox" name="Math" onChange={handleSubjectChange} />
+                Math
+              </label>
+              <label>
+                <input type="checkbox" name="English" onChange={handleSubjectChange} />
+                English
+              </label>
+              <label>
+                <input type="checkbox" name="Science" onChange={handleSubjectChange} />
+                Science
+              </label>
+              <label>
+                <input type="checkbox" name="History" onChange={handleSubjectChange} />
+                History
+              </label>
+              {/* You can add other subjects as needed */}
+            </div>
+            <div>
+              <h3>Felony Convictions</h3>
+              <label>
+                <input type="radio" name="felonyConvictions" value="yes" onChange={(e) => setFelonyConvictions(e.target.value)} />
+                Yes
+              </label>
+              <label>
+                <input type="radio" name="felonyConvictions" value="no" onChange={(e) => setFelonyConvictions(e.target.value)} />
+                No
+              </label>
+            </div>
+
+            <div>
+              <h3>Misdemeanor Convictions</h3>
+              <label>
+                <input type="radio" name="misdemeanorConvictions" value="yes" onChange={(e) => setMisdemeanorConvictions(e.target.value)} />
+                Yes
+              </label>
+              <label>
+                <input type="radio" name="misdemeanorConvictions" value="no" onChange={(e) => setMisdemeanorConvictions(e.target.value)} />
+                No
+              </label>
+            </div>
+
+            <div>
+              <h3>Pending Charges</h3>
+              <label>
+                <input type="radio" name="pendingCharges" value="yes" onChange={(e) => setPendingCharges(e.target.value)} />
+                Yes
+              </label>
+              <label>
+                <input type="radio" name="pendingCharges" value="no" onChange={(e) => setPendingCharges(e.target.value)} />
+                No
+              </label>
+            </div>
+
+            <div>
+              <h3>Probation or Parole</h3>
+              <label>
+                <input type="radio" name="probationOrParole" value="yes" onChange={(e) => setProbationOrParole(e.target.value)} />
+                Yes
+              </label>
+              <label>
+                <input type="radio" name="probationOrParole" value="no" onChange={(e) => setProbationOrParole(e.target.value)} />
+                No
+              </label>
+            </div>
+
+            <div>
+              <h3>Criminal Conviction Related to Position</h3>
+              <label>
+                <input type="radio" name="criminalConvictionRelated" value="yes" onChange={(e) => setCriminalConvictionRelated(e.target.value)} />
+                Yes
+              </label>
+              <label>
+                <input type="radio" name="criminalConvictionRelated" value="no" onChange={(e) => setCriminalConvictionRelated(e.target.value)} />
+                No
+              </label>
+            </div>
+
+            <div>
+              <h3>Unauthorized Use/Disclosure</h3>
+              <label>
+                <input type="radio" name="unauthorizedUseDisclosure" value="yes" onChange={(e) => setUnauthorizedUseDisclosure(e.target.value)} />
+                Yes
+              </label>
+              <label>
+                <input type="radio" name="unauthorizedUseDisclosure" value="no" onChange={(e) => setUnauthorizedUseDisclosure(e.target.value)} />
+                No
+              </label>
+            </div>
+
+
+
+            <div style={{ marginTop: '20px' }}>
+              <button className="register-tutor-button" style={{ margin: '0 auto' }} onClick={handleRegistration}
+              >Register as Tutor </button> </div>
+          </div>
+        </div>
       </div>
-<div>
-  <h3>Felony Convictions</h3>
-  <label>
-    <input type="radio" name="felonyConvictions" value="yes" onChange={(e) => setFelonyConvictions(e.target.value)} />
-    Yes
-  </label>
-  <label>
-    <input type="radio" name="felonyConvictions" value="no" onChange={(e) => setFelonyConvictions(e.target.value)} />
-    No
-  </label>
-</div>
-
-<div>
-  <h3>Misdemeanor Convictions</h3>
-  <label>
-    <input type="radio" name="misdemeanorConvictions" value="yes" onChange={(e) => setMisdemeanorConvictions(e.target.value)} />
-    Yes
-  </label>
-  <label>
-    <input type="radio" name="misdemeanorConvictions" value="no" onChange={(e) => setMisdemeanorConvictions(e.target.value)} />
-    No
-  </label>
-</div>
-
-<div>
-  <h3>Pending Charges</h3>
-  <label>
-    <input type="radio" name="pendingCharges" value="yes" onChange={(e) => setPendingCharges(e.target.value)} />
-    Yes
-  </label>
-  <label>
-    <input type="radio" name="pendingCharges" value="no" onChange={(e) => setPendingCharges(e.target.value)} />
-    No
-  </label>
-</div>
-
-<div>
-  <h3>Probation or Parole</h3>
-  <label>
-    <input type="radio" name="probationOrParole" value="yes" onChange={(e) => setProbationOrParole(e.target.value)} />
-    Yes
-  </label>
-  <label>
-    <input type="radio" name="probationOrParole" value="no" onChange={(e) => setProbationOrParole(e.target.value)} />
-    No
-  </label>
-</div>
-
-<div>
-  <h3>Criminal Conviction Related to Position</h3>
-  <label>
-    <input type="radio" name="criminalConvictionRelated" value="yes" onChange={(e) => setCriminalConvictionRelated(e.target.value)} />
-    Yes
-  </label>
-  <label>
-    <input type="radio" name="criminalConvictionRelated" value="no" onChange={(e) => setCriminalConvictionRelated(e.target.value)} />
-    No
-  </label>
-</div>
-
-<div>
-  <h3>Unauthorized Use/Disclosure</h3>
-  <label>
-    <input type="radio" name="unauthorizedUseDisclosure" value="yes" onChange={(e) => setUnauthorizedUseDisclosure(e.target.value)} />
-    Yes
-  </label>
-  <label>
-    <input type="radio" name="unauthorizedUseDisclosure" value="no" onChange={(e) => setUnauthorizedUseDisclosure(e.target.value)} />
-    No
-  </label>
-</div>
-
-
-      
-      <div style={{ marginTop: '20px' }}> 
-      <button className="register-tutor-button" style={{ margin: '0 auto' }} onClick={handleRegistration}
-        >Register as Tutor </button> </div>
+      <BottomNav />
     </div>
-    </div>
-    </div>
-    <BottomNav />
-    </div>
-    
 
-    
+
+
   );
 }
 
