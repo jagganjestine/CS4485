@@ -41,8 +41,7 @@
     border-radius: 50px;
     width: 1100px; /* Set the width of the box */
     height: 500px; /* Set the height of the box */
-    background: linear-gradient(135deg, #FFA500, #FF6347); /* Orange gradient colors */
-    border: 1px solid #FFA500; /* Optional: Add a border with the same color as the starting gradient color */
+    background: linear-gradient(135deg, #B674E6, #3B2667); /* Orange gradient colors */
     text-align: center;
     color: white; /* Set text color to white for better readability */
     font-size: 20px; /* Set the font size */

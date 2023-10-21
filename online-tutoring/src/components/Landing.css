@@ -52,7 +52,7 @@
 }
 
 .bottom-nav {
-    background-color: hsl(34, 100%, 50%);
+    background-color: black;
     height: 300px;
 }
 
@@ -70,6 +70,6 @@
 }
 
 .bottom-nav :hover {
-    color:black;
+    color:rgb(186, 108, 223);
     transition: 0.5s;
 }
