@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import './Homepage.css'
 import { getDatabase, ref, onValue, query, orderByChild, equalTo, set, get, remove } from "firebase/database";
 import { getAuth } from "firebase/auth";
+import {getDownloadURL, getStorage, ref as sRef} from "firebase/storage"
+import { getTableSortLabelUtilityClass } from "@mui/material";
 
 function HomePage() {
   const [userData, setUserData] = useState({});
@@ -14,10 +16,12 @@ function HomePage() {
   const [appointmentDate, setAppointmentDate] = useState("");
   const [appointmentTime, setAppointmentTime] = useState("");
   const [upcomingAppointments, setUpcomingAppointments] = useState([]);
+  const [imageURL, setImageURL] = useState("");
 
 
   const auth = getAuth();
   const db = getDatabase();
+  const storage = getStorage();
 
   const subjects = ["Math", "English", "Science", "History"]; // You can extend this list
 
@@ -176,7 +180,15 @@ const handleCancelAppointment = async (appointmentId) => {
       [subject]: !prevState[subject]
     }));
   };
-
+  const fetchImageURL = async () => {
+    try {
+      const imageRef = sRef(storage, `profile_pictures/${auth.currentUser.uid}`);
+      const url = await getDownloadURL(imageRef);
+      setImageURL(url);
+    } catch (error) {
+      console.error("Error fetching image URL:", error);
+    }
+  };
   // Fetch user data on component mount and decide whether the user is a general user or a tutor
   useEffect(() => {
     if (auth.currentUser) {
@@ -193,13 +205,16 @@ const handleCancelAppointment = async (appointmentId) => {
           const tutorRef = ref(db, 'tutors/' + auth.currentUser.uid);
           onValue(tutorRef, (snapshot) => {
             const tutorData = snapshot.val();
+            
             if (tutorData) {
               setUserData(tutorData);
               setUserType("tutor");
               fetchUpcomingAppointments();
+              
   
               if (userType === "tutor") {
                 fetchTutorAppointments();
+                fetchImageURL();
               }
             }
           });
@@ -216,12 +231,16 @@ const handleCancelAppointment = async (appointmentId) => {
   
   // If the user is a tutor, show the tutor-specific homepage
 if (userType === "tutor") {
+  
   return (
     <div>
       <h2>Welcome Back, Tutor {userData.first_name} {userData.last_name}!</h2>
+      <img src={imageURL} alt = "Profile" className = "profileImage"/>
         <p>About Me: {userData.about_me}</p>
         <p>Available Hours: {userData.available_hours}</p>
-      
+        
+        
+          
       <h3>Your Upcoming Appointments with Students</h3>
       {upcomingAppointments.map((appointment, index) => (
         <div key={index}>

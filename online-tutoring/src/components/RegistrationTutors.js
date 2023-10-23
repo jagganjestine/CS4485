@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import firebase from "./firebase";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
+import { getStorage, ref as sRef, uploadBytes, getDownloadURL } from "firebase/storage";
 import "./RegistrationTutors.css"
 import Login from './Login'
 import Logout from './Logout'
@@ -15,14 +16,17 @@ import BottomNav from "./BottomNav";
 
 
 function TutorRegistration() {
+  const [loading, setLoading] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [photo, setPhoto] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [birthday, setBirthday] = useState("");
   const [aboutMe, setAboutMe] = useState("");
   const [availableHours, setAvailableHours] = useState("");
+ // const [profileImage, setProfileImage] = useState(null);
   const [felonyConvictions, setFelonyConvictions] = useState(null);
   const [misdemeanorConvictions, setMisdemeanorConvictions] = useState(null);
   const [pendingCharges, setPendingCharges] = useState(null);
@@ -62,7 +66,8 @@ function TutorRegistration() {
 
     return password.length >= minLength && hasUppercase && hasLowercase && hasDigit && hasSpecialChar;
   };
-  const writeTutorData = (userId, firstName, lastName, email, phoneNumber, birthday, subjects, aboutMe, availableHours) => {
+  const writeTutorData = (userId, firstName, lastName, email, phoneNumber, birthday, subjects, aboutMe, availableHours, photo) => {
+
     set(ref(db, 'tutors/' + userId), {
       first_name: firstName,
       last_name: lastName,
@@ -71,9 +76,17 @@ function TutorRegistration() {
       birthday: birthday,
       subjects: subjects,
       about_me: aboutMe,
-      available_hours: availableHours
+      available_hours: availableHours,
     });
+
   };
+
+  function handleChange(e) {
+    if (e.target.files[0]) {
+      setPhoto(e.target.files[0]);
+    }
+  }
+
 
   const handleRegistration = async () => {
     if (felonyConvictions === 'yes' || misdemeanorConvictions === 'yes' || pendingCharges === 'yes' || probationOrParole === 'yes' || criminalConvictionRelated === 'yes' || unauthorizedUseDisclosure === 'yes') {
@@ -88,8 +101,15 @@ function TutorRegistration() {
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const storage = getStorage();
+
       writeTutorData(userCredential.user.uid, firstName, lastName, email, phoneNumber, birthday, subjects, aboutMe, availableHours);
+      const fileRef = sRef(storage, 'profile_pictures/' + userCredential.user.uid)
+      await uploadBytes(fileRef, photo)
+      const photoURL = await getDownloadURL(fileRef);
+      updateProfile(userCredential.user, {photoURL});
       console.log("Success");
+
       // REDIRECT TO LOGIN PAGE
     } catch (error) {
       alert("Something went wrong, Please try again.")
@@ -120,6 +140,11 @@ function TutorRegistration() {
             <div className="form-group"> <input type="hours" placeholder="Available Hours (e.g. 9am-5pm)" onChange={(e) => setAvailableHours(e.target.value)} /> </div>
             <div className="form-group"> <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} /> </div>
             <div className="form-group"> <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} /> </div>
+            <div className="form-group">
+              <p>Upload Profile Picture</p>
+              <input type="file" onChange={handleChange} />
+
+            </div>
 
             <div>
               <h3>Subjects Taught</h3>
