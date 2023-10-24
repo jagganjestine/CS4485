@@ -35,22 +35,16 @@ const Navbar = () => {
     <nav className='navbar'>
       <ul>
         <li>
-          <Link to="/">Login</Link>
+          <Link to="/">Landing</Link>
         </li>
         <li>
-          <Link to="/homepage">Homepage</Link>
-        </li>
-        <li>
-          <Link to="/registration">Registration</Link>
-        </li>
-        <li>
-          <Link to="/registrationtutors">Registration for Tutors</Link>
+          <Link to="/login">Login</Link>
         </li>
         <li>
           <Link to="/logout">Logout</Link>
         </li>
         <li>
-          <Link to="/landing">Landing</Link>
+          <Link to="/homepage">Homepage</Link>
         </li>
         </ul>
         <div className='signup-container'>
