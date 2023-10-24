@@ -154,7 +154,7 @@ function Login() {
 
   <div style={{ marginBottom: '30px' }} /> 
       <button className="send-verification-button" onClick={sendVerificationCode}>
-        Send Verification Code
+        Login
       </button>
       <div style={{ marginBottom: '20px' }} /> 
       {verificationSent && (
