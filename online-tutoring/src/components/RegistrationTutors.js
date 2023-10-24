@@ -12,6 +12,7 @@ import RegistrationTutors from './RegistrationTutors'
 import Registration from './Registration'
 import { Link, BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import BottomNav from "./BottomNav";
+import { TextField } from "@mui/material";
 
 
 
@@ -123,23 +124,29 @@ function TutorRegistration() {
         <div className="tutor-registration-container">
           <div>
             <h2 className="tutor-title">Tutor Registration</h2>
-            {/*<TextField label="First Name" variant="standard" className="verification-code" onChange={(e) => setFirstName(e.target.value)}/></div>*/}
-            <div className="form-group"> <input type="first name" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} /> </div>
-            <div className="form-group"> <input type="last name" placeholder="Last Name" onChange={(e) => setLastName(e.target.value)} /> </div>
-            <div className="form-group"> <input type="phone number" placeholder="Phone Number" onChange={(e) => setPhoneNumber(e.target.value)} /> </div>
-            <div className="form-group"> <input type="date" placeholder="Birthday" onChange={(e) => setBirthday(e.target.value)} /> </div>
-            <div style={{ marginTop: '10px' }}>
-              <textarea
-                style={{ width: '77%' }}
-                placeholder="About Me"
-                rows={4}
-                cols={115}
-                onChange={(e) => setAboutMe(e.target.value)}
-              ></textarea> <div style={{ marginTop: '10px' }}></div>
+            
+            <div className="form-group">
+            <TextField type="first name" label="First Name" id="standard-basic" variant="standard" className="proportion" value={firstName} onChange={(e) => setFirstName(e.target.value)}></TextField>
             </div>
-            <div className="form-group"> <input type="hours" placeholder="Available Hours (e.g. 9am-5pm)" onChange={(e) => setAvailableHours(e.target.value)} /> </div>
-            <div className="form-group"> <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} /> </div>
-            <div className="form-group"> <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} /> </div>
+            <div className="form-group">
+              <TextField type="last name" label="Last Name" id="standard-basic" variant="standard" className="proportion" value={lastName} onChange={(e) => setLastName(e.target.value)}></TextField>
+            </div>
+            <div className="form-group"> 
+            <TextField type="phone number" label="Phone Number" id="standard-basic" variant="standard" className="proportion" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}></TextField>
+             </div>
+            <div className="form-group">
+            <TextField type="date" label="Birthday" id="standard-basic" variant="standard" className="proportion" value={birthday} onChange={(e) => setBirthday(e.target.value)} InputLabelProps={{shrink: true }}></TextField>
+            </div>
+            
+            <div className="form-group"> 
+            <TextField type="hours" label="Available Hours (e.g. 9am-5pm)" id="standard-basic" variant="standard" className="proportion" value={availableHours} onChange={(e) => setAvailableHours(e.target.value)}></TextField> 
+            </div>
+            <div className="form-group"> 
+            <TextField type="email" label="Email" id="standard-basic" variant="standard" className="proportion" value={birthday} onChange={(e) => setEmail(e.target.value)}></TextField> 
+            </div>
+            <div className="form-group"> 
+            <TextField type="password" label="Password" id="standard-basic" variant="standard" className="proportion" value={birthday} onChange={(e) => setPassword(e.target.value)}></TextField> 
+            </div>
             <div className="form-group">
               <p>Upload Profile Picture</p>
               <input type="file" onChange={handleChange} />
