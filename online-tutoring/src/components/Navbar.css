@@ -21,11 +21,10 @@
   }
 
   .signup-container {
-    margin-right: 40px;
-    display: flex;
     align-items: center;
+    display: flex;
   }
-  
+
   .navbar ul {
     margin-left: 50px;
     list-style: none;
@@ -37,6 +36,10 @@
     margin-right: 40px;
   }
   
+  .logo_landing {
+    font-size: larger
+  }
+
   .navbar a {
     text-decoration: none;
     color: black; 
