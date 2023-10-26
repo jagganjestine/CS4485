@@ -142,15 +142,14 @@ function TutorRegistration() {
             <TextField type="hours" label="Available Hours (e.g. 9am-5pm)" id="standard-basic" variant="standard" className="proportion" value={availableHours} onChange={(e) => setAvailableHours(e.target.value)}></TextField> 
             </div>
             <div className="form-group"> 
-            <TextField type="email" label="Email" id="standard-basic" variant="standard" className="proportion" value={birthday} onChange={(e) => setEmail(e.target.value)}></TextField> 
+            <TextField type="email" label="Email" id="standard-basic" variant="standard" className="proportion" value={email} onChange={(e) => setEmail(e.target.value)}></TextField> 
             </div>
             <div className="form-group"> 
-            <TextField type="password" label="Password" id="standard-basic" variant="standard" className="proportion" value={birthday} onChange={(e) => setPassword(e.target.value)}></TextField> 
+            <TextField type="password" label="Password" id="standard-basic" variant="standard" className="proportion" value={password} onChange={(e) => setPassword(e.target.value)}style={{ marginBottom: '20px' }}></TextField> 
             </div>
-            <div className="form-group">
-              <p>Upload Profile Picture</p>
+            <div className="upload-container">
+              <label for="file-upload">Upload Profile Picture</label>
               <input type="file" onChange={handleChange} />
-
             </div>
 
             <div>
@@ -174,7 +173,7 @@ function TutorRegistration() {
               {/* You can add other subjects as needed */}
             </div>
             <div>
-              <h3>Felony Convictions</h3>
+              <h3>Do you have any felony convictions?</h3>
               <label>
                 <input type="radio" name="felonyConvictions" value="yes" onChange={(e) => setFelonyConvictions(e.target.value)} />
                 Yes
@@ -186,7 +185,7 @@ function TutorRegistration() {
             </div>
 
             <div>
-              <h3>Misdemeanor Convictions</h3>
+              <h3>Do you have any misdemeanor convictions?</h3>
               <label>
                 <input type="radio" name="misdemeanorConvictions" value="yes" onChange={(e) => setMisdemeanorConvictions(e.target.value)} />
                 Yes
@@ -198,7 +197,7 @@ function TutorRegistration() {
             </div>
 
             <div>
-              <h3>Pending Charges</h3>
+              <h3>Do you have any pending charges?</h3>
               <label>
                 <input type="radio" name="pendingCharges" value="yes" onChange={(e) => setPendingCharges(e.target.value)} />
                 Yes
@@ -210,7 +209,7 @@ function TutorRegistration() {
             </div>
 
             <div>
-              <h3>Probation or Parole</h3>
+              <h3>Are you currently on probation or parole?</h3>
               <label>
                 <input type="radio" name="probationOrParole" value="yes" onChange={(e) => setProbationOrParole(e.target.value)} />
                 Yes
@@ -222,7 +221,7 @@ function TutorRegistration() {
             </div>
 
             <div>
-              <h3>Criminal Conviction Related to Position</h3>
+              <h3>Do you possess any criminal convictions related to the position?</h3>
               <label>
                 <input type="radio" name="criminalConvictionRelated" value="yes" onChange={(e) => setCriminalConvictionRelated(e.target.value)} />
                 Yes
