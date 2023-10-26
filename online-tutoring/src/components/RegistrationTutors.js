@@ -13,10 +13,12 @@ import Registration from './Registration'
 import { Link, BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import BottomNav from "./BottomNav";
 import { TextField } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 
 
 function TutorRegistration() {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -110,12 +112,16 @@ function TutorRegistration() {
       const photoURL = await getDownloadURL(fileRef);
       updateProfile(userCredential.user, {photoURL});
       console.log("Success");
-
+      redirectToHomepage();
       // REDIRECT TO LOGIN PAGE
     } catch (error) {
       alert("Something went wrong, Please try again.")
       console.error(error);
     }
+  };
+
+  const redirectToHomepage = () => {
+    navigate("/homepage");
   };
 
   return (
@@ -137,7 +143,15 @@ function TutorRegistration() {
             <div className="form-group">
             <TextField type="date" label="Birthday" id="standard-basic" variant="standard" className="proportion" value={birthday} onChange={(e) => setBirthday(e.target.value)} InputLabelProps={{shrink: true }}></TextField>
             </div>
-            
+            <div style={{ marginTop: '10px' }}>
+              <textarea
+                style={{ width: '77%' }}
+                placeholder="About Me"
+                rows={4}
+                cols={115}
+                onChange={(e) => setAboutMe(e.target.value)}
+              ></textarea> <div style={{ marginTop: '10px' }}></div>
+            </div>
             <div className="form-group"> 
             <TextField type="hours" label="Available Hours (e.g. 9am-5pm)" id="standard-basic" variant="standard" className="proportion" value={availableHours} onChange={(e) => setAvailableHours(e.target.value)}></TextField> 
             </div>
