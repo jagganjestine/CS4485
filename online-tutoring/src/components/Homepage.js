@@ -271,10 +271,10 @@ if (userType === "tutor") {
         type="text" 
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        placeholder="Search..."
+        placeholder=" Search..."
       /> 
       <button onClick={handleSearch}><FontAwesomeIcon icon={faSearch} /></button>
-      <div style={{ paddingTop: '30px' }} />
+      <div style={{ paddingTop: '20px' }} />  {/* test padding */}
       <div>
         {subjects.map(subject => (
           <label key={subject}>

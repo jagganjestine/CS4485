@@ -29,6 +29,7 @@ margin-bottom: 20px;
 
 .upload-container label {
 margin-right: 50px;
+color: white;
 }
 
 .test {
@@ -121,8 +122,7 @@ input[type="email"],
 input[type="password"] {
 width: 75%;
 padding: 10px;
-/*border: 1px solid #ccc;
-border-radius: 5px;*/
+color: white;
 }
 
 .register-tutor-button {
@@ -159,4 +159,8 @@ color: white; /* Change the color to white when checked */
 .proportion2 {
 width: 700px; 
 box-align: right;
+}
+
+.questions {
+  color: white;
 }

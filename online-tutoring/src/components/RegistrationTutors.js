@@ -166,7 +166,7 @@ function TutorRegistration() {
               <input type="file" onChange={handleChange} />
             </div>
 
-            <div>
+            <div className = "questions">
               <h3>Subjects Taught</h3>
               <label>
                 <input type="checkbox" name="Math" onChange={handleSubjectChange} />
@@ -186,7 +186,7 @@ function TutorRegistration() {
               </label>
               {/* You can add other subjects as needed */}
             </div>
-            <div>
+            <div className = "questions">
               <h3>Do you have any felony convictions?</h3>
               <label>
                 <input type="radio" name="felonyConvictions" value="yes" onChange={(e) => setFelonyConvictions(e.target.value)} />
@@ -198,7 +198,7 @@ function TutorRegistration() {
               </label>
             </div>
 
-            <div>
+            <div className = "questions">
               <h3>Do you have any misdemeanor convictions?</h3>
               <label>
                 <input type="radio" name="misdemeanorConvictions" value="yes" onChange={(e) => setMisdemeanorConvictions(e.target.value)} />
@@ -210,7 +210,7 @@ function TutorRegistration() {
               </label>
             </div>
 
-            <div>
+            <div className = "questions">
               <h3>Do you have any pending charges?</h3>
               <label>
                 <input type="radio" name="pendingCharges" value="yes" onChange={(e) => setPendingCharges(e.target.value)} />
@@ -222,7 +222,7 @@ function TutorRegistration() {
               </label>
             </div>
 
-            <div>
+            <div className = "questions">
               <h3>Are you currently on probation or parole?</h3>
               <label>
                 <input type="radio" name="probationOrParole" value="yes" onChange={(e) => setProbationOrParole(e.target.value)} />
@@ -234,7 +234,7 @@ function TutorRegistration() {
               </label>
             </div>
 
-            <div>
+            <div className = "questions">
               <h3>Do you possess any criminal convictions related to the position?</h3>
               <label>
                 <input type="radio" name="criminalConvictionRelated" value="yes" onChange={(e) => setCriminalConvictionRelated(e.target.value)} />
@@ -246,7 +246,7 @@ function TutorRegistration() {
               </label>
             </div>
 
-            <div>
+            <div className = "questions">
               <h3>Unauthorized Use/Disclosure</h3>
               <label>
                 <input type="radio" name="unauthorizedUseDisclosure" value="yes" onChange={(e) => setUnauthorizedUseDisclosure(e.target.value)} />

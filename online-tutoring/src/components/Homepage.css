@@ -16,10 +16,10 @@
 }
 
 .search-bar {
-    width: 380px;
+    width: 40%;
     background-color: #ccc;
     border-radius: 20px; 
-    height: 25px; /*issue with height*/
+    height: 40px; /*issue with height*/
 }
 
 
