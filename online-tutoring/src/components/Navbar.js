@@ -34,8 +34,8 @@ const Navbar = () => {
     <div id="navbar1" className={isSticky ? 'navbar sticky' : 'navbar'}>
     <nav className='navbar'>
       <ul>
-        <li>
-          <Link to="/">Landing</Link>
+        <li className='logo_landing'>
+          <Link to="/">OTA</Link>
         </li>
         <li>
           <Link to="/login">Login</Link>
