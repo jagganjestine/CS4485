@@ -14,3 +14,12 @@
     height: 100px;  /* Adjust height as necessary */
     object-fit: cover;  /* This ensures that the image covers the circle without distortion */
 }
+
+.search-bar {
+    width: 380px;
+    background-color: #ccc;
+    border-radius: 20px; 
+    height: 25px; /*issue with height*/
+}
+
+

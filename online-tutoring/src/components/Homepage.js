@@ -4,6 +4,9 @@ import { getDatabase, ref, onValue, query, orderByChild, equalTo, set, get, remo
 import { getAuth } from "firebase/auth";
 import {getDownloadURL, getStorage, ref as sRef} from "firebase/storage"
 import { getTableSortLabelUtilityClass } from "@mui/material";
+import Text from '@mui/material/TextField';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 function HomePage() {
   const [userData, setUserData] = useState({});
@@ -259,18 +262,19 @@ if (userType === "tutor") {
   // If the user is a general user
   return (
     <div>
-      <h2>Welcome Back, {userData.first_name} {userData.last_name}!</h2>
+      {/*<h2>Welcome Back, {userData.first_name} {userData.last_name}!</h2>
       <p>Your School: {userData.school}</p>
-      <p>Your Major: {userData.major}</p>
+  <p>Your Major: {userData.major}</p>*/}
 
       {/* Search functionality */}
-      <input
-        type="text"
+      <input className="search-bar"
+        type="text" 
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        placeholder="Search for tutors by name"
-      />
-      <button onClick={handleSearch}>Search</button>
+        placeholder="Search..."
+      /> 
+      <button onClick={handleSearch}><FontAwesomeIcon icon={faSearch} /></button>
+      <div style={{ paddingTop: '30px' }} />
       <div>
         {subjects.map(subject => (
           <label key={subject}>
