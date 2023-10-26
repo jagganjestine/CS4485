@@ -5,6 +5,7 @@ import { getDatabase, ref, set } from "firebase/database";
 import { useNavigate } from "react-router-dom";
 import "./Registration.css";
 import { TextField } from "@mui/material";
+import Swal from 'sweetalert2';
 
 function Registration() {
   const navigate = useNavigate();
@@ -56,7 +57,12 @@ function Registration() {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         writeUserData(userCredential.user.uid, firstName, lastName, email, birthday, school, major);
         console.log("Success");
-        redirectToLogin();
+        Swal.fire({
+          icon: 'success',
+          title: 'Registration Successful!',
+          text: 'You may now login with these credentials! Redirecting you to login page.',
+      });
+        navigate("/login");
     } catch (error) {
         if (error.code === 'auth/email-already-in-use') {
             alert("Email is already in use. Please press the 'Go to Login' button.");

@@ -14,7 +14,7 @@ import { Link, BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import BottomNav from "./BottomNav";
 import { TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
+import Swal from 'sweetalert2';
 
 
 function TutorRegistration() {
@@ -112,7 +112,12 @@ function TutorRegistration() {
       const photoURL = await getDownloadURL(fileRef);
       updateProfile(userCredential.user, {photoURL});
       console.log("Success");
-      redirectToHomepage();
+      Swal.fire({
+        icon: 'success',
+        title: 'Registration Successful!',
+        text: 'You may now login with these credentials! Redirecting you to login page.',
+    });
+      navigate("/login");
       // REDIRECT TO LOGIN PAGE
     } catch (error) {
       alert("Something went wrong, Please try again.")
