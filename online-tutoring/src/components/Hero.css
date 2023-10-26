@@ -10,6 +10,9 @@
     border-radius: 20px;
   }
 
+  .img1 {
+    width: 400px;
+  }
   .get-started:hover {
     color: black;
     background-color:white;
@@ -26,7 +29,6 @@
 
   .hero-left {
     text-align: left;
-    padding-right: 250px;
   }
 
 

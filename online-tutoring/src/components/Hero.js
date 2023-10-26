@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-
+import img1 from '../images/hero_image.png'
 const Hero = () => {
 
   const navigate = useNavigate();
@@ -19,6 +19,9 @@ const Hero = () => {
                     <div className='box-container'>
                         <button className="get-started" onClick={navigateRegister}>Get Started</button>
                     </div>
+                </div>
+                <div>
+                      <img className="img1" src={img1} />
                 </div>
             </div>
       </div>

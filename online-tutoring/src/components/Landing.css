@@ -5,6 +5,21 @@
     align-items: center;
 }
 
+.img2 {
+    width: 290px;
+    margin-top: 30px;
+    margin-right: 20px;
+}
+
+.img3 {
+    width: 290px;
+    margin-left: 20px;
+    margin-top:40px
+}
+
+.img4 {
+    width: 310px;
+}
 .info-box1 {
     float:left;
     text-align: left;
