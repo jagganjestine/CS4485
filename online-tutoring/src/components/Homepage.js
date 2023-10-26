@@ -89,6 +89,13 @@ const handleCancelAppointment = async (appointmentId) => {
   }
 };
 
+// Helper function to validate appointment time and date
+const isFutureDate = (date, time) => {
+  const appointmentDateTime = new Date(date + " " + time);
+  const currentDateTime = new Date();
+  return appointmentDateTime > currentDateTime;
+};
+
 
   // Handle search for tutors based on name or subjects
   const handleSearch = () => {
@@ -121,7 +128,8 @@ const handleCancelAppointment = async (appointmentId) => {
 
   // Handle scheduling of new appointments
   const handleScheduleAppointment = async () => {
-    const appointmentId = `${auth.currentUser.uid}_${selectedTutor.id}_${Date.now()}`; // Added a unique identifier
+    const appointmentId = `${auth.currentUser.uid}_${selectedTutor.id}_${Date.now()}`; // Retain the unique identifier
+  
     const newAppointment = {
       id: appointmentId,
       tutorId: selectedTutor.id,
@@ -131,18 +139,48 @@ const handleCancelAppointment = async (appointmentId) => {
       // if you decide to include subject, add it here
     };
   
+    // 1. Check if the selected date and time are in the past
+    const selectedDateTime = new Date(appointmentDate + " " + appointmentTime);
+    const currentDateTime = new Date();
+  
+    if (selectedDateTime <= currentDateTime) {
+      alert("You cannot schedule appointments in the past!");
+      return;
+    }
+  
+    // 2. Check if there's already an appointment at the selected date and time
+    const appointmentsRef = ref(db, 'appointments');
+    const existingAppointmentsQuery = query(
+      appointmentsRef,
+      orderByChild('tutorId'),
+      equalTo(selectedTutor.id)
+    );
+  
     try {
-      await set(ref(db, `appointments/${appointmentId}`), newAppointment); 
+      const snapshot = await get(existingAppointmentsQuery);
+      const existingAppointments = snapshot.val();
+  
+      if (existingAppointments) {
+        for (let existingAppointmentId in existingAppointments) {
+          let appointment = existingAppointments[existingAppointmentId];
+          if (appointment.date === appointmentDate && appointment.time === appointmentTime) {
+            alert("This time slot is already booked with the selected tutor!");
+            return;
+          }
+        }
+      }
+  
+      // If no conflicting appointments, proceed to schedule the appointment
+      await set(ref(db, `appointments/${appointmentId}`), newAppointment);
       setShowScheduleModal(false);  // Close the modal
-      alert("Appointment scheduled successfully!");  // Just for feedback
-  
-      fetchUpcomingAppointments(); // Fetch the updated appointments list after scheduling
-  
+      alert("Appointment scheduled successfully!");  // Feedback
+      fetchUpcomingAppointments(); // Refresh the list of upcoming appointments
     } catch (error) {
       console.error("Error scheduling appointment:", error);
       alert("There was an error scheduling the appointment. Please try again.");
     }
   };
+  
   
   
 
