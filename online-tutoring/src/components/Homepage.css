@@ -15,11 +15,85 @@
     object-fit: cover;  /* This ensures that the image covers the circle without distortion */
 }
 
+/*STUDENT CSS*/
 .search-bar {
     width: 40%;
     background-color: #ccc;
     border-radius: 20px; 
-    height: 40px; /*issue with height*/
+    height: 40px; 
 }
 
+.purple-panel-student {
+  background: linear-gradient(135deg, #B674E6, #3B2667);
+  width: 200px; 
+  height: 100%; 
+  position: fixed; 
+  top: 0; 
+  left: 100; 
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  }
+
+  .panel-title-student {
+    color: white;
+    font-size: 20px; 
+    margin-top: 20px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
+    font-weight: 500;
+    padding-top: 35px;
+    padding-right: 80px;
+    }
+
+.classes-panel-student{
+  color: white;
+  font-size: 15px; 
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
+  font-weight: 500;
+  padding-top: 60px;
+  padding-right: 120px;
+}
+
+.hours-panel-student{
+  color: white;
+  font-size: 15px; 
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
+  font-weight: 500;
+  padding-top: 10px;
+  padding-right: 120px;
+  }
+
+.subject-panel-student{
+  color: white;
+  font-size: 15px; 
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
+  font-weight: 500;
+  padding-right: 80px;
+}
+
+.trophy-student {
+  width: 50px;
+  height: auto;
+  position: relative; 
+  top: -50px; 
+  padding-left: 120px;
+}
+  
+.cap-student {
+  width: 45px;
+  height: auto;
+  position: relative; 
+  top: -40px; 
+  padding-left: 120px;
+}
+  
+.medal-student {
+  width: 45px;
+  height: auto;
+  position: relative; 
+  top: -48px; 
+  padding-left: 120px;
+}
+
+  
 

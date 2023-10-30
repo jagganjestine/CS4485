@@ -7,6 +7,9 @@ import { getTableSortLabelUtilityClass } from "@mui/material";
 import Text from '@mui/material/TextField';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import trophy from '../images/trophy.png'
+import cap from '../images/cap.png'
+import medal from '../images/medal.png'
 
 function HomePage() {
   const [userData, setUserData] = useState({});
@@ -299,7 +302,17 @@ if (userType === "tutor") {
 
   // If the user is a general user
   return (
-    <div>
+    <div >
+            <div className="purple-panel-student">
+      <h1 className="panel-title-student">Your Stats:</h1>
+      <h1 className="classes-panel-student">Classes</h1>
+      <img className="trophy-student" src={trophy} />
+      <h1 className="hours-panel-student">Hours</h1>
+      <img className="medal-student" src={medal} />
+      <h1 className="subject-panel-student">Top Subject:</h1>
+      <img className="cap-student" src={cap} />
+
+      </div>
       {/*<h2>Welcome Back, {userData.first_name} {userData.last_name}!</h2>
       <p>Your School: {userData.school}</p>
   <p>Your Major: {userData.major}</p>*/}
@@ -338,7 +351,7 @@ if (userType === "tutor") {
 
       {/*Display favorite tutor list*/}
       <div>
-        <h4>----Favorite Tutors----</h4>
+       {/*} <h4>----Favorite Tutors----</h4>*/}
         {userData.favoriteTutors && userData.favoriteTutors.map(tutorId => (
           <div key={tutorId}>
             {tutorId}
@@ -349,7 +362,7 @@ if (userType === "tutor") {
       
       {/*Display upcoming appointments*/}
 <div>
-  <h3>Your Upcoming Appointments</h3>
+  {/*<h3>Your Upcoming Appointments</h3>*/}
   {upcomingAppointments.map((appointment, index) => (
     <div key={index}>
       <p>Tutor: {appointment.tutorName}</p>
