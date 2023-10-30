@@ -90,6 +90,13 @@ function TutorRegistration() {
     }
   }
 
+  function handleSubmit(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Here you can add any additional validation if needed
+
+    handleRegistration(); // Your existing function to handle registration
+}
 
   const handleRegistration = async () => {
     if (felonyConvictions === 'yes' || misdemeanorConvictions === 'yes' || pendingCharges === 'yes' || probationOrParole === 'yes' || criminalConvictionRelated === 'yes' || unauthorizedUseDisclosure === 'yes') {
@@ -135,18 +142,18 @@ function TutorRegistration() {
         <div className="tutor-registration-container">
           <div>
             <h2 className="tutor-title">Tutor Registration</h2>
-            
+            <form onSubmit={handleSubmit}>
             <div className="form-group">
-            <TextField type="first name" label="First Name" id="standard-basic" variant="standard" className="proportion" value={firstName} onChange={(e) => setFirstName(e.target.value)}></TextField>
+            <TextField type="first name" required label="First Name" id="standard-basic" variant="standard" className="proportion" value={firstName} onChange={(e) => setFirstName(e.target.value)}></TextField>
             </div>
             <div className="form-group">
-              <TextField type="last name" label="Last Name" id="standard-basic" variant="standard" className="proportion" value={lastName} onChange={(e) => setLastName(e.target.value)}></TextField>
+              <TextField type="last name" required label="Last Name" id="standard-basic" variant="standard" className="proportion" value={lastName} onChange={(e) => setLastName(e.target.value)}></TextField>
             </div>
             <div className="form-group"> 
-            <TextField type="phone number" label="Phone Number" id="standard-basic" variant="standard" className="proportion" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}></TextField>
+            <TextField type="phone number" required label="Phone Number" id="standard-basic" variant="standard" className="proportion" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}></TextField>
              </div>
             <div className="form-group">
-            <TextField type="date" label="Birthday" id="standard-basic" variant="standard" className="proportion" value={birthday} onChange={(e) => setBirthday(e.target.value)} InputLabelProps={{shrink: true }}></TextField>
+            <TextField type="date" required label="Birthday" id="standard-basic" variant="standard" className="proportion" value={birthday} onChange={(e) => setBirthday(e.target.value)} InputLabelProps={{shrink: true }}></TextField>
             </div>
             <div style={{ marginTop: '10px' }}>
               <textarea
@@ -158,19 +165,19 @@ function TutorRegistration() {
               ></textarea> <div style={{ marginTop: '10px' }}></div>
             </div>
             <div className="form-group"> 
-            <TextField type="hours" label="Available Hours (e.g. 9am-5pm)" id="standard-basic" variant="standard" className="proportion" value={availableHours} onChange={(e) => setAvailableHours(e.target.value)}></TextField> 
+            <TextField type="hours" required label="Available Hours (e.g. 9am-5pm)" id="standard-basic" variant="standard" className="proportion" value={availableHours} onChange={(e) => setAvailableHours(e.target.value)}></TextField> 
             </div>
             <div className="form-group"> 
-            <TextField type="email" label="Email" id="standard-basic" variant="standard" className="proportion" value={email} onChange={(e) => setEmail(e.target.value)}></TextField> 
+            <TextField type="email" required label="Email" id="standard-basic" variant="standard" className="proportion" value={email} onChange={(e) => setEmail(e.target.value)}></TextField> 
             </div>
             <div className="form-group"> 
-            <TextField type="password" label="Password" id="standard-basic" variant="standard" className="proportion" value={password} onChange={(e) => setPassword(e.target.value)}style={{ marginBottom: '20px' }}></TextField> 
+            <TextField type="password" required label="Password" id="standard-basic" variant="standard" className="proportion" value={password} onChange={(e) => setPassword(e.target.value)}style={{ marginBottom: '20px' }}></TextField> 
             </div>
             <div className="upload-container">
               <label for="file-upload">Upload Profile Picture</label>
-              <input type="file" onChange={handleChange} />
+             <input type="file" onChange={handleChange}/>
             </div>
-
+           
             <div className = "questions">
               <h3>Subjects Taught</h3>
               <label>
@@ -194,11 +201,11 @@ function TutorRegistration() {
             <div className = "questions">
               <h3>Do you have any felony convictions?</h3>
               <label>
-                <input type="radio" name="felonyConvictions" value="yes" onChange={(e) => setFelonyConvictions(e.target.value)} />
+                <input type="radio" name="felonyConvictions" value="yes" required onChange={(e) => setFelonyConvictions(e.target.value)} />
                 Yes
               </label>
               <label>
-                <input type="radio" name="felonyConvictions" value="no" onChange={(e) => setFelonyConvictions(e.target.value)} />
+                <input type="radio" name="felonyConvictions" value="no" required onChange={(e) => setFelonyConvictions(e.target.value)} />
                 No
               </label>
             </div>
@@ -206,11 +213,11 @@ function TutorRegistration() {
             <div className = "questions">
               <h3>Do you have any misdemeanor convictions?</h3>
               <label>
-                <input type="radio" name="misdemeanorConvictions" value="yes" onChange={(e) => setMisdemeanorConvictions(e.target.value)} />
+                <input type="radio" name="misdemeanorConvictions" value="yes" required onChange={(e) => setMisdemeanorConvictions(e.target.value)} />
                 Yes
               </label>
               <label>
-                <input type="radio" name="misdemeanorConvictions" value="no" onChange={(e) => setMisdemeanorConvictions(e.target.value)} />
+                <input type="radio" name="misdemeanorConvictions" value="no" required onChange={(e) => setMisdemeanorConvictions(e.target.value)} />
                 No
               </label>
             </div>
@@ -218,11 +225,11 @@ function TutorRegistration() {
             <div className = "questions">
               <h3>Do you have any pending charges?</h3>
               <label>
-                <input type="radio" name="pendingCharges" value="yes" onChange={(e) => setPendingCharges(e.target.value)} />
+                <input type="radio" name="pendingCharges" value="yes" required onChange={(e) => setPendingCharges(e.target.value)} />
                 Yes
               </label>
               <label>
-                <input type="radio" name="pendingCharges" value="no" onChange={(e) => setPendingCharges(e.target.value)} />
+                <input type="radio" name="pendingCharges" value="no" required onChange={(e) => setPendingCharges(e.target.value)} />
                 No
               </label>
             </div>
@@ -230,11 +237,11 @@ function TutorRegistration() {
             <div className = "questions">
               <h3>Are you currently on probation or parole?</h3>
               <label>
-                <input type="radio" name="probationOrParole" value="yes" onChange={(e) => setProbationOrParole(e.target.value)} />
+                <input type="radio" name="probationOrParole" value="yes" required onChange={(e) => setProbationOrParole(e.target.value)} />
                 Yes
               </label>
               <label>
-                <input type="radio" name="probationOrParole" value="no" onChange={(e) => setProbationOrParole(e.target.value)} />
+                <input type="radio" name="probationOrParole" value="no" required onChange={(e) => setProbationOrParole(e.target.value)} />
                 No
               </label>
             </div>
@@ -242,11 +249,11 @@ function TutorRegistration() {
             <div className = "questions">
               <h3>Do you possess any criminal convictions related to the position?</h3>
               <label>
-                <input type="radio" name="criminalConvictionRelated" value="yes" onChange={(e) => setCriminalConvictionRelated(e.target.value)} />
+                <input type="radio" name="criminalConvictionRelated" value="yes" required onChange={(e) => setCriminalConvictionRelated(e.target.value)} />
                 Yes
               </label>
               <label>
-                <input type="radio" name="criminalConvictionRelated" value="no" onChange={(e) => setCriminalConvictionRelated(e.target.value)} />
+                <input type="radio" name="criminalConvictionRelated" value="no" required onChange={(e) => setCriminalConvictionRelated(e.target.value)} />
                 No
               </label>
             </div>
@@ -254,11 +261,11 @@ function TutorRegistration() {
             <div className = "questions">
               <h3>Unauthorized Use/Disclosure</h3>
               <label>
-                <input type="radio" name="unauthorizedUseDisclosure" value="yes" onChange={(e) => setUnauthorizedUseDisclosure(e.target.value)} />
+                <input type="radio" name="unauthorizedUseDisclosure" value="yes" required onChange={(e) => setUnauthorizedUseDisclosure(e.target.value)} />
                 Yes
               </label>
               <label>
-                <input type="radio" name="unauthorizedUseDisclosure" value="no" onChange={(e) => setUnauthorizedUseDisclosure(e.target.value)} />
+                <input type="radio" name="unauthorizedUseDisclosure" value="no" required onChange={(e) => setUnauthorizedUseDisclosure(e.target.value)} />
                 No
               </label>
             </div>
@@ -266,8 +273,9 @@ function TutorRegistration() {
 
 
             <div style={{ marginTop: '20px' }}>
-              <button className="register-tutor-button" style={{ margin: '0 auto' }} onClick={handleRegistration}
-              >Register as Tutor </button> </div>
+              <button className="register-tutor-button" style={{ margin: '0 auto' }} type = "submit">Register as Tutor </button> 
+              </div>
+              </form>
           </div>
         </div>
       </div>
