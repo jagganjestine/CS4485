@@ -303,7 +303,7 @@ if (userType === "tutor") {
   // If the user is a general user
   return (
     <div >
-            <div className="purple-panel-student">
+      <div className="purple-panel-student">
       <h1 className="panel-title-student">Your Stats:</h1>
       <h1 className="classes-panel-student">Classes</h1>
       <img className="trophy-student" src={trophy} />
@@ -311,7 +311,6 @@ if (userType === "tutor") {
       <img className="medal-student" src={medal} />
       <h1 className="subject-panel-student">Top Subject:</h1>
       <img className="cap-student" src={cap} />
-
       </div>
       {/*<h2>Welcome Back, {userData.first_name} {userData.last_name}!</h2>
       <p>Your School: {userData.school}</p>
@@ -350,25 +349,26 @@ if (userType === "tutor") {
       </div>
 
       {/*Display favorite tutor list*/}
-      <div>
-       {/*} <h4>----Favorite Tutors----</h4>*/}
+      <div className = "dashboard-container-student">
+      <div className= "favorite-tutors">
+      <h5 className="favorite-tutor-title" > My Favorites List:</h5>
         {userData.favoriteTutors && userData.favoriteTutors.map(tutorId => (
           <div key={tutorId}>
             {tutorId}
-            <button onClick={() => handleDeleteFavorite(tutorId)}>Delete</button>
+            <button className= "delete-button-student" onClick={() => handleDeleteFavorite(tutorId)}>Delete</button>
           </div>
         ))}
       </div>
       
       {/*Display upcoming appointments*/}
 <div>
-  {/*<h3>Your Upcoming Appointments</h3>*/}
   {upcomingAppointments.map((appointment, index) => (
-    <div key={index}>
+    <div className="upcoming-appts-student" key={index}>
+      <h5 className= "appt-title-student">Upcoming Appointments:</h5>
       <p>Tutor: {appointment.tutorName}</p>
       <p>Date: {appointment.date}</p>
       <p>Time: {appointment.time}</p>
-      <button onClick={() => handleCancelAppointment(appointment.id)}>Cancel</button>
+      <button className="cancel-button-student" onClick={() => handleCancelAppointment(appointment.id)}>Cancel</button>
       {/* Add more appointment details if needed */}
     </div>
   ))}
@@ -387,7 +387,8 @@ if (userType === "tutor") {
       )}
       {/* DONT MESS W IT :) */} 
 
-    </div>//End div for entire return statement
+    </div>
+    </div>
   );
 }
 
