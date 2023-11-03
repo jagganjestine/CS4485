@@ -100,7 +100,11 @@ function TutorRegistration() {
 
   const handleRegistration = async () => {
     if (felonyConvictions === 'yes' || misdemeanorConvictions === 'yes' || pendingCharges === 'yes' || probationOrParole === 'yes' || criminalConvictionRelated === 'yes' || unauthorizedUseDisclosure === 'yes') {
-      alert("Registration failed due to background check. Please ensure all responses are accurate.");
+      Swal.fire({
+        icon: 'error',
+        title: 'Registration Unsuccessful!',
+        text: 'We’re sorry, but it seems you don’t quite meet the requirements for this position',
+    });
       return;
     }
 
@@ -135,6 +139,7 @@ function TutorRegistration() {
   const redirectToHomepage = () => {
     navigate("/homepage");
   };
+
 
   return (
     <div>
