@@ -11,6 +11,7 @@ import RegistrationTutors from './RegistrationTutors'
 import Registration from './Registration'
 import Logout from './Logout'
 import HomePage from './Homepage'
+import Swal from "sweetalert2";
 
 
 function Login() {
@@ -77,7 +78,12 @@ function Login() {
         );
     } catch (error) {
       console.error("Invalid credentials:", error);
-      alert("Invalid credentials. Please try again.");
+      //alert("Invalid credentials. Please try again.");
+      Swal.fire({
+        icon: 'error',
+        title: 'Invalid Credentials',
+        text: 'Invalid credentials. Please try again.'
+      });
     }
   };
 
@@ -104,7 +110,12 @@ function Login() {
 
     } else {
       console.log("Verification failed");
-      alert("Verification failed. Please try again.");
+      //alert("Verification failed. Please try again.");
+      Swal.fire({
+        icon: 'error',
+        title: 'Verification Failed',
+        text: 'Verification failed. Please try again.'
+      });
     }
   };
 

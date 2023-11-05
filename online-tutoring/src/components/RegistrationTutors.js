@@ -109,7 +109,12 @@ function TutorRegistration() {
     }
 
     if (!isPasswordStrong(password)) {
-      alert("Password is too weak. Please ensure your password has at least 8 characters, includes an uppercase letter, a lowercase letter, a digit, and a special character.");
+      //alert("Password is too weak. Please ensure your password has at least 8 characters, includes an uppercase letter, a lowercase letter, a digit, and a special character.");
+      Swal.fire({
+        icon: 'warning',
+        title: 'Weak Password',
+        text: 'Password is too weak. Please ensure your password has at least 8 characters, includes an uppercase letter, a lowercase letter, a digit, and a special character.',
+    });
       return;
     }
 
@@ -126,12 +131,17 @@ function TutorRegistration() {
       Swal.fire({
         icon: 'success',
         title: 'Registration Successful!',
-        text: 'You may now login with these credentials! Redirecting you to login page.',
+        text: 'You may now login with these credentials!',
     });
       navigate("/login");
       // REDIRECT TO LOGIN PAGE
     } catch (error) {
-      alert("Something went wrong, Please try again.")
+      //alert("Something went wrong, Please try again.")
+      Swal.fire({
+        icon: 'error',
+        title: 'Registration Failed',
+        text: 'Something went wrong, please try again later.',
+    });
       console.error(error);
     }
   };
@@ -180,7 +190,7 @@ function TutorRegistration() {
             </div>
             <div className="upload-container">
               <label for="file-upload">Upload Profile Picture</label>
-             <input type="file" onChange={handleChange}/>
+             <input className="styled-button" type="file" onChange={handleChange}/>
             </div>
            
             <div className = "questions">
