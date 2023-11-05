@@ -148,13 +148,13 @@
   background-color: black;
   color: white; 
   border: none; 
-  padding: 10px 20px; 
   cursor: pointer; 
-  margin-top: 30px;
   border-radius: 15px;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
   font-weight: 500;
   font-size:medium;
+  padding: 10px;
+  margin-left: 50px;
 }
 
 .cancel-button-student:hover{
@@ -180,6 +180,17 @@
   color: black;
   background-color:rgb(186, 108, 223);
   transition:0.7s;
+}
+.tutor-appointment-name{
+  font-size: 25px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.tutor-appointment-date-time{
+  font-size: 15px;
+  margin-right: 50px;
+
 }
 
 

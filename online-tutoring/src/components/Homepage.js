@@ -23,6 +23,7 @@ function HomePage() {
   const [appointmentTime, setAppointmentTime] = useState("");
   const [upcomingAppointments, setUpcomingAppointments] = useState([]);
   const [imageURL, setImageURL] = useState("");
+  
 
 
   const auth = getAuth();
@@ -299,6 +300,25 @@ if (userType === "tutor") {
   );
 }
 
+// used to reformat date for upcoming appointments (student hp)
+function formatDate(inputDate) {
+  const date = new Date(inputDate);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  
+  return `${month}/${day}/${year}`;
+}
+
+// used to reformat time for upcoming appointments (student hp)
+function formatTime(inputTime) {
+  const time = inputTime.split(":");
+  const hours = parseInt(time[0]);
+  const minutes = time[1];
+  const amOrPm = hours >= 12 ? "PM" : "AM";
+  const formattedHours = hours > 12 ? hours - 12 : hours;
+  return `${formattedHours}:${minutes} ${amOrPm}`;
+}
 
   // If the user is a general user
   return (
@@ -362,16 +382,19 @@ if (userType === "tutor") {
       
       {/*Display upcoming appointments*/}
 <div>
-  {upcomingAppointments.map((appointment, index) => (
-    <div className="upcoming-appts-student" key={index}>
-      <h5 className= "appt-title-student">Upcoming Appointments:</h5>
-      <p>Tutor: {appointment.tutorName}</p>
-      <p>Date: {appointment.date}</p>
-      <p>Time: {appointment.time}</p>
+  
+{upcomingAppointments.map((appointment, index) => (
+  <div className="upcoming-appts-student" key={index}>
+    <h5 className="appt-title-student">Upcoming Appointments:</h5>
+    <p>
+    <span className="tutor-appointment-name"> {appointment.tutorName} </span> 
+    <span className="tutor-appointment-date-time">
+      {formatDate(appointment.date)} at {formatTime(appointment.time)} </span> 
       <button className="cancel-button-student" onClick={() => handleCancelAppointment(appointment.id)}>Cancel</button>
-      {/* Add more appointment details if needed */}
-    </div>
-  ))}
+    </p>
+        {/* Add more appointment details if needed */}
+  </div>
+))}
 </div>
 
       {/*Code for the popup that displays when user trys to schedule appointment*/}
