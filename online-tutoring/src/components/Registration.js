@@ -49,7 +49,12 @@ function Registration() {
 
   const handleRegistration = async () => {
     if (!isPasswordStrong(password)) {
-        alert("Password is too weak. Please ensure your password has at least 8 characters, includes an uppercase letter, a lowercase letter, a digit, and a special character.");
+        //alert("Password is too weak. Please ensure your password has at least 8 characters, includes an uppercase letter, a lowercase letter, a digit, and a special character.");
+        Swal.fire({
+          icon: 'warning',
+          title: 'Weak Password',
+          text: 'Password is too weak. Please ensure your password has at least 8 characters, includes an uppercase letter, a lowercase letter, a digit, and a special character.'
+        });
         return;
     }
 
@@ -60,14 +65,24 @@ function Registration() {
         Swal.fire({
           icon: 'success',
           title: 'Registration Successful!',
-          text: 'You may now login with these credentials! Redirecting you to login page.',
+          text: 'You may now login with these credentials!',
       });
         navigate("/login");
     } catch (error) {
         if (error.code === 'auth/email-already-in-use') {
-            alert("Email is already in use. Please press the 'Go to Login' button.");
+            //alert("Email is already in use. Please press the 'Go to Login' button.");
+            Swal.fire({
+              icon: 'warning',
+              title: 'Email in Use',
+              text: 'Email is already in use. Please Login.'
+            });
         } else {
-            alert("Something went wrong, Please try again.")
+            //alert("Something went wrong, Please try again.")
+            Swal.fire({
+              icon: 'error',
+              title: 'Registration Failed',
+              text: 'Something went wrong, please try again.'
+            });
         }
         console.error(error);
     }
