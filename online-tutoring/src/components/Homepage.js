@@ -7,6 +7,7 @@ import { getTableSortLabelUtilityClass } from "@mui/material";
 import Text from '@mui/material/TextField';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import Swal from "sweetalert2";
 
 function HomePage() {
   const [userData, setUserData] = useState({});
@@ -82,10 +83,21 @@ const handleCancelAppointment = async (appointmentId) => {
     } else {
       fetchTutorAppointments();
     }
-    alert("Appointment canceled successfully!");
+    //alert("Appointment canceled successfully!");
+    Swal.fire({
+      icon: 'success',
+      title: 'Appointment Cancelled',
+      text: 'Appointment canceled successfully!',
+  });
   } catch (error) {
     console.error("Error canceling appointment:", error);
-    alert("There was an error canceling the appointment. Please try again.");
+    //alert("There was an error canceling the appointment. Please try again.");
+    Swal.fire({
+      icon: 'error',
+      title: 'Error Canceling Appointment',
+      text: 'There was an error canceling the appointment. Please try again.',
+  });
+
   }
 };
 
@@ -144,7 +156,12 @@ const isFutureDate = (date, time) => {
     const currentDateTime = new Date();
   
     if (selectedDateTime <= currentDateTime) {
-      alert("You cannot schedule appointments in the past!");
+      //alert("You cannot schedule appointments in the past!");
+      Swal.fire({
+        icon: 'error',
+        title: 'Error Scheduling Appointment',
+        text: 'You cannot schedule appointments in the past!',
+    });
       return;
     }
   
@@ -164,7 +181,12 @@ const isFutureDate = (date, time) => {
         for (let existingAppointmentId in existingAppointments) {
           let appointment = existingAppointments[existingAppointmentId];
           if (appointment.date === appointmentDate && appointment.time === appointmentTime) {
-            alert("This time slot is already booked with the selected tutor!");
+            //alert("This time slot is already booked with the selected tutor!");
+            Swal.fire({
+              icon: 'warning',
+              title: 'Time Conflict',
+              text: 'This time slot is already booked with the selected tutor!',
+          });
             return;
           }
         }
@@ -173,11 +195,21 @@ const isFutureDate = (date, time) => {
       // If no conflicting appointments, proceed to schedule the appointment
       await set(ref(db, `appointments/${appointmentId}`), newAppointment);
       setShowScheduleModal(false);  // Close the modal
-      alert("Appointment scheduled successfully!");  // Feedback
+      //alert("Appointment scheduled successfully!");  // Feedback
+      Swal.fire({
+        icon: 'success',
+        title: 'Appointment Confirmed',
+        text: 'Appointment scheduled successfully!',
+    });
       fetchUpcomingAppointments(); // Refresh the list of upcoming appointments
     } catch (error) {
       console.error("Error scheduling appointment:", error);
-      alert("There was an error scheduling the appointment. Please try again.");
+      //alert("There was an error scheduling the appointment. Please try again.");
+      Swal.fire({
+        icon: 'error',
+        title: 'Error Scheduling Appointment',
+        text: 'There was an error scheduling the appointment. Please try again.',
+    });
     }
   };
   
@@ -188,7 +220,12 @@ const isFutureDate = (date, time) => {
   const addFavoriteTutor = (tutorName) => {
     // Check if the tutor is already in the favorite list
     if (userData.favoriteTutors && userData.favoriteTutors.includes(tutorName)) {
-      alert(`${tutorName} is already in your favorites!`);
+      //alert(`${tutorName} is already in your favorites!`);
+      Swal.fire({
+        icon: 'warning',
+        title: 'Tutor Favorited',
+        text: `${tutorName} is already in your favorites!`,
+    });
       return;
     }
 
