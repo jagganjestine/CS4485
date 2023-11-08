@@ -46,7 +46,13 @@ function Registration() {
 
     });
   };
+  function handleSubmit(event) {
+    event.preventDefault(); // Prevent the default form submission
 
+    // Here you can add any additional validation if needed
+
+    handleRegistration(); // Your existing function to handle registration
+}
   const handleRegistration = async () => {
     if (!isPasswordStrong(password)) {
         //alert("Password is too weak. Please ensure your password has at least 8 characters, includes an uppercase letter, a lowercase letter, a digit, and a special character.");
@@ -90,60 +96,62 @@ function Registration() {
 
 
   const redirectToLogin = () => {
-    navigate("/");
+    navigate("/login");
   };
 
   return (
+    <form onSubmit={handleSubmit}>
     <div className="new_registration-container">
       <div>
       <h2>Student Registration</h2>
-
+      
       <div className="form-group">
       {/* <TextField id="standard-basic" variant="standard" type="first name" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} /> */}
-      <TextField type="first name" label="First Name" id="standard-basic" variant="standard" className="proportion" value={firstName} onChange={(e) => setFirstName(e.target.value)}></TextField>
+      <TextField type="first name" required label="First Name" id="standard-basic" variant="standard" className="proportion" value={firstName} onChange={(e) => setFirstName(e.target.value)}></TextField>
       </div>
 
       <div className="form-group">
       {/* <TextField type="last name" placeholder="Last Name" onChange={(e) => setLastName(e.target.value)} /> */}
-      <TextField type="last name" label="Last Name" id="standard-basic" variant="standard" className="proportion" value={lastName} onChange={(e) => setLastName(e.target.value)}></TextField>    
+      <TextField type="last name" required label="Last Name" id="standard-basic" variant="standard" className="proportion" value={lastName} onChange={(e) => setLastName(e.target.value)}></TextField>    
       </div>
 
       <div className="form-group">
       { /* <TextField type="date" placeholder="Birthday" onChange={(e) => setBirthday(e.target.value)} /> */}
-      <TextField type="date" label="Birthday" id="standard-basic" variant="standard" className="proportion" value={birthday} onChange={(e) => setBirthday(e.target.value)} InputLabelProps={{shrink: true }}></TextField>
+      <TextField type="date" required label="Birthday" id="standard-basic" variant="standard" className="proportion" value={birthday} onChange={(e) => setBirthday(e.target.value)} InputLabelProps={{shrink: true }}></TextField>
       </div>
 
       <div className="form-group">
       {/*<TextField type="school" placeholder="School" onChange={(e) => setSchool(e.target.value)} /> */} 
-      <TextField type="school" label="School" id="standard-basic" variant="standard" className="proportion" value={school} onChange={(e) => setSchool(e.target.value)}></TextField>
+      <TextField type="school" required label="School" id="standard-basic" variant="standard" className="proportion" value={school} onChange={(e) => setSchool(e.target.value)}></TextField>
       </div>
 
       <div className="form-group">
       { /* <TextField type="major" placeholder="Major" onChange={(e) => setMajor(e.target.value)} /> */}
-      <TextField type="major" label="Major" id="standard-basic" variant="standard" className="proportion" value={major} onChange={(e) => setMajor(e.target.value)}></TextField>
+      <TextField type="major" required label="Major" id="standard-basic" variant="standard" className="proportion" value={major} onChange={(e) => setMajor(e.target.value)}></TextField>
       </div>
 
       <div className="form-group">
-      <TextField type="email" label="Email" id="standard-basic" variant="standard" className="proportion" value={email} onChange={(e) => setEmail(e.target.value)}></TextField>
+      <TextField type="email" required label="Email" id="standard-basic" variant="standard" className="proportion" value={email} onChange={(e) => setEmail(e.target.value)}></TextField>
       </div>
       
       <div className="form-group">  
-      <TextField type="password" label="Password" id="standard-basic" variant="standard" className="proportion" value={password} onChange={(e) => setPassword(e.target.value)}></TextField>
+      <TextField type="password" required label="Password" id="standard-basic" variant="standard" className="proportion" value={password} onChange={(e) => setPassword(e.target.value)}></TextField>
       </div>
       <p className="password-requirements">
         Please ensure your password has at least 8 characters, includes an uppercase letter, a digit, and a special character.
       </p>
       <div className="buttons-container">
-      <button className="register-button" onClick={handleRegistration}>
+      <button className="register-button" type = "submit">
         Register
       </button>
+      
       <button className="login-redirect-button" onClick={redirectToLogin}>
         Already have an account? Login!
       </button>
     </div>
-
     </div>
     </div>
+    </form>
   );
 }
 
