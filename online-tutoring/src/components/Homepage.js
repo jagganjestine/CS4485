@@ -71,35 +71,59 @@ function HomePage() {
     });
 };
 
-// Cancel appointments fucntion for both tutor and students
+// Cancel appointments function for both tutor and students
 const handleCancelAppointment = async (appointmentId) => {
-  try {
-    const appointmentRef = ref(db, `appointments/${appointmentId}`);
-    await remove(appointmentRef); // This will delete the appointment entry
+  const appointmentRef = ref(db, `appointments/${appointmentId}`);
 
-    // Now, fetch the updated list
-    if (userType === "user") {
-      fetchUpcomingAppointments();
+  try {
+    const appointmentSnapshot = await get(appointmentRef);
+    const appointment = appointmentSnapshot.val();
+
+    if (appointment) {
+      const appointmentDateTime = new Date(appointment.date + "T" + appointment.time);
+      const currentDateTime = new Date();
+      const timeDifference = appointmentDateTime - currentDateTime;
+
+      // Check if the appointment is more than 24 hours away
+      if (timeDifference > 24 * 60 * 60 * 1000) {
+        await remove(appointmentRef); // This will delete the appointment entry
+
+        if (userType === "user") {
+          fetchUpcomingAppointments();
+        } else {
+          fetchTutorAppointments();
+        }
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Appointment Cancelled',
+          text: 'Appointment canceled successfully!',
+        });
+      } else {
+        // Use SweetAlert to inform the user that they can't cancel the appointment
+        Swal.fire({
+          icon: 'error',
+          title: 'Cancellation Not Allowed',
+          text: 'You cannot cancel an appointment less than 24 hours in advance.',
+        });
+      }
     } else {
-      fetchTutorAppointments();
+      Swal.fire({
+        icon: 'error',
+        title: 'Appointment Not Found',
+        text: 'The appointment could not be found.',
+      });
     }
-    //alert("Appointment canceled successfully!");
-    Swal.fire({
-      icon: 'success',
-      title: 'Appointment Cancelled',
-      text: 'Appointment canceled successfully!',
-  });
   } catch (error) {
     console.error("Error canceling appointment:", error);
-    //alert("There was an error canceling the appointment. Please try again.");
     Swal.fire({
       icon: 'error',
       title: 'Error Canceling Appointment',
       text: 'There was an error canceling the appointment. Please try again.',
-  });
-
+    });
   }
 };
+
 
 // Helper function to validate appointment time and date
 const isFutureDate = (date, time) => {
