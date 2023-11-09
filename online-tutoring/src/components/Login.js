@@ -69,8 +69,15 @@ function Login() {
         .then(
           (result) => {
             // alert("Code has been sent. Check your email!");
+            
             console.log("Code has been sent");
-            setVerificationSent(true); // set verification to true
+            Swal.fire({
+              icon: 'success',
+              title: 'Verification Code',
+              text: 'Verification Code Sent. Please check your email!'
+            });
+            setVerificationSent(true); 
+            // set verification to true
           },
           (error) => {
             console.log(error.text);
