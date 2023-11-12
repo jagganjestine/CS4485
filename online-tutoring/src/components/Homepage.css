@@ -172,7 +172,16 @@
 
 .appointment-name {
   font-size: 30px;
-  color: purple
+  color: purple;
+  padding-right: 10px
+}
+
+.appointment-date {
+  padding-right:10px;
+}
+
+.appointment-time {
+  padding-right: 50px;
 }
 
 .profile-name {

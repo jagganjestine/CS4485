@@ -393,11 +393,10 @@ if (userType === "Tutor") {
             <div key={index}>
               <p>
                 <span className="appointment-name">{appointment.studentName}</span>
-                {"\t" + appointment.date}
-                {"\t" + appointment.time}
+                <span className="appointment-date">{"\t" + appointment.date}</span>
+                <span className="appointment-time">{"\t" + appointment.time}</span>
                 <button className="cancel-appointment" onClick={() => handleCancelAppointment(appointment.id)}>Cancel</button>
               </p>
-              
               {/* Add more appointment details if needed */}
             </div>
           ))}
