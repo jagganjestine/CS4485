@@ -260,8 +260,6 @@ const isFutureDate = (date, time) => {
     }
   };
   
-  
-  
 
   // Add tutor to user's favorite list
   const addFavoriteTutor = (tutorName) => {
@@ -406,7 +404,18 @@ if (userType === "Tutor") {
       <br></br>
       
       <div className="notif-container">
-        <div className="tutor-notifications">Notifications:</div>
+        <div className="tutor-notifications">
+          Notifications:
+          {upcomingAppointments.map((appointment, index) => (
+            <div key={index}>
+            <p>
+              <span className="appointment-name2">{appointment.studentName}</span>
+              <span className="appointment-date2"> recently booked a {appointment.date} appointment</span>
+            </p>
+            {/* Add more appointment details if needed */}
+          </div>
+          ))}
+        </div>
       </div>
     </div>
   );

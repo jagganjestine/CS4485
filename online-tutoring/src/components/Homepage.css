@@ -176,7 +176,17 @@
   padding-right: 10px
 }
 
+.appointment-name2 {
+  font-size: 25px;
+  color: purple;
+  padding-right: 10px
+}
+
 .appointment-date {
+  padding-right:10px;
+}
+.appointment-date2 {
+  font-size: 25px;
   padding-right:10px;
 }
 
