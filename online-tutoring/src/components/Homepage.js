@@ -310,11 +310,11 @@ const isFutureDate = (date, time) => {
             
             if (tutorData) {
               setUserData(tutorData);
-              setUserType("tutor");
+              setUserType("Tutor");
               fetchUpcomingAppointments();
               
   
-              if (userType === "tutor") {
+              if (userType === "Tutor") {
                 fetchTutorAppointments();
                 fetchImageURL();
               }
@@ -332,27 +332,37 @@ const isFutureDate = (date, time) => {
 
   
   // If the user is a tutor, show the tutor-specific homepage
-if (userType === "tutor") {
+if (userType === "Tutor") {
   
   return (
     <div>
       <h2>Welcome Back, Tutor {userData.first_name} {userData.last_name}!</h2>
-      <img src={imageURL} alt = "Profile" className = "profileImage"/>
-        <p>About Me: {userData.about_me}</p>
-        <p>Available Hours: {userData.available_hours}</p>
-        
-        
-          
-      <h3>Your Upcoming Appointments with Students</h3>
-      {upcomingAppointments.map((appointment, index) => (
-        <div key={index}>
-          <p>Student: {appointment.studentName}</p>
-          <p>Date: {appointment.date}</p>
-          <p>Time: {appointment.time}</p>
-          <button onClick={() => handleCancelAppointment(appointment.id)}>Cancel</button>
-          {/* Add more appointment details if needed */}
+      <div className="profile-container">
+        <img src={imageURL} alt = "Profile" className = "profileImage"/>
+        <div className="profile-text-container">
+          <p className="edit-profile">Edit Profile</p>
+          <p className="profile-name"> <strong>Name:</strong> {userData.first_name + " " + userData.last_name}</p>
+          <p className="profile-status"> <strong>Status:</strong> {userType}</p>
+          <p className="profile-subjects"><strong>Subjects:</strong> {subjects + ""}</p>
+          <p className="about-me"><strong>About Me:</strong> {userData.about_me}</p>
+          <p className="available-hours"><strong>Available Hours:</strong> {userData.available_hours}</p>
         </div>
-      ))}
+      </div>
+
+      <div className="appts-container"> 
+        <div className="upcoming-appointments">
+          <h3>Your Upcoming Appointments with Students</h3>
+          {upcomingAppointments.map((appointment, index) => (
+            <div key={index}>
+              <p>Student: {appointment.studentName}</p>
+              <p>Date: {appointment.date}</p>
+              <p>Time: {appointment.time}</p>
+              <button onClick={() => handleCancelAppointment(appointment.id)}>Cancel</button>
+              {/* Add more appointment details if needed */}
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

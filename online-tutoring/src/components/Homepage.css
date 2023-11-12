@@ -8,11 +8,65 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
   }
-  .profileImage {
+
+
+.upcoming-appointments {
+  background-color: lightgray;
+  height: 500px;
+  width: 800px;
+  border-radius: 50px;
+}
+
+.appts-container {
+  justify-content: right;
+  display: flex;
+  padding-right: 80px;
+}
+
+.profileImage {
     border-radius: 50%;
-    width: 100px;  /* Adjust width as necessary */
-    height: 100px;  /* Adjust height as necessary */
+    width: 250px;  /* Adjust width as necessary */
+    height: 250px;  /* Adjust height as necessary */
     object-fit: cover;  /* This ensures that the image covers the circle without distortion */
+}
+
+.profile-container {
+  text-align: center;
+  float:right;
+  margin-right: 200px;
+  border-color: black;
+  padding-left: 100px;
+  border-left-color: lightgray;
+  border-left-style: groove;
+  
+}
+
+.profile-text-container {
+  text-align: left;
+}
+.edit-profile {
+  color: #3F98CA;
+  text-align: center;
+  font-size: 20px;
+}
+
+.profile-name {
+  font-size: 20px
+}
+
+.profile-status {
+  font-size: 20px
+}
+
+.profile-subjects {
+  font-size: 20px
+}
+.about-me {
+  font-size: 20px
+}
+
+.available-hours {
+  font-size: 20px
 }
 
 .search-bar {
