@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import './Homepage.css'
 import { getDatabase, ref, onValue, query, orderByChild, equalTo, set, get, remove } from "firebase/database";
-import { getAuth } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 import {getDownloadURL, getStorage, ref as sRef} from "firebase/storage"
 import { getTableSortLabelUtilityClass } from "@mui/material";
 import Text from '@mui/material/TextField';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import Swal from "sweetalert2";
+import trophy from '../images/trophy.png'
+import cap from '../images/cap.png'
+import medal from '../images/medal.png' 
 
 function HomePage() {
   const [userData, setUserData] = useState({});
@@ -22,13 +25,26 @@ function HomePage() {
   const [upcomingAppointments, setUpcomingAppointments] = useState([]);
   const [imageURL, setImageURL] = useState("");
 
-
+  
   const auth = getAuth();
   const db = getDatabase();
   const storage = getStorage();
 
-  const subjects = ["Math", "English", "Science", "History"]; // You can extend this list
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      console.log("Signed out")
+      // User logged out successfully
+    } catch (error) {
+      // Handle logout errors
+      console.error(error);
+    }
+  };
 
+  const subjects = ["Math", "English", "Science", "History"]; // You can extend this list
+  const numberOfSubjectsTaught = Object.keys(userData.subjects || {}).filter(subject => userData.subjects[subject] === true).length;
+
+  
   // Fetch students's upcoming appointments with tutors
   const fetchUpcomingAppointments = () => {
     const appointmentsRef = ref(db, `appointments`);
@@ -336,14 +352,28 @@ if (userType === "Tutor") {
   
   return (
     <div>
-      <h2>Welcome Back, Tutor {userData.first_name} {userData.last_name}!</h2>
+      <div className="purple-panel-student">
+      <h1 className="panel-title-student">Your Stats:</h1>
+      <h1 className="classes-panel-student">Classes: {numberOfSubjectsTaught}
+       </h1>
+      <img className="trophy-student" src={trophy} />
+      <h1 className="hours-panel-student">Hours</h1>
+      <img className="medal-student" src={medal} />
+      <h1 className="subject-panel-student">Top Subject:</h1>
+      <img className="cap-student" src={cap} />
+      <div className="tutor-logout">
+      <button className="tutor-logout-button" onClick={handleLogout}>Logout</button>
+      </div>
+      </div>
       <div className="profile-container">
         <img src={imageURL} alt = "Profile" className = "profileImage"/>
         <div className="profile-text-container">
           <p className="edit-profile">Edit Profile</p>
           <p className="profile-name"> <strong>Name:</strong> {userData.first_name + " " + userData.last_name}</p>
           <p className="profile-status"> <strong>Status:</strong> {userType}</p>
-          <p className="profile-subjects"><strong>Subjects:</strong> {subjects + ""}</p>
+          <p className="profile-subjects"><strong>Subjects: </strong> 
+          {Object.keys(userData.subjects || {}).filter(subject => userData.subjects[subject] === true).join(', ')}
+          </p>
           <p className="about-me"><strong>About Me:</strong> {userData.about_me}</p>
           <p className="available-hours"><strong>Available Hours:</strong> {userData.available_hours}</p>
         </div>
@@ -351,7 +381,7 @@ if (userType === "Tutor") {
 
       <div className="appts-container"> 
         <div className="upcoming-appointments">
-          <h3>Your Upcoming Appointments with Students</h3>
+          <h3> <span className="upappt">Upcoming Appointments:</span></h3>
           {upcomingAppointments.map((appointment, index) => (
             <div key={index}>
               <p>Student: {appointment.studentName}</p>
@@ -362,6 +392,12 @@ if (userType === "Tutor") {
             </div>
           ))}
         </div>
+      </div>
+
+      <br></br>
+      
+      <div className="notif-container">
+        <div className="tutor-notifications">Notifications:</div>
       </div>
     </div>
   );
