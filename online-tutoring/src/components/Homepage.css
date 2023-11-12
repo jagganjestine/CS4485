@@ -9,7 +9,11 @@
     z-index: 1000;
   }
 
-  .purple-panel-student {
+
+  .number-subjects-taught {
+    font-size: 50px;
+  }
+  .purple-panel-tutor {
     background: linear-gradient(135deg, #B674E6, #3B2667);
     width: 200px; 
     height: 100%; 
@@ -21,7 +25,7 @@
     justify-content: flex-start;
     }
   
-    .panel-title-student {
+    .panel-title-tutor {
       color: white;
       font-size: 20px; 
       margin-top: 20px;
@@ -31,7 +35,7 @@
       padding-right: 80px;
       }
   
-  .classes-panel-student{
+  .classes-panel-tutor{
     color: white;
     font-size: 15px; 
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
@@ -40,7 +44,7 @@
     padding-right: 120px;
   }
   
-  .hours-panel-student{
+  .hours-panel-tutor{
     color: white;
     font-size: 15px; 
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
@@ -49,7 +53,7 @@
     padding-right: 120px;
     }
   
-  .subject-panel-student{
+  .subject-panel-tutor{
     color: white;
     font-size: 15px; 
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
@@ -57,7 +61,7 @@
     padding-right: 80px;
   }
   
-  .trophy-student {
+  .trophy-tutor {
     width: 50px;
     height: auto;
     position: relative; 
@@ -65,7 +69,7 @@
     padding-left: 120px;
   }
     
-  .cap-student {
+  .cap-tutor {
     width: 45px;
     height: auto;
     position: relative; 
@@ -73,7 +77,7 @@
     padding-left: 120px;
   }
     
-  .medal-student {
+  .medal-tutor {
     width: 45px;
     height: auto;
     position: relative; 
@@ -105,12 +109,16 @@
   background-color: lightgray;
   height: 300px;
   width: 1000px;
-  border-radius: 50px;
+  border-radius: 30px;
   overflow: auto;
   font-weight: 500;
 }
 
 .cancel-appointment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
   width: 90px;
   height: 30px;
   color: white;
@@ -122,7 +130,7 @@
 
 .cancel-appointment:hover {
   color: white;
-  background-color:purple;;
+  background-color:#935EC2;;
   transition:0.7s;
 }
 
@@ -141,10 +149,15 @@
 }
 
 .profileImage {
+    border-color: gray;
     border-radius: 50%;
-    width: 250px;  /* Adjust width as necessary */
-    height: 250px;  /* Adjust height as necessary */
+    width: 300px;  /* Adjust width as necessary */
+    height: 300px;  /* Adjust height as necessary */
     object-fit: cover;  /* This ensures that the image covers the circle without distortion */
+}
+
+.bold-words {
+  font-weight: 500;
 }
 
 .profile-container {
@@ -153,7 +166,7 @@
   float:right;
   margin-right: 200px;
   border-color: black;
-  padding-left: 100px;
+  padding-left: 70px;
   border-left-color: lightgray;
   border-left-style: groove;
   height: 100vh;
@@ -172,19 +185,20 @@
 
 .appointment-name {
   font-size: 30px;
-  color: purple;
+  color: #935EC2;
   padding-right: 10px
 }
 
 .appointment-name2 {
   font-size: 25px;
-  color: purple;
+  color: #935EC2;
   padding-right: 10px
 }
 
 .appointment-date {
   padding-right:10px;
 }
+
 .appointment-date2 {
   font-size: 25px;
   padding-right:10px;
@@ -214,11 +228,18 @@
   font-size: 17px
 }
 
+.notifs-details {
+  display: flex;
+  padding-left: 50px;
+  align-items: center;
+  
+}
+
 .tutor-notifications {
   background-color: lightgray;
   height: 300px;
   width: 1000px;
-  border-radius: 50px;
+  border-radius: 30px;
   padding-top:20px;
   font-weight: 500;
 }
@@ -226,12 +247,35 @@
 .upappt {
   font-weight: 500;
   font-size: medium;
+  display: flex;
+  padding-left: 50px;
+}
+
+.appointment-details {
+  display: flex;
+  padding-left: 50px;
+  align-items: center;
+  
+}
+
+.appt-time-cancel {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  
 }
 
 .notif-container {
   justify-content: right;
   display: flex;
   padding-right: 80px;
+}
+
+.notifs-label {
+  font-weight: 500;
+  font-size: medium;
+  display: flex;
+  padding-left: 50px;
 }
 .search-bar {
     width: 40%;

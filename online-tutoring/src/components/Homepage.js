@@ -348,6 +348,26 @@ const isFutureDate = (date, time) => {
   
 
 
+  // used to reformat date for upcoming appointments 
+function formatDate(inputDate) {
+  const date = new Date(inputDate);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+
+  return `${month}/${day}/${year}`;
+}
+
+// used to reformat time for upcoming appointments 
+function formatTime(inputTime) {
+  const time = inputTime.split(":");
+  const hours = parseInt(time[0]);
+  const minutes = time[1];
+  const amOrPm = hours >= 12 ? "PM" : "AM";
+  const formattedHours = hours > 12 ? hours - 12 : hours;
+  return `${formattedHours}:${minutes} ${amOrPm}`;
+}
+
   // If userData hasn't been fetched yet, show loading state
   if (!userData.first_name) return <div>Please login</div>;
 
@@ -357,30 +377,30 @@ if (userType === "Tutor") {
   
   return (
     <div>
-      <div className="purple-panel-student">
-      <h1 className="panel-title-student">Your Stats:</h1>
-      <h1 className="classes-panel-student">Classes: {numberOfSubjectsTaught}
-       </h1>
-      <img className="trophy-student" src={trophy} />
-      <h1 className="hours-panel-student">Hours</h1>
-      <img className="medal-student" src={medal} />
-      <h1 className="subject-panel-student">Top Subject:</h1>
-      <img className="cap-student" src={cap} />
-      <div className="tutor-logout">
-      <button className="tutor-logout-button" onClick={handleLogout}>Logout</button>
-      </div>
+      <div className="sidebar-tutor">
+        <div className="purple-panel-tutor">
+          <h1 className="panel-title-tutor">Your Stats:</h1>
+          <h1 className="classes-panel-tutor"><span className="number-subjects-taught">{numberOfSubjectsTaught} </span>Classes <img className="trophy-tutor" src={trophy} /></h1>
+          <h1 className="hours-panel-tutor">Hours</h1>
+          <img className="medal-tutor" src={medal} />
+          <h1 className="subject-panel-tutor">Top Subject:</h1>
+          <img className="cap-tutor" src={cap} />
+          <div className="tutor-logout">
+            <button className="tutor-logout-button" onClick={handleLogout}>Logout</button>
+          </div>
+        </div>
       </div>
       <div className="profile-container">
         <img src={imageURL} alt = "Profile" className = "profileImage"/>
         <div className="profile-text-container">
           <p className="edit-profile">Edit Profile</p>
-          <p className="profile-name"> <strong>Name:</strong> {userData.first_name + " " + userData.last_name}</p>
-          <p className="profile-status"> <strong>Status:</strong> {userType}</p>
-          <p className="profile-subjects"><strong>Subjects: </strong> 
+          <p className="profile-name"> <span className="bold-words">Name:</span> {userData.first_name + " " + userData.last_name}</p>
+          <p className="profile-status"> <span className="bold-words">Status:</span> {userType}</p>
+          <p className="profile-subjects"><span className="bold-words">Subjects: </span> 
           {Object.keys(userData.subjects || {}).filter(subject => userData.subjects[subject] === true).join(', ')}
           </p>
-          <p className="about-me"><strong>About Me:</strong> {userData.about_me}</p>
-          <p className="available-hours"><strong>Available Hours:</strong> {userData.available_hours}</p>
+          <p className="about-me"><span className="bold-words">About Me:</span> {userData.about_me}</p>
+          <p className="available-hours"><span className="bold-words">Available Hours:</span> {userData.available_hours}</p>
         </div>
       </div>
 
@@ -389,11 +409,13 @@ if (userType === "Tutor") {
           <h3> <span className="upappt">Upcoming Appointments:</span></h3>
           {upcomingAppointments.map((appointment, index) => (
             <div key={index}>
-              <p>
-                <span className="appointment-name">{appointment.studentName}</span>
-                <span className="appointment-date">{"\t" + appointment.date}</span>
-                <span className="appointment-time">{"\t" + appointment.time}</span>
-                <button className="cancel-appointment" onClick={() => handleCancelAppointment(appointment.id)}>Cancel</button>
+              <p className="appointment-details">
+                  <span className="appointment-name">{appointment.studentName}</span>
+                  <span className="appointment-date">{"\t" + " on " + formatDate(appointment.date)}</span>
+                  <div className="appt-time-cancel">
+                    <span className="appointment-time">{"\t" + " at " + formatTime(appointment.time)}</span>
+                    <button className="cancel-appointment" onClick={() => handleCancelAppointment(appointment.id)}>Cancel</button>
+                  </div>
               </p>
               {/* Add more appointment details if needed */}
             </div>
@@ -405,10 +427,10 @@ if (userType === "Tutor") {
       
       <div className="notif-container">
         <div className="tutor-notifications">
-          Notifications:
+           <span className="notifs-label">Notifications:</span>
           {upcomingAppointments.map((appointment, index) => (
             <div key={index}>
-            <p>
+            <p className="notifs-details">
               <span className="appointment-name2">{appointment.studentName}</span>
               <span className="appointment-date2"> recently booked a {appointment.date} appointment</span>
             </p>
