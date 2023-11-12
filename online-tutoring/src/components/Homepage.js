@@ -10,6 +10,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import trophy from '../images/trophy.png'
 import cap from '../images/cap.png'
 import medal from '../images/medal.png'
+import appt from '../images/appt.png'
 
 function HomePage() {
   const [userData, setUserData] = useState({});
@@ -343,7 +344,7 @@ function formatTime(inputTime) {
         onChange={(e) => setSearchQuery(e.target.value)}
         placeholder=" Search..."
       /> 
-      <button onClick={handleSearch}><FontAwesomeIcon icon={faSearch} /></button>
+      <button className = "search-bar-button" onClick={handleSearch}><FontAwesomeIcon icon={faSearch} /></button>
       <div style={{ paddingTop: '20px' }} />  {/* test padding */}
       <div>
         {subjects.map(subject => (
@@ -381,20 +382,30 @@ function formatTime(inputTime) {
       </div>
       
       {/*Display upcoming appointments*/}
-<div>
-  
-{upcomingAppointments.map((appointment, index) => (
-  <div className="upcoming-appts-student" key={index}>
-    <h5 className="appt-title-student">Upcoming Appointments:</h5>
-    <p>
-    <span className="tutor-appointment-name"> {appointment.tutorName} </span> 
-    <span className="tutor-appointment-date-time">
-      {formatDate(appointment.date)} at {formatTime(appointment.time)} </span> 
-      <button className="cancel-button-student" onClick={() => handleCancelAppointment(appointment.id)}>Cancel</button>
-    </p>
-        {/* Add more appointment details if needed */}
-  </div>
-))}
+      <div>
+        {/* Moved the title outside the map loop */}
+        <div className="upcoming-appts-student-container">
+        <h5 className="appt-title-student">Upcoming Appointments:</h5>
+        {upcomingAppointments.map((appointment, index) => (
+        <div className="upcoming-appts-student" key={index}>
+            {/* <img className="appt-student" src={appt} />*/}
+            {/* Smiley face cal pic */}
+            <p>
+              <span className="tutor-appointment-name">{appointment.tutorName}</span>
+              <span className="tutor-appointment-date-time">
+                {formatDate(appointment.date)} at {formatTime(appointment.time)}
+              </span>
+              <button
+                className="cancel-button-student"
+                onClick={() => handleCancelAppointment(appointment.id)}
+              >
+                Cancel
+              </button>
+            </p>
+            {/* Add more appointment details if needed */}
+          </div>
+        ))}
+        </div>
 </div>
 
       {/*Code for the popup that displays when user trys to schedule appointment*/}

@@ -1,14 +1,17 @@
 import React from 'react'
-import { Link, useNavigate} from 'react-router-dom'
+import { Link, useNavigate, useLocation} from 'react-router-dom'
 import './Navbar.css'
 import { useState, useEffect } from 'react'
 import Registration from './Registration'
+
 const Navbar = () => {
 
   const navigate = useNavigate();
   const navigateRegister = () => {
     navigate('/registrationselection');
   }
+
+  const location = useLocation();
 
   const [isSticky, setIsSticky] = useState(false);
 
@@ -29,6 +32,10 @@ const Navbar = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  if (location.pathname === '/homepage') {
+    return null;
+  }
 
   return (
     <div id="navbar1" className={isSticky ? 'navbar sticky' : 'navbar'}>

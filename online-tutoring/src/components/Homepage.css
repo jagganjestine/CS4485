@@ -21,6 +21,23 @@
     background-color: #ccc;
     border-radius: 20px; 
     height: 40px; 
+    margin-top: 50px;
+    border: none;
+}
+
+.search-bar-button{
+  margin-right: 100px;
+  background-color: transparent;
+  border: none; 
+  color: #B674E6; 
+  cursor: pointer; 
+  width: 50px; 
+  font-size:20px;
+}
+
+.search-bar-button:hover{
+  color: #3B2667;
+  transition:0.7s;
 }
 
 .purple-panel-student {
@@ -95,6 +112,14 @@
   padding-left: 120px;
 }
 
+/*.appt-student{
+  width: 45px;
+  height: auto;
+  position: relative; 
+  top: -59px; 
+  margin-right: 120px;
+}*/
+
 .dashboard-container-student{
   display: flex;
   justify-content: flex-end;
@@ -107,39 +132,57 @@
   margin: 0 120px 0 auto;
 }  
 
-.favorite-tutors {
-  background: white; 
+
+.upcoming-appts-student-container {
+  background: white;
   border-radius: 50px;
-  width: 250px;
-  height: 380px;
-  margin-top: 20px;
-  margin-left: 40px;
-  margin-bottom: -410px;
+  padding: 10px;
+  width: 630px; 
+  height: 360px; 
+  margin-left: auto; 
+  margin-right: 20px;
+  margin-bottom: 20px;
+  text-align: left;
+  overflow:auto;
 }
 
 .upcoming-appts-student {
-  background: white; 
   border-radius: 50px;
-  width: 630px;
-  height: 380px;
-  margin-top: 20px;
-  margin-left: 330px;
-  margin-bottom: 30px;
+  display: flex;
 }
 
-.appt-title-student{
+.appt-title-student {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
   font-weight: 500;
   font-size: medium;
   text-align: left; 
+  margin-bottom: 5px;
+  margin-left: 20px;
+}
+
+.tutor-appointment-name,
+.tutor-appointment-date-time {
+  margin-left: 20px; 
+  text-align: left; 
+}
+
+
+.favorite-tutors {
+  background: white; 
+  border-radius: 50px;
+  width: 260px;
+  height: 380px;
   margin-left: 40px;
-  padding-top: 25px;
+  margin-bottom: -380px;
+  overflow:auto;
 }
 
 .favorite-tutor-title{
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
   font-weight: 600;
   font-size: medium;
+  padding-top: 10px;
+  margin-bottom: 1px;  
 }
 
 .cancel-button-student{
@@ -152,7 +195,6 @@
   font-weight: 500;
   font-size:medium;
   padding: 10px;
-  margin-left: 50px;
 }
 
 .cancel-button-student:hover{
@@ -172,6 +214,7 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
   font-weight: 500;
   font-size:small;
+  margin-left: 20px;
 }
 
 .delete-button-student:hover{
