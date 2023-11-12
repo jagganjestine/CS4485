@@ -32,9 +32,9 @@ const Navbar = () => {
     };
   }, []);
 
-  //if (location.pathname === '/homepage') {
-    //return null;
-  //}
+  if (location.pathname === '/homepage') {
+    return null;
+  }
 
   return (
     <div id="navbar1" className={isSticky ? 'navbar sticky' : 'navbar'}>

@@ -34,6 +34,13 @@ function HomePage() {
     try {
       await signOut(auth);
       console.log("Signed out")
+      Swal.fire({
+        icon: 'success',
+        title: 'Logged out.',
+        text: 'You have been successfully signed out!',
+      });
+      window.localStorage.clear()
+      window.location.href = "/"
       // User logged out successfully
     } catch (error) {
       // Handle logout errors
@@ -384,10 +391,13 @@ if (userType === "Tutor") {
           <h3> <span className="upappt">Upcoming Appointments:</span></h3>
           {upcomingAppointments.map((appointment, index) => (
             <div key={index}>
-              <p>Student: {appointment.studentName}</p>
-              <p>Date: {appointment.date}</p>
-              <p>Time: {appointment.time}</p>
-              <button onClick={() => handleCancelAppointment(appointment.id)}>Cancel</button>
+              <p>
+                <span className="appointment-name">{appointment.studentName}</span>
+                {"\t" + appointment.date}
+                {"\t" + appointment.time}
+                <button className="cancel-appointment" onClick={() => handleCancelAppointment(appointment.id)}>Cancel</button>
+              </p>
+              
               {/* Add more appointment details if needed */}
             </div>
           ))}
