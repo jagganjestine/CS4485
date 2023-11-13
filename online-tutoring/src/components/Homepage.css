@@ -16,6 +16,7 @@
 }
 
 /*STUDENT CSS*/
+
 .search-bar {
     width: 40%;
     background-color: #ccc;
@@ -56,7 +57,6 @@
     color: white;
     font-size: 20px; 
     margin-top: 20px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
     font-weight: 500;
     padding-top: 35px;
     padding-right: 80px;
@@ -65,7 +65,6 @@
 .classes-panel-student{
   color: white;
   font-size: 15px; 
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
   font-weight: 500;
   padding-top: 60px;
   padding-right: 120px;
@@ -74,7 +73,6 @@
 .hours-panel-student{
   color: white;
   font-size: 15px; 
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
   font-weight: 500;
   padding-top: 10px;
   padding-right: 120px;
@@ -83,7 +81,6 @@
 .subject-panel-student{
   color: white;
   font-size: 15px; 
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
   font-weight: 500;
   padding-right: 80px;
 }
@@ -112,13 +109,13 @@
   padding-left: 120px;
 }
 
-/*.appt-student{
+.appt-student{
   width: 45px;
   height: auto;
   position: relative; 
-  top: -59px; 
   margin-right: 120px;
-}*/
+  margin-bottom: -15px;
+}
 
 .dashboard-container-student{
   display: flex;
@@ -152,12 +149,11 @@
 }
 
 .appt-title-student {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
-  font-weight: 500;
-  font-size: medium;
+  font-weight: 700;
   text-align: left; 
-  margin-bottom: 5px;
+  margin-top: 5px;
   margin-left: 20px;
+  color: rgb(186, 108, 223);
 }
 
 .tutor-appointment-name,
@@ -178,11 +174,10 @@
 }
 
 .favorite-tutor-title{
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
-  font-weight: 600;
-  font-size: medium;
+  font-weight: 700;
   padding-top: 10px;
   margin-bottom: 1px;  
+  color:rgb(186, 108, 223);
 }
 
 .cancel-button-student{
@@ -191,7 +186,6 @@
   border: none; 
   cursor: pointer; 
   border-radius: 15px;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
   font-weight: 500;
   font-size:medium;
   padding: 10px;
@@ -211,7 +205,6 @@
   cursor: pointer; 
   margin-top: 30px;
   border-radius: 15px;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
   font-weight: 500;
   font-size:small;
   margin-left: 20px;
@@ -234,4 +227,62 @@
 
 }
 
+.search-results-box {
+  display: flex;
+  flex-direction: column; 
+  font-size: 20px;
+  background: #ccc;
+  border-radius: 50px;
+  width: 1000px; 
+  height: 300px; 
+  margin: 0 120px 0 auto;
+  overflow: auto; 
+  margin-bottom: 50px;
+  margin-top: 20px;
+}
+
+.star-fav{
+  width: 30px;
+  height: auto;
+  margin-bottom: -5px;
+  margin-left: 20px;
+}
+
+.favorite-button{
+  background-color: transparent;
+  border: none; 
+  cursor: pointer; 
+}
+
+.appt-schedule-button{
+  background-color: black;
+  color: white; 
+  border: none; 
+  padding: 10px 10px; 
+  cursor: pointer; 
+  border-radius: 15px;
+  font-weight: 500;
+  font-size:small;
+  margin-left: 20px;
+}
+
+.appt-schedule-button:hover{
+  background-color: rgb(186, 108, 223);;
+  transition:0.7s;
+}
+
+.student-logout-button{
+  margin-top: 280px;
+  background-color:transparent;
+  color: white; 
+  border: none; 
+  cursor: pointer; 
+  font-weight: 550;
+  font-size:medium;
+}
+
+.student-logout-button:hover{
+  color: black;
+  transition:0.7s;
+}
 

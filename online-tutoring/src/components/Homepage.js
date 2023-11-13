@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import './Homepage.css'
 import { getDatabase, ref, onValue, query, orderByChild, equalTo, set, get, remove } from "firebase/database";
-import { getAuth } from "firebase/auth";
-import {getDownloadURL, getStorage, ref as sRef} from "firebase/storage"
+import { getAuth, signOut } from "firebase/auth";import {getDownloadURL, getStorage, ref as sRef} from "firebase/storage"
 import { getTableSortLabelUtilityClass } from "@mui/material";
 import Text from '@mui/material/TextField';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import Swal from "sweetalert2";
 import trophy from '../images/trophy.png'
 import cap from '../images/cap.png'
 import medal from '../images/medal.png'
 import appt from '../images/appt.png'
+import fav from '../images/favorites.png'
 
 function HomePage() {
   const [userData, setUserData] = useState({});
@@ -30,6 +31,24 @@ function HomePage() {
   const auth = getAuth();
   const db = getDatabase();
   const storage = getStorage();
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      console.log("Signed out")
+      Swal.fire({
+        icon: 'success',
+        title: 'Logged out.',
+        text: 'You have been successfully signed out!',
+      });
+      window.localStorage.clear()
+      window.location.href = "/"
+      // User logged out successfully
+    } catch (error) {
+      // Handle logout errors
+      console.error(error);
+    }
+  };
 
   const subjects = ["Math", "English", "Science", "History"]; // You can extend this list
 
@@ -320,7 +339,7 @@ function formatTime(inputTime) {
   const formattedHours = hours > 12 ? hours - 12 : hours;
   return `${formattedHours}:${minutes} ${amOrPm}`;
 }
-
+ 
   // If the user is a general user
   return (
     <div >
@@ -332,6 +351,8 @@ function formatTime(inputTime) {
       <img className="medal-student" src={medal} />
       <h1 className="subject-panel-student">Top Subject:</h1>
       <img className="cap-student" src={cap} />
+      <div className="student-logout">
+            <button className="student-logout-button" onClick={handleLogout}>Logout</button></div>
       </div>
       {/*<h2>Welcome Back, {userData.first_name} {userData.last_name}!</h2>
       <p>Your School: {userData.school}</p>
@@ -356,16 +377,21 @@ function formatTime(inputTime) {
       </div>
 
       {/* Display search results */}
-      <div>
+      <div className = "search-results-box">
         {searchResults.map(tutor => (
           <div key={tutor.id}>
-            <h3>{tutor.first_name} {tutor.last_name}</h3>
-            <h4>{tutor.phone_number}</h4>
-            <p>Subjects: {Object.keys(tutor.subjects).filter(subject => tutor.subjects[subject] === true).join(', ')}</p>
-            <button onClick={() => addFavoriteTutor(`${tutor.first_name} ${tutor.last_name}`)}>Add to Favorites</button>
-            <button onClick={() => { setSelectedTutor(tutor); setShowScheduleModal(true); }}>Schedule Appointment</button>
-            {/* Display other tutor details if needed */}
+          <div>
+            <h3>{tutor.first_name} {tutor.last_name}           
+            <button className="favorite-button" onClick={() => addFavoriteTutor(`${tutor.first_name} ${tutor.last_name}`)}>
+              <img className="star-fav" src={fav}/></button>          
+              <button className="appt-schedule-button"onClick={() => { setSelectedTutor(tutor); 
+                setShowScheduleModal(true); }}>Schedule Appointment</button></h3>
           </div>
+          <h5>Subjects: {Object.keys(tutor.subjects).filter(subject => tutor.subjects[subject] === true).join(', ')}</h5>
+          <h5>Phone Number: {tutor.phone_number}</h5>
+          {/* Display other tutor details if needed */}
+        </div>
+        
         ))}
       </div>
 
@@ -385,10 +411,10 @@ function formatTime(inputTime) {
       <div>
         {/* Moved the title outside the map loop */}
         <div className="upcoming-appts-student-container">
-        <h5 className="appt-title-student">Upcoming Appointments:</h5>
+        <h5 className="appt-title-student">Upcoming Appointments:<img className="appt-student" src={appt} /></h5>
         {upcomingAppointments.map((appointment, index) => (
         <div className="upcoming-appts-student" key={index}>
-            {/* <img className="appt-student" src={appt} />*/}
+             
             {/* Smiley face cal pic */}
             <p>
               <span className="tutor-appointment-name">{appointment.tutorName}</span>
