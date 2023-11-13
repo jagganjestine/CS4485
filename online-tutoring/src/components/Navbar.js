@@ -41,7 +41,7 @@ const Navbar = () => {
     <nav className='navbar'>
       <ul>
         <li className='logo_landing'>
-          <Link to="/">OTA</Link>
+          <Link to="/">ΔTHΞΠΔ</Link>
         </li>
         <li>
           <Link to="/login">Login</Link>
