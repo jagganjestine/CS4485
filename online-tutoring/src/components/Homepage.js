@@ -34,13 +34,13 @@ function HomePage() {
     try {
       await signOut(auth);
       console.log("Signed out")
+      window.localStorage.clear()
+      window.location.href = "/"
       Swal.fire({
         icon: 'success',
         title: 'Logged out.',
         text: 'You have been successfully signed out!',
       });
-      window.localStorage.clear()
-      window.location.href = "/"
       // User logged out successfully
     } catch (error) {
       // Handle logout errors
