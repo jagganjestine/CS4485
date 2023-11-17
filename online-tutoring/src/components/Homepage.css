@@ -1,79 +1,291 @@
 .modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-  }
-
-
-.upcoming-appointments {
-  background-color: lightgray;
-  height: 500px;
-  width: 800px;
-  border-radius: 50px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
-
-.appts-container {
-  justify-content: right;
-  display: flex;
-  padding-right: 80px;
-}
-
 .profileImage {
-    border-radius: 50%;
-    width: 250px;  /* Adjust width as necessary */
-    height: 250px;  /* Adjust height as necessary */
-    object-fit: cover;  /* This ensures that the image covers the circle without distortion */
+  border-radius: 50%;
+  width: 100px;  /* Adjust width as necessary */
+  height: 100px;  /* Adjust height as necessary */
+  object-fit: cover;  /* This ensures that the image covers the circle without distortion */
 }
 
-.profile-container {
-  text-align: center;
-  float:right;
-  margin-right: 200px;
-  border-color: black;
-  padding-left: 100px;
-  border-left-color: lightgray;
-  border-left-style: groove;
-  
-}
-
-.profile-text-container {
-  text-align: left;
-}
-.edit-profile {
-  color: #3F98CA;
-  text-align: center;
-  font-size: 20px;
-}
-
-.profile-name {
-  font-size: 20px
-}
-
-.profile-status {
-  font-size: 20px
-}
-
-.profile-subjects {
-  font-size: 20px
-}
-.about-me {
-  font-size: 20px
-}
-
-.available-hours {
-  font-size: 20px
-}
+/*STUDENT CSS*/
 
 .search-bar {
-    width: 40%;
-    background-color: #ccc;
-    border-radius: 20px; 
-    height: 40px; /*issue with height*/
+  width: 40%;
+  background-color: #ccc;
+  border-radius: 20px; 
+  height: 40px; 
+  margin-top: 50px;
+  border: none;
+  margin-bottom: 20px;
 }
+
+.search-bar-button{
+margin-right: 100px;
+background-color: transparent;
+border: none; 
+color: #B674E6; 
+cursor: pointer; 
+width: 50px; 
+font-size:20px;
+}
+
+.search-bar-button:hover{
+color: #3B2667;
+transition:0.7s;
+}
+
+.purple-panel-student {
+background: linear-gradient(135deg, #B674E6, #3B2667);
+width: 200px; 
+height: 100%; 
+position: fixed; 
+top: 0; 
+left: 100; 
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
+}
+
+.panel-title-student {
+  color: white;
+  font-size: 20px; 
+  margin-top: 20px;
+  font-weight: 500;
+  padding-top: 35px;
+  padding-right: 80px;
+  }
+
+.classes-panel-student{
+color: white;
+font-size: 15px; 
+font-weight: 500;
+padding-top: 60px;
+padding-right: 120px;
+}
+
+.hours-panel-student{
+color: white;
+font-size: 15px; 
+font-weight: 500;
+padding-top: 10px;
+padding-right: 120px;
+}
+
+.subject-panel-student{
+color: white;
+font-size: 15px; 
+font-weight: 500;
+padding-right: 80px;
+}
+
+.trophy-student {
+width: 50px;
+height: auto;
+position: relative; 
+top: -50px; 
+padding-left: 120px;
+}
+
+.cap-student {
+width: 45px;
+height: auto;
+position: relative; 
+top: -40px; 
+padding-left: 120px;
+}
+
+.medal-student {
+width: 45px;
+height: auto;
+position: relative; 
+top: -48px; 
+padding-left: 120px;
+}
+
+.appt-student{
+width: 45px;
+height: auto;
+position: relative; 
+margin-right: 120px;
+margin-bottom: -15px;
+}
+
+.dashboard-container-student{
+display: flex;
+justify-content: flex-end;
+flex-direction: column; 
+font-size: 20px;
+background: linear-gradient(135deg, #B674E6, #3B2667);
+border-radius: 50px;
+width: 1000px; 
+height: 430px; 
+margin: 0 120px 0 auto;
+}  
+
+
+.upcoming-appts-student-container {
+background: white;
+border-radius: 50px;
+padding: 10px;
+width: 630px; 
+height: 360px; 
+margin-left: auto; 
+margin-right: 20px;
+margin-bottom: 20px;
+text-align: left;
+overflow:auto;
+}
+
+.upcoming-appts-student {
+border-radius: 50px;
+display: flex;
+}
+
+.appt-title-student {
+font-weight: 700;
+text-align: left; 
+margin-top: 5px;
+margin-left: 20px;
+color: rgb(186, 108, 223);
+}
+
+.tutor-appointment-name,
+.tutor-appointment-date-time {
+margin-left: 20px; 
+text-align: left; 
+}
+
+
+.favorite-tutors {
+background: white; 
+border-radius: 50px;
+width: 260px;
+height: 380px;
+margin-left: 40px;
+margin-bottom: -380px;
+overflow:auto;
+}
+
+.favorite-tutor-title{
+font-weight: 700;
+padding-top: 10px;
+margin-bottom: 1px;  
+color:rgb(186, 108, 223);
+}
+
+.cancel-button-student{
+background-color: black;
+color: white; 
+border: none; 
+cursor: pointer; 
+border-radius: 15px;
+font-weight: 500;
+font-size:medium;
+padding: 10px;
+}
+
+.cancel-button-student:hover{
+color: black;
+background-color:rgb(186, 108, 223);
+transition:0.7s;
+}
+
+.delete-button-student{
+background-color: black;
+color: white; 
+border: none; 
+padding: 10px 10px; 
+cursor: pointer; 
+margin-top: 30px;
+border-radius: 15px;
+font-weight: 500;
+font-size:small;
+margin-left: 20px;
+}
+
+.delete-button-student:hover{
+color: black;
+background-color:rgb(186, 108, 223);
+transition:0.7s;
+}
+.tutor-appointment-name{
+font-size: 25px;
+font-weight: bold;
+margin-right: 10px;
+}
+
+.tutor-appointment-date-time{
+font-size: 15px;
+margin-right: 50px;
+
+}
+
+.search-results-box {
+display: flex;
+flex-direction: column; 
+font-size: 20px;
+background: #ccc;
+border-radius: 50px;
+width: 1000px; 
+height: 300px; 
+margin: 0 120px 0 auto;
+overflow: auto; 
+margin-bottom: 50px;
+margin-top: 20px;
+}
+
+.star-fav{
+width: 30px;
+height: auto;
+margin-bottom: -5px;
+margin-left: 20px;
+}
+
+.favorite-button{
+background-color: transparent;
+border: none; 
+cursor: pointer; 
+}
+
+.appt-schedule-button{
+background-color: black;
+color: white; 
+border: none; 
+padding: 10px 10px; 
+cursor: pointer; 
+border-radius: 15px;
+font-weight: 500;
+font-size:small;
+margin-left: 20px;
+}
+
+.appt-schedule-button:hover{
+background-color: rgb(186, 108, 223);;
+transition:0.7s;
+}
+
+.student-logout-button{
+margin-top: 280px;
+background-color:transparent;
+color: white; 
+border: none; 
+cursor: pointer; 
+font-weight: 550;
+font-size:medium;
+}
+
+.student-logout-button:hover{
+color: black;
+transition:0.7s;
+}
+
 
 
