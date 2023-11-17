@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import "./Registration.css";
 import { TextField } from "@mui/material";
 import Swal from 'sweetalert2';
+import sha256 from 'crypto-js/sha256';
 
 function Registration() {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ function Registration() {
     return password.length >= minLength && hasUppercase && hasLowercase && hasDigit && hasSpecialChar;
   };
   // Hash the password and store the hash password
-  const writeUserData = (userId, firstName, lastName, email, birthday, school, major) => {
+  const writeUserData = (userId, firstName, lastName, email, birthday, school, major, hashedPassword) => {
     
     set(ref(db, 'users/' + userId), {
       first_name: firstName,
@@ -40,6 +41,7 @@ function Registration() {
       birthday: birthday,
       school: school,
       major: major,
+      password: hashedPassword,
       favoriteTutors: []
   
       
@@ -65,8 +67,12 @@ function Registration() {
     }
 
     try {
+      
+     
+      const hashedPassword = sha256(password).toString();
+      // console.log(hashedPassword);
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        writeUserData(userCredential.user.uid, firstName, lastName, email, birthday, school, major);
+        writeUserData(userCredential.user.uid, firstName, lastName, email, birthday, school, major, hashedPassword);
         console.log("Success");
         Swal.fire({
           icon: 'success',

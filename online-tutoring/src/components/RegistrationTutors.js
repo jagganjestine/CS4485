@@ -15,6 +15,7 @@ import BottomNav from "./BottomNav";
 import { TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
+import sha256 from 'crypto-js/sha256';
 
 
 function TutorRegistration() {
@@ -82,7 +83,7 @@ function TutorRegistration() {
 
     return password.length >= minLength && hasUppercase && hasLowercase && hasDigit && hasSpecialChar;
   };
-  const writeTutorData = (userId, firstName, lastName, email, phoneNumber, birthday, subjects, aboutMe, startTime, endTime, photo) => {
+  const writeTutorData = (userId, firstName, lastName, email, phoneNumber, birthday, subjects, aboutMe, startTime, endTime, hashedPassword) => {
 
     set(ref(db, 'tutors/' + userId), {
       first_name: firstName,
@@ -92,8 +93,10 @@ function TutorRegistration() {
       birthday: birthday,
       subjects: subjects,
       about_me: aboutMe,
+      password: hashedPassword,
       start_Time: startTime,
       end_Time: endTime,
+
     });
 
   };
@@ -133,10 +136,12 @@ function TutorRegistration() {
     }
 
     try {
+      const hashedPassword = sha256(password).toString();
+      // console.log(hashedPassword);
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const storage = getStorage();
 
-      writeTutorData(userCredential.user.uid, firstName, lastName, email, phoneNumber, birthday, subjects, aboutMe, startTime, endTime);
+      writeTutorData(userCredential.user.uid, firstName, lastName, email, phoneNumber, birthday, subjects, aboutMe, startTime, endTime, hashedPassword);
       const fileRef = sRef(storage, 'profile_pictures/' + userCredential.user.uid)
       await uploadBytes(fileRef, photo)
       const photoURL = await getDownloadURL(fileRef);
@@ -150,13 +155,22 @@ function TutorRegistration() {
       navigate("/login");
       // REDIRECT TO LOGIN PAGE
     } catch (error) {
-      //alert("Something went wrong, Please try again.")
-      Swal.fire({
-        icon: 'error',
-        title: 'Registration Failed',
-        text: 'Something went wrong, please try again later.',
-    });
-      console.error(error);
+      if (error.code === 'auth/email-already-in-use') {
+        //alert("Email is already in use. Please press the 'Go to Login' button.");
+        Swal.fire({
+          icon: 'warning',
+          title: 'Email in Use',
+          text: 'Email is already in use. Please Login.'
+        });
+    } else {
+        //alert("Something went wrong, Please try again.")
+        Swal.fire({
+          icon: 'error',
+          title: 'Registration Failed',
+          text: 'Something went wrong, please try again.'
+        });
+    }
+    console.error(error);
     }
   };
 
