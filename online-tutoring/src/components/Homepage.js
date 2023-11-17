@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 import trophy from '../images/trophy.png'
 import cap from '../images/cap.png'
 import medal from '../images/medal.png'
-import appt from '../images/appt.png'
+import appt from '../images/appt.jpg'
 import fav from '../images/favorites.png'
 
 function HomePage() {
@@ -26,7 +26,6 @@ function HomePage() {
   const [appointmentTime, setAppointmentTime] = useState("");
   const [upcomingAppointments, setUpcomingAppointments] = useState([]);
   const [imageURL, setImageURL] = useState("");
-  const [cancellationNotif, setCancellationNotif] = useState(null);
 
 
   const auth = getAuth();
@@ -37,13 +36,13 @@ function HomePage() {
     try {
       await signOut(auth);
       console.log("Signed out")
-      window.localStorage.clear()
-      window.location.href = "/"
       Swal.fire({
         icon: 'success',
         title: 'Logged out.',
         text: 'You have been successfully signed out!',
       });
+      window.localStorage.clear()
+      window.location.href = "/"
       // User logged out successfully
     } catch (error) {
       // Handle logout errors
@@ -121,30 +120,9 @@ const handleCancelAppointment = async (appointmentId) => {
     const appointmentRef = ref(db, `appointments/${appointmentId}`);
     await remove(appointmentRef); // This will delete the appointment entry
 
-      // Check if the appointment is more than 24 hours away
-      if (timeDifference > 24 * 60 * 60 * 1000) {
-        await remove(appointmentRef); // This will delete the appointment entry
-
-        if (userType === "user") {
-          fetchUpcomingAppointments();
-        } else {
-          fetchTutorAppointments();
-          setCancellationNotif(`Your appointment with ${appointment.studentName} on ${formatDate(appointment.date)} at ${formatTime(appointment.time)} has been canceled.`)
-        }
-
-        Swal.fire({
-          icon: 'success',
-          title: 'Appointment Cancelled',
-          text: 'Appointment canceled successfully!',
-        });
-      } else {
-        // Use SweetAlert to inform the user that they can't cancel the appointment
-        Swal.fire({
-          icon: 'error',
-          title: 'Cancellation Not Allowed',
-          text: 'You cannot cancel an appointment less than 24 hours in advance.',
-        });
-      }
+    // Now, fetch the updated list
+    if (userType === "user") {
+      fetchUpcomingAppointments();
     } else {
       fetchTutorAppointments();
     }
@@ -351,11 +329,11 @@ const isFutureDate = (date, time) => {
             
             if (tutorData) {
               setUserData(tutorData);
-              setUserType("tutor");
+              setUserType("Tutor");
               fetchUpcomingAppointments();
               
   
-              if (userType === "tutor") {
+              if (userType === "Tutor") {
                 fetchTutorAppointments();
                 fetchImageURL();
               }
@@ -365,100 +343,81 @@ const isFutureDate = (date, time) => {
       });
     }
   }, [auth, db, userType]);
-
-      // used to reformat date for upcoming appointments 
-  function formatDate(inputDate) {
-    const date = new Date(inputDate);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-
-    return `${month}/${day}/${year}`;
-  }
-
-  // used to reformat time for upcoming appointments 
-  function formatTime(inputTime) {
-    const time = inputTime.split(":");
-    const hours = parseInt(time[0]);
-    const minutes = time[1];
-    const amOrPm = hours >= 12 ? "PM" : "AM";
-    const formattedHours = hours > 12 ? hours - 12 : hours;
-    return `${formattedHours}:${minutes} ${amOrPm}`;
-  }
   
+
+
   // If userData hasn't been fetched yet, show loading state
   if (!userData.first_name) return <div>Please login</div>;
 
-  //          <p className="available-hours"><strong>Available Hours:</strong> {userData.start_Time} - {userData.end_Time}</p>
-
+  
   // If the user is a tutor, show the tutor-specific homepage
-if (userType === "tutor") {
+if (userType === "Tutor") {
   
   return (
     <div>
-      <div className="sidebar-tutor">
-        <div className="purple-panel-tutor">
-          <h1 className="panel-title-tutor">Your Stats:</h1>
-          <h1 className="classes-panel-tutor"><span className="number-subjects-taught">{numberOfSubjectsTaught} </span>Classes <img className="trophy-tutor" src={trophy} /></h1>
-          <h1 className="hours-panel-tutor">Hours</h1>
-          <img className="medal-tutor" src={medal} />
-          <h1 className="subject-panel-tutor">Top Subject:</h1>
-          <img className="cap-tutor" src={cap} />
-          <div className="tutor-logout">
-            <button className="tutor-logout-button" onClick={handleLogout}>Logout</button>
-          </div>
-        </div>
-      </div>
-      <div className="profile-container">
-        <img src={imageURL} alt = "Profile" className = "profileImage"/>
-        <div className="profile-text-container">
-          <p className="edit-profile">Edit Profile</p>
-          <p className="profile-name"> <span className="bold-words">Name:</span> {userData.first_name + " " + userData.last_name}</p>
-          <p className="profile-status"> <span className="bold-words">Status:</span> {userType}</p>
-          <p className="profile-subjects"><span className="bold-words">Subjects: </span> 
-          {Object.keys(userData.subjects || {}).filter(subject => userData.subjects[subject] === true).join(', ')}
-          </p>
-          <p className="about-me"><span className="bold-words">About Me:</span> {userData.about_me}</p>
-          <p className="available-hours"><span className="bold-words">Available Hours:</span> {userData.start_Time} - {userData.end_Time}</p>
-        </div>
-      </div>
-
-      <div className="appts-container"> 
-        <div className="upcoming-appointments">
-          <h3> <span className="upappt">Upcoming Appointments:</span></h3>
-          {upcomingAppointments.map((appointment, index) => (
-            <div key={index}>
-              <p className="appointment-details">
-                  <span className="appointment-name">{appointment.studentName}</span>
-                  <span className="appointment-date">{"\t" + " on " + formatDate(appointment.date)}</span>
-                  <div className="appt-time-cancel">
-                    <span className="appointment-time">{"\t" + " at " + formatTime(appointment.time)}</span>
-                    <button className="cancel-appointment" onClick={() => handleCancelAppointment(appointment.id)}>Cancel</button>
-                  </div>
-              </p>
-              {/* Add more appointment details if needed */}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <br></br>
-      
-      <div className="notif-container">
-        <div className="tutor-notifications">
-           <span className="notifs-label">Notifications:</span>
-          {upcomingAppointments.map((appointment, index) => (
-            <div key={index}>
-            <p className="notifs-details">
-              <span className="appointment-name2">{appointment.studentName}</span>
-              <span className="appointment-date2"> recently booked a {appointment.date} appointment</span>
-            </p>
-            {/* Add more appointment details if needed */}
-          </div>
-          ))}
+    <div className="sidebar-tutor">
+      <div className="purple-panel-tutor">
+        <h1 className="panel-title-tutor">Your Stats:</h1>
+        <h1 className="classes-panel-tutor"><span className="number-subjects-taught">{numberOfSubjectsTaught} </span>Classes <img className="trophy-tutor" src={trophy} /></h1>
+        <h1 className="hours-panel-tutor">Hours</h1>
+        <img className="medal-tutor" src={medal} />
+        <h1 className="subject-panel-tutor">Top Subject:</h1>
+        <img className="cap-tutor" src={cap} />
+        <div className="tutor-logout">
+          <button className="tutor-logout-button" onClick={handleLogout}>Logout</button>
         </div>
       </div>
     </div>
+    <div className="profile-container">
+      <img src={imageURL} alt = "Profile" className = "profileImage"/>
+      <div className="profile-text-container">
+        <p className="edit-profile">Edit Profile</p>
+        <p className="profile-name"> <span className="bold-words">Name:</span> {userData.first_name + " " + userData.last_name}</p>
+        <p className="profile-status"> <span className="bold-words">Status:</span> {userType}</p>
+        <p className="profile-subjects"><span className="bold-words">Subjects: </span> 
+        {Object.keys(userData.subjects || {}).filter(subject => userData.subjects[subject] === true).join(', ')}
+        </p>
+        <p className="about-me"><span className="bold-words">About Me:</span> {userData.about_me}</p>
+        <p className="available-hours"><span className="bold-words">Available Hours:</span> {userData.start_Time} - {userData.end_Time}</p>
+      </div>
+    </div>
+
+    <div className="appts-container"> 
+      <div className="upcoming-appointments">
+        <h3> <span className="upappt">Upcoming Appointments:</span></h3>
+        {upcomingAppointments.map((appointment, index) => (
+          <div key={index}>
+            <p className="appointment-details">
+                <span className="appointment-name">{appointment.studentName}</span>
+                <span className="appointment-date">{"\t" + " on " + formatDate(appointment.date)}</span>
+                <div className="appt-time-cancel">
+                  <span className="appointment-time">{"\t" + " at " + formatTime(appointment.time)}</span>
+                  <button className="cancel-appointment" onClick={() => handleCancelAppointment(appointment.id)}>Cancel</button>
+                </div>
+            </p>
+            {/* Add more appointment details if needed */}
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <br></br>
+    
+    <div className="notif-container">
+      <div className="tutor-notifications">
+         <span className="notifs-label">Notifications:</span>
+        {upcomingAppointments.map((appointment, index) => (
+          <div key={index}>
+          <p className="notifs-details">
+            <span className="appointment-name2">{appointment.studentName}</span>
+            <span className="appointment-date2"> recently booked a {appointment.date} appointment</span>
+          </p>
+          {/* Add more appointment details if needed */}
+        </div>
+        ))}
+      </div>
+    </div>
+  </div>
   );
 }
 
