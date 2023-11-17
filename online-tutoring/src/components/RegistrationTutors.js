@@ -28,7 +28,8 @@ function TutorRegistration() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [birthday, setBirthday] = useState("");
   const [aboutMe, setAboutMe] = useState("");
-  const [availableHours, setAvailableHours] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
  // const [profileImage, setProfileImage] = useState(null);
   const [felonyConvictions, setFelonyConvictions] = useState(null);
   const [misdemeanorConvictions, setMisdemeanorConvictions] = useState(null);
@@ -57,6 +58,18 @@ function TutorRegistration() {
     }));
   };
 
+  const generateTimeOptions = () => {
+    const options = [];
+    for (let i = 0; i < 24; i++) {
+      for (let j = 0; j < 60; j += 30) {
+        const hour = i.toString().padStart(2, '0');
+        const minute = j.toString().padStart(2, '0');
+        options.push(`${hour}:${minute}`);
+      }
+    }
+    return options;
+  };
+
   const getSelectedSubjects = () => {
     return Object.keys(subjects).filter(subject => subjects[subject]);
   };
@@ -69,7 +82,7 @@ function TutorRegistration() {
 
     return password.length >= minLength && hasUppercase && hasLowercase && hasDigit && hasSpecialChar;
   };
-  const writeTutorData = (userId, firstName, lastName, email, phoneNumber, birthday, subjects, aboutMe, availableHours, photo) => {
+  const writeTutorData = (userId, firstName, lastName, email, phoneNumber, birthday, subjects, aboutMe, startTime, endTime, photo) => {
 
     set(ref(db, 'tutors/' + userId), {
       first_name: firstName,
@@ -79,7 +92,8 @@ function TutorRegistration() {
       birthday: birthday,
       subjects: subjects,
       about_me: aboutMe,
-      available_hours: availableHours,
+      start_Time: startTime,
+      end_Time: endTime,
     });
 
   };
@@ -122,7 +136,7 @@ function TutorRegistration() {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const storage = getStorage();
 
-      writeTutorData(userCredential.user.uid, firstName, lastName, email, phoneNumber, birthday, subjects, aboutMe, availableHours);
+      writeTutorData(userCredential.user.uid, firstName, lastName, email, phoneNumber, birthday, subjects, aboutMe, startTime, endTime);
       const fileRef = sRef(storage, 'profile_pictures/' + userCredential.user.uid)
       await uploadBytes(fileRef, photo)
       const photoURL = await getDownloadURL(fileRef);
@@ -179,9 +193,34 @@ function TutorRegistration() {
                 onChange={(e) => setAboutMe(e.target.value)}
               ></textarea> <div style={{ marginTop: '10px' }}></div>
             </div>
-            <div className="form-group"> 
-            <TextField type="hours" required label="Available Hours (e.g. 9am-5pm)" id="standard-basic" variant="standard" className="proportion" value={availableHours} onChange={(e) => setAvailableHours(e.target.value)}></TextField> 
+            <div className="form-group">
+              <label htmlFor="startTime">Start Time</label>
+              <select
+                id="startTime"
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
+              >
+                <option value="">Select Start Time</option>
+                {generateTimeOptions().map((time, index) => (
+                  <option key={index} value={time}>{time}</option>
+                ))}
+              </select>
             </div>
+            <div className="form-group">
+              <label htmlFor="endTime">End Time</label>
+              <select
+                id="endTime"
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)}
+              >
+                <option value="">Select End Time</option>
+                {generateTimeOptions().map((time, index) => (
+                  <option key={index} value={time}>{time}</option>
+                ))}
+              </select>
+            </div>
+            
+            
             <div className="form-group"> 
             <TextField type="email" required label="Email" id="standard-basic" variant="standard" className="proportion" value={email} onChange={(e) => setEmail(e.target.value)}></TextField> 
             </div>
