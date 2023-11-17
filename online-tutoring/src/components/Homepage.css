@@ -27,6 +27,168 @@
   margin-bottom: 20px;
 }
 
+  .number-subjects-taught {
+    font-size: 50px;
+  }
+  .purple-panel-tutor {
+    background: linear-gradient(135deg, #B674E6, #3B2667);
+    width: 200px; 
+    height: 100%; 
+    position: fixed; 
+    top: 0; 
+    left: 100; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    }
+  
+    .panel-title-tutor {
+      color: white;
+      font-size: 20px; 
+      margin-top: 20px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
+      font-weight: 500;
+      padding-top: 35px;
+      padding-right: 80px;
+      }
+  
+  .classes-panel-tutor{
+    color: white;
+    font-size: 15px; 
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
+    font-weight: 500;
+    padding-top: 60px;
+    padding-right: 120px;
+  }
+  
+  .hours-panel-tutor{
+    color: white;
+    font-size: 15px; 
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
+    font-weight: 500;
+    padding-top: 10px;
+    padding-right: 120px;
+    }
+  
+  .subject-panel-tutor{
+    color: white;
+    font-size: 15px; 
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
+    font-weight: 500;
+    padding-right: 80px;
+  }
+  
+  .trophy-tutor {
+    width: 50px;
+    height: auto;
+    position: relative; 
+    top: -50px; 
+    padding-left: 120px;
+  }
+    
+  .cap-tutor {
+    width: 45px;
+    height: auto;
+    position: relative; 
+    top: -40px; 
+    padding-left: 120px;
+  }
+    
+  .medal-tutor {
+    width: 45px;
+    height: auto;
+    position: relative; 
+    top: -48px; 
+    padding-left: 120px;
+  }
+  
+.tutor-logout {
+  padding-top: 200px
+}
+
+.tutor-logout-button {
+  border:none;
+  font-weight: 550;
+  color: white;
+  padding: 15px;
+  background-color: black;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.tutor-logout-button:hover {
+  color: black;
+  background-color:white;;
+  transition:0.7s;
+}
+
+.upcoming-appointments {
+  background-color: lightgray;
+  height: 300px;
+  width: 1000px;
+  border-radius: 30px;
+  overflow: auto;
+  font-weight: 500;
+}
+
+.cancel-appointment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  width: 90px;
+  height: 30px;
+  color: white;
+  border-radius: 20px;
+  background-color: black;
+  cursor: pointer;
+  border:none;
+}
+
+.cancel-appointment:hover {
+  color: white;
+  background-color:#935EC2;;
+  transition:0.7s;
+}
+
+
+.student {
+  font-size: 30px;
+  color: purple
+}
+
+.appts-container {
+  padding-top: 80px;
+  justify-content: right;
+  display: flex;
+  padding-right: 80px;
+  padding-bottom: 30px;
+}
+
+.profileImage {
+    border-color: gray;
+    border-radius: 50%;
+    width: 300px;  /* Adjust width as necessary */
+    height: 300px;  /* Adjust height as necessary */
+    object-fit: cover;  /* This ensures that the image covers the circle without distortion */
+}
+
+.bold-words {
+  font-weight: 500;
+}
+
+.profile-container {
+  padding-top: 40px;
+  text-align: center;
+  float:right;
+  margin-right: 200px;
+  border-color: black;
+  padding-left: 70px;
+  border-left-color: lightgray;
+  border-left-style: groove;
+  height: 100vh;
+  line-height: 45px
+=======
 .search-bar-button{
 margin-right: 100px;
 background-color: transparent;
@@ -84,6 +246,7 @@ color: white;
 font-size: 15px; 
 font-weight: 500;
 padding-right: 80px;
+
 }
 
 .trophy-student {
@@ -94,6 +257,111 @@ top: -50px;
 padding-left: 120px;
 }
 
+.edit-profile {
+  color: #3F98CA;
+  text-align: center;
+  font-size: 20px;
+}
+
+.appointment-name {
+  font-size: 30px;
+  color: #935EC2;
+  padding-right: 10px
+}
+
+.appointment-name2 {
+  font-size: 25px;
+  color: #935EC2;
+  padding-right: 10px
+}
+
+.appointment-date {
+  padding-right:10px;
+}
+
+.appointment-date2 {
+  font-size: 25px;
+  padding-right:10px;
+}
+
+.appointment-time {
+  padding-right: 50px;
+}
+
+.profile-name {
+  font-size: 17px
+}
+
+.profile-status {
+  font-size: 17px
+}
+
+.profile-subjects {
+  font-size: 17px
+}
+
+.about-me {
+  font-size: 17px
+}
+
+.available-hours {
+  font-size: 17px
+}
+
+.notifs-details {
+  display: flex;
+  padding-left: 50px;
+  align-items: center;
+  
+}
+
+.tutor-notifications {
+  background-color: lightgray;
+  height: 300px;
+  width: 1000px;
+  border-radius: 30px;
+  padding-top:20px;
+  font-weight: 500;
+}
+
+.upappt {
+  font-weight: 500;
+  font-size: medium;
+  display: flex;
+  padding-left: 50px;
+}
+
+.appointment-details {
+  display: flex;
+  padding-left: 50px;
+  align-items: center;
+  
+}
+
+.appt-time-cancel {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.notif-container {
+  justify-content: right;
+  display: flex;
+  padding-right: 80px;
+}
+
+.notifs-label {
+  font-weight: 500;
+  font-size: medium;
+  display: flex;
+  padding-left: 50px;
+}
+.search-bar {
+    width: 40%;
+    background-color: #ccc;
+    border-radius: 20px; 
+    height: 40px; /*issue with height*/
 .cap-student {
 width: 45px;
 height: auto;

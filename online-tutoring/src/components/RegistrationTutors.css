@@ -15,6 +15,13 @@ transform: translateX(-50%);
 color: white;
 }
 
+.startTime {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  float: left;
+}
+
 .form-group{
   color: black;
 }

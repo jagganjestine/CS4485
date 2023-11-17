@@ -22,3 +22,9 @@
     color:black;
     transition: 0.5s;
 }
+
+.copyright {
+    padding-top: 40px;
+    color:white;
+    font-weight: 500;
+}

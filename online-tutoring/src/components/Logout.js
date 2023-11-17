@@ -4,7 +4,7 @@ import firebase from "./firebase";
 import { getAuth, signOut } from "firebase/auth";
 
 function Logout() {
-    const auth = getAuth();
+  const auth = getAuth();
   const handleLogout = async () => {
     try {
       await signOut(auth);
