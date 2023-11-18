@@ -72,7 +72,7 @@ function Login() {
             
             console.log("Code has been sent");
             Swal.fire({
-              icon: 'success',
+              icon: 'info',
               title: 'Verification Code',
               text: 'Verification Code Sent. Please check your email!'
             });
