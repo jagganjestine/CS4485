@@ -519,6 +519,7 @@ if (userType === "Tutor") {
                 setShowScheduleModal(true); }}>Schedule Appointment</button></h3>
           </div>
           <h5>Subjects: {Object.keys(tutor.subjects).filter(subject => tutor.subjects[subject] === true).join(', ')}</h5>
+          <h5>Available Hours: {formatTime(tutor.start_Time)} - {formatTime(tutor.end_Time)}</h5>
           <h5>Phone Number: {tutor.phone_number}</h5>
           {/* Display other tutor details if needed */}
         </div>
