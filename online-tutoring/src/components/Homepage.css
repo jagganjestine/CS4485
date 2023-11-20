@@ -397,6 +397,7 @@ margin-bottom: -15px;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-bottom: 50px;
 }
 
 .dashboard-container-student{
