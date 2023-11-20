@@ -388,6 +388,12 @@ margin-right: 120px;
 margin-bottom: -15px;
 }
 
+.purple-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .dashboard-container-student{
 display: flex;
 justify-content: flex-end;
@@ -397,7 +403,6 @@ background: linear-gradient(135deg, #B674E6, #3B2667);
 border-radius: 50px;
 width: 1000px; 
 height: 430px; 
-margin: 0 120px 0 auto;
 }  
 
 
@@ -497,19 +502,23 @@ font-size: 15px;
 margin-right: 50px;
 
 }
+.search-results-box-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .search-results-box {
-display: flex;
-flex-direction: column; 
-font-size: 20px;
-background: #ccc;
-border-radius: 50px;
-width: 1000px; 
-height: 300px; 
-margin: 0 120px 0 auto;
-overflow: auto; 
-margin-bottom: 50px;
-margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  background: #ccc;
+  border-radius: 50px;
+  width: 1000px; 
+  height: 300px; 
+  overflow: auto; 
+  margin-bottom: 50px;
+  margin-top: 20px;
 }
 
 .star-fav{

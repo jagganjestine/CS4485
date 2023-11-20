@@ -498,7 +498,8 @@ if (userType === "Tutor") {
       </div>
 
            {/* Display search results */}
-           <div className = "search-results-box">
+        <div className="search-results-box-container">
+        <div className = "search-results-box">
         {searchResults.map(tutor => (
           <div key={tutor.id}>
           <div>
@@ -515,8 +516,10 @@ if (userType === "Tutor") {
         
         ))}
       </div>
+      </div>
 
       {/*Display favorite tutor list*/}
+      <div className="purple-box">
       <div className = "dashboard-container-student">
       <div className= "favorite-tutors">
       <h5 className="favorite-tutor-title" > My Favorites List:</h5>
@@ -568,6 +571,7 @@ if (userType === "Tutor") {
       )}
       {/* DONT MESS W IT :) */} 
 
+    </div> 
     </div>
     </div>
   );
