@@ -364,6 +364,28 @@ const isFutureDate = (date, time) => {
     } catch (error) {
       console.error("Error fetching image URL:", error);
     }
+  }; 
+
+  // function to delete past appointments 
+  const deletePastAppointments = async () => {
+    const appointmentsRef = ref(db, 'appointments');
+    const snapshot = await get(appointmentsRef);
+    const allAppointments = snapshot.val();
+  
+    if (allAppointments) {
+      for (const appointmentId in allAppointments) {
+        const appointment = allAppointments[appointmentId];
+        const appointmentDateTime = new Date(appointment.date + 'T' + appointment.time);
+        const currentDateTime = new Date();
+  
+        if (appointmentDateTime < currentDateTime) {
+          await remove(ref(db, `appointments/${appointmentId}`));
+        }
+      }
+  
+      // Fetch updated upcoming appointments
+      fetchUpcomingAppointments();
+    }
   };
   // Fetch user data on component mount and decide whether the user is a general user or a tutor
   useEffect(() => {
@@ -396,6 +418,7 @@ const isFutureDate = (date, time) => {
           });
         }
       });
+      deletePastAppointments();
     }
   }, [auth, db, userType]);
   
