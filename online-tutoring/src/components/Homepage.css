@@ -117,9 +117,10 @@ transition:0.7s;
   background-color: lightgray;
   height: 300px;
   width: 1000px;
-  border-radius: 30px;
+  border-radius: 50px;
   overflow: auto;
   font-weight: 500;
+  display: flex;
 }
 
 .cancel-appointment {
@@ -288,23 +289,27 @@ transition:0.7s;
 /*STUDENT CSS*/
 
 .search-bar {
+  display: flex;
   width: 40%;
   background-color: #ccc;
   border-radius: 20px; 
   height: 40px; 
   margin-top: 50px;
   border: none;
-  margin-bottom: 20px;
+  margin-left: 360px;
 }
 
 .search-bar-button{
-margin-right: 100px;
 background-color: transparent;
 border: none; 
 color: #B674E6; 
 cursor: pointer; 
 width: 50px; 
-font-size:20px;
+font-size: 20px;
+margin-left: 970px;
+position: relative;
+top: -30px; 
+display: flex;
 }
 
 .search-bar-button:hover{
@@ -397,7 +402,6 @@ margin-bottom: -15px;
 .dashboard-container-student{
 display: flex;
 justify-content: flex-end;
-flex-direction: column; 
 font-size: 20px;
 background: linear-gradient(135deg, #B674E6, #3B2667);
 border-radius: 50px;
@@ -417,6 +421,7 @@ margin-right: 20px;
 margin-bottom: 20px;
 text-align: left;
 overflow:auto;
+margin-top: 19px;
 }
 
 .upcoming-appts-student {
@@ -444,9 +449,10 @@ background: white;
 border-radius: 50px;
 width: 260px;
 height: 380px;
-margin-left: 40px;
 margin-bottom: -380px;
-overflow:auto;
+margin-top: 20px;
+margin-right: 40px;
+overflow: auto;
 }
 
 .favorite-tutor-title{
@@ -547,7 +553,7 @@ margin-left: 20px;
 }
 
 .appt-schedule-button:hover{
-background-color: rgb(186, 108, 223);;
+background-color: rgb(186, 108, 223);
 transition:0.7s;
 }
 
@@ -566,4 +572,8 @@ color: black;
 transition:0.7s;
 }
 
-
+.checkbox-font{
+  color: rgb(186, 108, 223);
+  font-weight: 600;
+  font-size: 16px;
+}

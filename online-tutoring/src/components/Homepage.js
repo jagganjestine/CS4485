@@ -13,6 +13,10 @@ import cap from '../images/cap.png'
 import medal from '../images/medal.png'
 import appt from '../images/appt.jpg'
 import fav from '../images/favorites.png'
+import Checkbox from '@mui/material/Checkbox';
+import { grey } from '@mui/material/colors';
+
+
 
 function HomePage() {
   const [userData, setUserData] = useState({});
@@ -114,7 +118,7 @@ function formatTime(inputTime) {
     });
 };
 
-// Cancel appointments fucntion for both tutor and students
+// Cancel appointments function for both tutor and students
 const handleCancelAppointment = async (appointmentId) => {
   const appointmentRef = ref(db, `appointments/${appointmentId}`);
 
@@ -127,29 +131,29 @@ const handleCancelAppointment = async (appointmentId) => {
       const currentDateTime = new Date();
       const timeDifference = appointmentDateTime - currentDateTime;
 
-      // Check if the appointment is more than 24 hours away
-      if (timeDifference > 24 * 60 * 60 * 1000) {
-        await remove(appointmentRef); // This will delete the appointment entry
-
-        if (userType === "user") {
-          fetchUpcomingAppointments();
-        } else {
-          fetchTutorAppointments();
-        }
-
-        Swal.fire({
-          icon: 'success',
-          title: 'Appointment Cancelled',
-          text: 'Appointment canceled successfully!',
-        });
-      } else {
-        // Use SweetAlert to inform the user that they can't cancel the appointment
+      // Apply the 24-hour check only for students
+      if (userType === "user" && timeDifference <= 24 * 60 * 60 * 1000) {
         Swal.fire({
           icon: 'error',
           title: 'Cancellation Not Allowed',
           text: 'You cannot cancel an appointment less than 24 hours in advance.',
         });
+        return;
       }
+
+      await remove(appointmentRef); // This will delete the appointment entry
+
+      if (userType === "user") {
+        fetchUpcomingAppointments();
+      } else {
+        fetchTutorAppointments();
+      }
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Appointment Cancelled',
+        text: 'Appointment canceled successfully!',
+      });
     } else {
       Swal.fire({
         icon: 'error',
@@ -166,6 +170,7 @@ const handleCancelAppointment = async (appointmentId) => {
     });
   }
 };
+
 
 
 // Helper function to validate appointment time and date
@@ -208,12 +213,12 @@ const isFutureDate = (date, time) => {
   // Handle scheduling of new appointments
   const handleScheduleAppointment = async () => {
     const appointmentId = `${auth.currentUser.uid}_${selectedTutor.id}_${Date.now()}`;
-  
+
     // Fetch the selected tutor's available hours
     const tutorRef = ref(db, `tutors/${selectedTutor.id}`);
     const tutorSnapshot = await get(tutorRef);
     const tutorData = tutorSnapshot.val();
-  
+
     if (!tutorData) {
       Swal.fire({
         icon: 'error',
@@ -222,12 +227,21 @@ const isFutureDate = (date, time) => {
       });
       return;
     }
-  
+
+    // Check if the time has been selected
+    if (!appointmentTime) {
+      Swal.fire({
+        icon: 'error',
+        title: 'No Time Selected',
+        text: 'Please select a time for the appointment.',
+      });
+      return;
+    }
     const { start_Time, end_Time } = tutorData;
     const selectedDateTime = new Date(appointmentDate + "T" + appointmentTime);
     const startTime = new Date(appointmentDate + "T" + start_Time);
     const endTime = new Date(appointmentDate + "T" + end_Time);
-  
+
     // Check if the selected time is within tutor's available hours
     if (selectedDateTime < startTime || selectedDateTime > endTime) {
       Swal.fire({
@@ -237,7 +251,7 @@ const isFutureDate = (date, time) => {
       });
       return;
     }
-  
+
     const newAppointment = {
       id: appointmentId,
       tutorId: selectedTutor.id,
@@ -246,7 +260,7 @@ const isFutureDate = (date, time) => {
       time: appointmentTime
       // Add other details if needed
     };
-  
+
     // Check if the selected date and time are in the past
     const currentDateTime = new Date();
     if (selectedDateTime <= currentDateTime) {
@@ -350,6 +364,28 @@ const isFutureDate = (date, time) => {
     } catch (error) {
       console.error("Error fetching image URL:", error);
     }
+  }; 
+
+  // function to delete past appointments 
+  const deletePastAppointments = async () => {
+    const appointmentsRef = ref(db, 'appointments');
+    const snapshot = await get(appointmentsRef);
+    const allAppointments = snapshot.val();
+  
+    if (allAppointments) {
+      for (const appointmentId in allAppointments) {
+        const appointment = allAppointments[appointmentId];
+        const appointmentDateTime = new Date(appointment.date + 'T' + appointment.time);
+        const currentDateTime = new Date();
+  
+        if (appointmentDateTime < currentDateTime) {
+          await remove(ref(db, `appointments/${appointmentId}`));
+        }
+      }
+  
+      // Fetch updated upcoming appointments
+      fetchUpcomingAppointments();
+    }
   };
   // Fetch user data on component mount and decide whether the user is a general user or a tutor
   useEffect(() => {
@@ -382,6 +418,7 @@ const isFutureDate = (date, time) => {
           });
         }
       });
+      deletePastAppointments();
     }
   }, [auth, db, userType]);
   
@@ -490,8 +527,10 @@ if (userType === "Tutor") {
       <button className = "search-bar-button" onClick={handleSearch}><FontAwesomeIcon icon={faSearch} /></button>  {/* test padding */}
       <div>
         {subjects.map(subject => (
-          <label key={subject}>
-            <input type="checkbox" checked={checkedSubjects[subject] || false} onChange={() => handleSubjectChange(subject)} />
+          <label key={subject} className="checkbox-font">
+            <Checkbox defaultChecked sx={{color: grey[800], '&.Mui-checked': {color: grey[600],
+          },
+        }} checked={checkedSubjects[subject] || false} onChange={() => handleSubjectChange(subject)} />
             {subject}
           </label>
         ))}
@@ -510,6 +549,7 @@ if (userType === "Tutor") {
                 setShowScheduleModal(true); }}>Schedule Appointment</button></h3>
           </div>
           <h5>Subjects: {Object.keys(tutor.subjects).filter(subject => tutor.subjects[subject] === true).join(', ')}</h5>
+          <h5>Available Hours: {formatTime(tutor.start_Time)} - {formatTime(tutor.end_Time)}</h5>
           <h5>Phone Number: {tutor.phone_number}</h5>
           {/* Display other tutor details if needed */}
         </div>
