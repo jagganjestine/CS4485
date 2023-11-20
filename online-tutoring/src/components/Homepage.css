@@ -289,23 +289,27 @@ transition:0.7s;
 /*STUDENT CSS*/
 
 .search-bar {
+  display: flex;
   width: 40%;
   background-color: #ccc;
   border-radius: 20px; 
   height: 40px; 
   margin-top: 50px;
   border: none;
-  margin-bottom: 20px;
+  margin-left: 360px;
 }
 
 .search-bar-button{
-margin-right: 100px;
 background-color: transparent;
 border: none; 
 color: #B674E6; 
 cursor: pointer; 
 width: 50px; 
-font-size:20px;
+font-size: 20px;
+margin-left: 970px;
+position: relative;
+top: -30px; 
+display: flex;
 }
 
 .search-bar-button:hover{
@@ -540,7 +544,7 @@ margin-left: 20px;
 }
 
 .appt-schedule-button:hover{
-background-color: rgb(186, 108, 223);;
+background-color: rgb(186, 108, 223);
 transition:0.7s;
 }
 
@@ -559,4 +563,8 @@ color: black;
 transition:0.7s;
 }
 
-
+.checkbox-font{
+  color: rgb(186, 108, 223);
+  font-weight: 600;
+  font-size: 16px;
+}

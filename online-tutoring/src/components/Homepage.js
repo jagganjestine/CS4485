@@ -13,6 +13,10 @@ import cap from '../images/cap.png'
 import medal from '../images/medal.png'
 import appt from '../images/appt.jpg'
 import fav from '../images/favorites.png'
+import Checkbox from '@mui/material/Checkbox';
+import { grey } from '@mui/material/colors';
+
+
 
 function HomePage() {
   const [userData, setUserData] = useState({});
@@ -500,8 +504,10 @@ if (userType === "Tutor") {
       <button className = "search-bar-button" onClick={handleSearch}><FontAwesomeIcon icon={faSearch} /></button>  {/* test padding */}
       <div>
         {subjects.map(subject => (
-          <label key={subject}>
-            <input type="checkbox" checked={checkedSubjects[subject] || false} onChange={() => handleSubjectChange(subject)} />
+          <label key={subject} className="checkbox-font">
+            <Checkbox defaultChecked sx={{color: grey[800], '&.Mui-checked': {color: grey[600],
+          },
+        }} checked={checkedSubjects[subject] || false} onChange={() => handleSubjectChange(subject)} />
             {subject}
           </label>
         ))}
