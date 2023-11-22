@@ -22,28 +22,31 @@
   position: fixed;
   top: 0;
   left: 0; 
-  display: flex;
+  display: flexbox;
   flex-direction: column;
 }
 
 
-  .panel-title-tutor {
-    color: white;
-    font-size: 20px; 
-    margin-top: 20px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
-    font-weight: 500;
-    padding-top: 35px;
-    padding-right: 80px;
-    }
+.panel-title-tutor {
+  color: white;
+  font-size: 20px; 
+  margin-top: 20px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
+  font-weight: 500;
+  padding-top: 35px;
+  position: fixed;
+  padding-left: 10px;
+  flex-direction: column;
+}
 
 .classes-panel-tutor{
   color: white;
   font-size: 15px; 
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
   font-weight: 500;
-  padding-top: 60px;
-  padding-right: 120px;
+  padding-top: 100px;
+  padding-right: 130px;
+  flex-direction: column;
 }
 
 .hours-panel-tutor{
@@ -51,8 +54,9 @@
   font-size: 15px; 
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
   font-weight: 500;
-  padding-top: 10px;
-  padding-right: 120px;
+  padding-top: 40px;
+  padding-right: 140px;
+  flex-direction: column;
   }
 
 .subject-panel-tutor{
@@ -60,31 +64,36 @@
   font-size: 15px; 
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
   font-weight: 500;
-  padding-right: 80px;
+  padding-right: 100px;
+  flex-direction: column;
+  margin-top: 60px;
 }
 
 .trophy-tutor {
   width: 50px;
   height: auto;
-  position: relative; 
-  top: -50px; 
-  padding-left: 120px;
+  position: fixed; 
+  top: 135px; 
+  padding-left: 50px;
+  flex-direction: column;
 }
   
 .cap-tutor {
   width: 45px;
   height: auto;
-  position: relative; 
-  top: -40px; 
-  padding-left: 120px;
+  position: fixed; 
+  top: 300px; 
+  padding-left: 30px;
+  flex-direction: column;
 }
   
 .medal-tutor {
   width: 45px;
   height: auto;
-  position: relative; 
-  top: -48px; 
-  padding-left: 120px;
+  position: fixed; 
+  top: 220px; 
+  padding-left: 30px;
+  flex-direction: column;
 }
 
 .tutor-logout {
@@ -122,7 +131,19 @@ transition:0.7s;
   font-weight: 500;
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
 }
+
+@media (min-width: 768px) {
+  .upcoming-appointments,
+  .tutor-notifications {
+    margin-top: 0; /* Remove top margin for larger screens */
+    margin-left: auto; /* Center the box horizontally on larger screens */
+    margin-right: auto;
+  
+  }
+}
+
 
 .cancel-appointment {
   display: flex;
@@ -153,7 +174,8 @@ transition:0.7s;
   padding-top: 80px;
   justify-content: right;
   display: flex;
-  padding-right: 80px;
+  margin-left: 100px;
+  padding-left: 80px;
   padding-bottom: 30px;
   align-content: right;
 }
@@ -254,9 +276,9 @@ transition:0.7s;
   padding-top:20px;
   font-weight: 500;
   display: flex;
-  align-content: right;
-  justify-content: right;
   flex-direction: column;
+  overflow: auto;
+  margin: 0 auto;
 }
 
 .upappt {
@@ -283,7 +305,8 @@ transition:0.7s;
 .notif-container {
   justify-content: right;
   display: flex;
-  padding-right: 80px;
+  padding-left: 80px;
+  margin-left: 100px;
 }
 
 .notifs-label {
