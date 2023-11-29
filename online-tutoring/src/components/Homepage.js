@@ -505,9 +505,7 @@ if (userType === "Tutor") {
       <div className="student-logout">
             <button className="student-logout-button" onClick={handleLogout}>Logout</button></div>
       </div>
-      {/*<h2>Welcome Back, {userData.first_name} {userData.last_name}!</h2>
-      <p>Your School: {userData.school}</p>
-  <p>Your Major: {userData.major}</p>*/}
+      
       {/* Search functionality */}
       <input className="search-bar"
         type="text" 
@@ -515,7 +513,7 @@ if (userType === "Tutor") {
         onChange={(e) => setSearchQuery(e.target.value)}
         placeholder=" Search..."
       /> 
-      <button className = "search-bar-button" onClick={handleSearch}><FontAwesomeIcon icon={faSearch} /></button>  {/* test padding */}
+      <button className = "search-bar-button" onClick={handleSearch}><FontAwesomeIcon icon={faSearch} /></button> 
       <div>
         {subjects.map(subject => (
           <label key={subject} className="checkbox-font">
@@ -597,7 +595,7 @@ if (userType === "Tutor") {
           <input type="date" value={appointmentDate} onChange={(e) => setAppointmentDate(e.target.value)} />
           <input type="time" value={appointmentTime} onChange={(e) => setAppointmentTime(e.target.value)} />
           <button onClick={handleScheduleAppointment}>Confirm Appointment</button>
-          <button onClick={() => setShowScheduleModal(false)}>Cancel</button>
+          <button class="cancel-button" onClick={() => setShowScheduleModal(false)}>Cancel</button>
           <p>Please select a one hour slot</p>
         </div>
       )}

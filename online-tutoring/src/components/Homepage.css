@@ -7,7 +7,45 @@
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
+  animation: fadeIn 0.7s ease-out;
 }
+
+.modal button {
+  background-color: black;
+  color: #fff;
+  padding: 10px 10px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.modal button:hover {
+  color: white;
+  background-color: #B674E6;
+  transition:0.7s;
+}
+
+.modal .cancel-button:hover {
+  background-color: rgb(201, 31, 31);
+  transition:0.7s;
+  color: white;
+}
+
+.modal input {
+  width: 40%;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing:border-box;
+  padding-left: 10px;
+}
+
+.modal p {
+  color: #888;
+  font-size: 0.9em;
+  margin-top: 10px;
+}
+
 .profileImage {
   border-radius: 50%;
   width: 100px;  /* Adjust width as necessary */
@@ -316,17 +354,22 @@ transition:0.7s;
   padding-left: 50px;
 }
 
-/*STUDENT CSS*/
-
 .search-bar {
   display: flex;
-  width: 40%;
+  width: 700px;
   background-color: #ccc;
   border-radius: 20px; 
   height: 40px; 
-  margin-top: 50px;
+  margin-top: 30px;
   border: none;
   margin-left: 360px;
+}
+
+@media (min-width: 768px) {
+  .search-bar {
+    margin-left: auto; 
+    margin-right: auto;
+  }
 }
 
 .search-bar-button{
@@ -336,11 +379,12 @@ color: #B674E6;
 cursor: pointer; 
 width: 50px; 
 font-size: 20px;
-margin-left: 970px;
-position: relative;
-top: -30px; 
-display: flex;
+margin-left: 350px;
+display: flex-end;
+position: absolute;
+margin-top: -30px;
 }
+
 
 .search-bar-button:hover{
 color: #3B2667;
@@ -554,7 +598,6 @@ margin-right: 50px;
   height: 300px; 
   overflow: auto; 
   margin-bottom: 50px;
-  margin-top: 20px;
 }
 
 .star-fav{
