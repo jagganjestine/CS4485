@@ -37,7 +37,6 @@ function TutorRegistration() {
   const [pendingCharges, setPendingCharges] = useState(null);
   const [probationOrParole, setProbationOrParole] = useState(null);
   const [criminalConvictionRelated, setCriminalConvictionRelated] = useState(null);
-  const [unauthorizedUseDisclosure, setUnauthorizedUseDisclosure] = useState(null);
 
 
   const [subjects, setSubjects] = useState({
@@ -78,17 +77,27 @@ const handleDayChange = (e) => {
   }));
 };
 
-  const generateTimeOptions = () => {
-    const options = [];
-    for (let i = 0; i < 24; i++) {
-      for (let j = 0; j < 60; j += 30) {
-        const hour = i.toString().padStart(2, '0');
-        const minute = j.toString().padStart(2, '0');
-        options.push(`${hour}:${minute}`);
-      }
+const formatTo12Hour = (time24) => {
+  const [hour, minute] = time24.split(':');
+  const hourInt = parseInt(hour, 10);
+  const suffix = hourInt >= 12 ? 'PM' : 'AM';
+  const hour12 = ((hourInt + 11) % 12 + 1).toString().padStart(2, '0');
+  return `${hour12}:${minute} ${suffix}`;
+};
+
+const generateTimeOptions = () => {
+  const options = [];
+  for (let i = 0; i < 24; i++) {
+    for (let j = 0; j < 60; j += 30) {
+      const hour = i.toString().padStart(2, '0');
+      const minute = j.toString().padStart(2, '0');
+      const time24 = `${hour}:${minute}`;
+      options.push({ value: time24, label: formatTo12Hour(time24) });
     }
-    return options;
-  };
+  }
+  return options;
+};
+
 
   const getSelectedSubjects = () => {
     return Object.keys(subjects).filter(subject => subjects[subject]);
@@ -136,7 +145,7 @@ const handleDayChange = (e) => {
 }
 
   const handleRegistration = async () => {
-    if (felonyConvictions === 'yes' || misdemeanorConvictions === 'yes' || pendingCharges === 'yes' || probationOrParole === 'yes' || criminalConvictionRelated === 'yes' || unauthorizedUseDisclosure === 'yes') {
+    if (felonyConvictions === 'yes' || misdemeanorConvictions === 'yes' || pendingCharges === 'yes' || probationOrParole === 'yes' || criminalConvictionRelated === 'yes') {
       Swal.fire({
         icon: 'error',
         title: 'Registration Unsuccessful!',
@@ -155,6 +164,16 @@ const handleDayChange = (e) => {
       return;
     }
 
+    // Check if the photo has been uploaded
+  if (!photo) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Profile Picture Required',
+      text: 'Please upload a profile picture to continue.',
+    });
+    return;
+  }
+
     try {
       const hashedPassword = sha256(password).toString();
       // console.log(hashedPassword);
@@ -165,13 +184,13 @@ const handleDayChange = (e) => {
       const fileRef = sRef(storage, 'profile_pictures/' + userCredential.user.uid)
       await uploadBytes(fileRef, photo)
       const photoURL = await getDownloadURL(fileRef);
-      updateProfile(userCredential.user, {photoURL});
+      updateProfile(userCredential.user, { photoURL });
       console.log("Success");
       Swal.fire({
         icon: 'success',
         title: 'Registration Successful!',
         text: 'You may now login with these credentials!',
-    });
+      });
       navigate("/login");
       // REDIRECT TO LOGIN PAGE
     } catch (error) {
@@ -182,15 +201,15 @@ const handleDayChange = (e) => {
           title: 'Email in Use',
           text: 'Email is already in use. Please Login.'
         });
-    } else {
+      } else {
         //alert("Something went wrong, Please try again.")
         Swal.fire({
           icon: 'error',
           title: 'Registration Failed',
           text: 'Something went wrong, please try again.'
         });
-    }
-    console.error(error);
+      }
+      console.error(error);
     }
   };
 
@@ -251,10 +270,11 @@ const handleDayChange = (e) => {
                   onChange={(e) => setStartTime(e.target.value)}
                 >
                   <option value="">Select Start Time</option>
-                  {generateTimeOptions().map((time, index) => (
-                    <option key={index} value={time}>{time}</option>
+                  {generateTimeOptions().map((option, index) => (
+                    <option key={index} value={option.value}>{option.label}</option>
                   ))}
                 </select>
+
               </div>
               <div className="form-group">
                 <label htmlFor="endTime">End Time</label>
@@ -264,18 +284,19 @@ const handleDayChange = (e) => {
                   onChange={(e) => setEndTime(e.target.value)}
                 >
                   <option value="">Select End Time</option>
-                  {generateTimeOptions().map((time, index) => (
-                    <option key={index} value={time}>{time}</option>
+                  {generateTimeOptions().map((option, index) => (
+                    <option key={index} value={option.value}>{option.label}</option>
                   ))}
                 </select>
+
               </div>
-            <div className="form-group"> 
-            <TextField type="email" required label="Email" id="standard-basic" variant="standard" className="proportion" value={email} onChange={(e) => setEmail(e.target.value)}></TextField> 
-            </div>
-            <div className="form-group"> 
-            <TextField type="password" required label="Password" id="standard-basic" variant="standard" className="proportion" value={password} onChange={(e) => setPassword(e.target.value)}style={{ marginBottom: '20px' }}></TextField> 
-            </div>
-            <div className="upload-container">
+              <div className="form-group">
+                <TextField type="email" required label="Email" id="standard-basic" variant="standard" className="proportion" value={email} onChange={(e) => setEmail(e.target.value)}></TextField>
+              </div>
+              <div className="form-group">
+                <TextField type="password" required label="Password" id="standard-basic" variant="standard" className="proportion" value={password} onChange={(e) => setPassword(e.target.value)} style={{ marginBottom: '20px' }}></TextField>
+              </div>
+              <div className="upload-container">
               <label for="file-upload">Upload Profile Picture</label>
              <input className="styled-button" type="file" onChange={handleChange}/>
             </div>
@@ -359,21 +380,6 @@ const handleDayChange = (e) => {
                 No
               </label>
             </div>
-
-            <div className = "questions">
-              <h3>Unauthorized Use/Disclosure</h3>
-              <label>
-                <input type="radio" name="unauthorizedUseDisclosure" value="yes" required onChange={(e) => setUnauthorizedUseDisclosure(e.target.value)} />
-                Yes
-              </label>
-              <label>
-                <input type="radio" name="unauthorizedUseDisclosure" value="no" required onChange={(e) => setUnauthorizedUseDisclosure(e.target.value)} />
-                No
-              </label>
-            </div>
-
-
-
             <div style={{ marginTop: '20px' }}>
               <button className="register-tutor-button" style={{ margin: '0 auto' }} type = "submit">Register as Tutor </button> 
               </div>
