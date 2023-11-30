@@ -30,6 +30,7 @@ function HomePage() {
   const [appointmentTime, setAppointmentTime] = useState("");
   const [upcomingAppointments, setUpcomingAppointments] = useState([]);
   const [imageURL, setImageURL] = useState("");
+  const [allChecked, setAllChecked] = useState(false);
 
 
   const auth = getAuth();
@@ -75,6 +76,26 @@ function formatTime(inputTime) {
   const formattedHours = hours > 12 ? hours - 12 : hours;
   return `${formattedHours}:${minutes} ${amOrPm}`;
 }
+
+const handleAllChecked = (event) => {
+  const checked = event.target.checked;
+  setAllChecked(checked);
+  
+  // If 'All Subjects' is checked, set all individual subjects to true, otherwise set to false
+  const newCheckedSubjects = {};
+  subjects.forEach(subject => {
+    newCheckedSubjects[subject] = checked;
+  });
+  setCheckedSubjects(newCheckedSubjects);
+
+  // If all subjects are checked, modify the handleSearch to search without subject filters
+  if (checked) {
+    setSearchResults([]); // Optional: Clear previous search results
+    // Call the search function without subject filter or modify the search function accordingly
+    handleSearch();
+  }
+};
+
 
   const subjects = ["Math", "English", "Science", "History"]; // You can extend this list
   const numberOfSubjectsTaught = Object.keys(userData.subjects || {}).filter(subject => userData.subjects[subject] === true).length;
@@ -494,113 +515,126 @@ if (userType === "Tutor") {
   return (
     <div >
       <div className="purple-panel-student">
-      <h1 className="panel-title-student">Your Stats:</h1>
-      <h1 className="classes-panel-student">Classes</h1>
-      <img className="trophy-student" src={trophy} />
-      <h1 className="hours-panel-student">Hours</h1>
-      <img className="medal-student" src={medal} />
-      <h1 className="subject-panel-student">Top Subject:</h1>
-      <img className="cap-student" src={cap} />
-      <div className="student-logout">
-            <button className="student-logout-button" onClick={handleLogout}>Logout</button></div>
+        <h1 className="panel-title-student">Your Stats:</h1>
+        <h1 className="classes-panel-student">Classes</h1>
+        <img className="trophy-student" src={trophy} />
+        <h1 className="hours-panel-student">Hours</h1>
+        <img className="medal-student" src={medal} />
+        <h1 className="subject-panel-student">Top Subject:</h1>
+        <img className="cap-student" src={cap} />
+        <div className="student-logout">
+          <button className="student-logout-button" onClick={handleLogout}>Logout</button></div>
       </div>
-      
+
       {/* Search functionality */}
       <input className="search-bar"
-        type="text" 
+        type="text"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         placeholder=" Search..."
-      /> 
-      <button className = "search-bar-button" onClick={handleSearch}><FontAwesomeIcon icon={faSearch} /></button> 
+      />
+      <button className="search-bar-button" onClick={handleSearch}><FontAwesomeIcon icon={faSearch} /></button>
       <div>
+        <label className="checkbox-font">
+          <Checkbox
+            checked={allChecked}
+            onChange={handleAllChecked}
+            color="primary"
+          />
+          All Tutors
+        </label>
         {subjects.map(subject => (
           <label key={subject} className="checkbox-font">
-            <Checkbox defaultChecked sx={{color: grey[800], '&.Mui-checked': {color: grey[600],
-          },
-        }} checked={checkedSubjects[subject] || false} onChange={() => handleSubjectChange(subject)} />
+            <Checkbox
+              checked={checkedSubjects[subject] || false}
+              onChange={() => handleSubjectChange(subject)}
+              color="primary"
+            />
             {subject}
           </label>
         ))}
       </div>
 
-           {/* Display search results */}
-        <div className="search-results-box-container">
-        <div className = "search-results-box">
-        {searchResults.map(tutor => (
-          <div key={tutor.id}>
-          <div>
-            <h3>{tutor.first_name} {tutor.last_name}           
-            <button className="favorite-button" onClick={() => addFavoriteTutor(`${tutor.first_name} ${tutor.last_name}`)}>
-              <img className="star-fav" src={fav}/></button>          
-              <button className="appt-schedule-button"onClick={() => { setSelectedTutor(tutor); 
-                setShowScheduleModal(true); }}>Schedule Appointment</button></h3>
-          </div>
-          <h5>Subjects: {Object.keys(tutor.subjects).filter(subject => tutor.subjects[subject] === true).join(', ')}</h5>
-          <h5>Available Hours: {formatTime(tutor.start_Time)} - {formatTime(tutor.end_Time)}</h5>
-          <h5>Phone Number: {tutor.phone_number}</h5>
-          {/* Display other tutor details if needed */}
+
+      {/* Display search results */}
+      <div className="search-results-box-container">
+        <div className="search-results-box">
+          {searchResults.map(tutor => (
+            <div key={tutor.id}>
+              <div>
+                <h3>{tutor.first_name} {tutor.last_name}
+                  <button className="favorite-button" onClick={() => addFavoriteTutor(`${tutor.first_name} ${tutor.last_name}`)}>
+                    <img className="star-fav" src={fav} /></button>
+                  <button className="appt-schedule-button" onClick={() => {
+                    setSelectedTutor(tutor);
+                    setShowScheduleModal(true);
+                  }}>Schedule Appointment</button></h3>
+              </div>
+              <h5>Subjects: {Object.keys(tutor.subjects).filter(subject => tutor.subjects[subject] === true).join(', ')}</h5>
+              <h5>Available Hours: {formatTime(tutor.start_Time)} - {formatTime(tutor.end_Time)}</h5>
+              <h5>Phone Number: {tutor.phone_number}</h5>
+              {/* Display other tutor details if needed */}
+            </div>
+
+          ))}
         </div>
-        
-        ))}
-      </div>
       </div>
 
       {/*Display favorite tutor list*/}
       <div className="purple-box">
-      <div className = "dashboard-container-student">
-      <div className= "favorite-tutors">
-      <h5 className="favorite-tutor-title" > My Favorites List:</h5>
-        {userData.favoriteTutors && userData.favoriteTutors.map(tutorId => (
-          <div key={tutorId}>
-            {tutorId}
-            <button className= "delete-button-student" onClick={() => handleDeleteFavorite(tutorId)}>Delete</button>
+        <div className="dashboard-container-student">
+          <div className="favorite-tutors">
+            <h5 className="favorite-tutor-title" > My Favorites List:</h5>
+            {userData.favoriteTutors && userData.favoriteTutors.map(tutorId => (
+              <div key={tutorId}>
+                {tutorId}
+                <button className="delete-button-student" onClick={() => handleDeleteFavorite(tutorId)}>Delete</button>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      
-      {/*Display upcoming appointments*/}
-      <div>
-        {/* Moved the title outside the map loop */}
-        <div className="upcoming-appts-student-container">
-        <h5 className="appt-title-student">Upcoming Appointments:<img className="appt-student" src={appt} /></h5>
-        {upcomingAppointments.map((appointment, index) => (
-        <div className="upcoming-appts-student" key={index}>
-             
-            {/* Smiley face cal pic */}
-            <p>
-              <span className="tutor-appointment-name">{appointment.tutorName}</span>
-              <span className="tutor-appointment-date-time">
-                {formatDate(appointment.date)} at {formatTime(appointment.time)}
-              </span>
-              <button
-                className="cancel-button-student"
-                onClick={() => handleCancelAppointment(appointment.id)}
-              >
-                Cancel
-              </button>
-            </p>
-            {/* Add more appointment details if needed */}
-          </div>
-        ))}
-        </div>
-</div>
 
-      {/*Code for the popup that displays when user trys to schedule appointment*/}
-      {/* DONT MESS W IT :) */}  
-      {showScheduleModal && (
-        <div className="modal">
-          <h3>Schedule an appointment with {selectedTutor.first_name} {selectedTutor.last_name}</h3>
-          <input type="date" value={appointmentDate} onChange={(e) => setAppointmentDate(e.target.value)} />
-          <input type="time" value={appointmentTime} onChange={(e) => setAppointmentTime(e.target.value)} />
-          <button onClick={handleScheduleAppointment}>Confirm Appointment</button>
-          <button class="cancel-button" onClick={() => setShowScheduleModal(false)}>Cancel</button>
-          <p>Please select a one hour slot</p>
+          {/*Display upcoming appointments*/}
+          <div>
+            {/* Moved the title outside the map loop */}
+            <div className="upcoming-appts-student-container">
+              <h5 className="appt-title-student">Upcoming Appointments:<img className="appt-student" src={appt} /></h5>
+              {upcomingAppointments.map((appointment, index) => (
+                <div className="upcoming-appts-student" key={index}>
+
+                  {/* Smiley face cal pic */}
+                  <p>
+                    <span className="tutor-appointment-name">{appointment.tutorName}</span>
+                    <span className="tutor-appointment-date-time">
+                      {formatDate(appointment.date)} at {formatTime(appointment.time)}
+                    </span>
+                    <button
+                      className="cancel-button-student"
+                      onClick={() => handleCancelAppointment(appointment.id)}
+                    >
+                      Cancel
+                    </button>
+                  </p>
+                  {/* Add more appointment details if needed */}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/*Code for the popup that displays when user trys to schedule appointment*/}
+          {/* DONT MESS W IT :) */}
+          {showScheduleModal && (
+            <div className="modal">
+              <h3>Schedule an appointment with {selectedTutor.first_name} {selectedTutor.last_name}</h3>
+              <input type="date" value={appointmentDate} onChange={(e) => setAppointmentDate(e.target.value)} />
+              <input type="time" value={appointmentTime} onChange={(e) => setAppointmentTime(e.target.value)} />
+              <button onClick={handleScheduleAppointment}>Confirm Appointment</button>
+              <button class="cancel-button" onClick={() => setShowScheduleModal(false)}>Cancel</button>
+              <p>Please select a one hour slot</p>
+            </div>
+          )}
+          {/* DONT MESS W IT :) */}
         </div>
-      )}
-      {/* DONT MESS W IT :) */} 
-    </div> 
-    </div>
+      </div>
     </div>
   );
 }
