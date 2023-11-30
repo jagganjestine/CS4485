@@ -440,7 +440,6 @@ if (userType === "Tutor") {
     <div className="profile-container">
       <img src={imageURL} alt = "Profile" className = "profileImage"/>
       <div className="profile-text-container">
-        <p className="edit-profile">Edit Profile</p>
         <p className="profile-name"> <span className="bold-words">Name:</span> {userData.first_name + " " + userData.last_name}</p>
         <p className="profile-status"> <span className="bold-words">Status:</span> {userType}</p>
         <p className="profile-subjects"><span className="bold-words">Subjects: </span> 
