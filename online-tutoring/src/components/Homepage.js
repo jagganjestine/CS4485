@@ -378,27 +378,42 @@ const isFutureDate = (date, time) => {
     }
   }; 
 
-  // function to delete past appointments 
-  const deletePastAppointments = async () => {
-    const appointmentsRef = ref(db, 'appointments');
-    const snapshot = await get(appointmentsRef);
-    const allAppointments = snapshot.val();
+  // Helper function to increment hours
+const incrementHours = async (userId, userType) => {
+  const userRef = ref(db, `${userType}/${userId}`);
+  const userSnapshot = await get(userRef);
+  const userData = userSnapshot.val();
   
-    if (allAppointments) {
-      for (const appointmentId in allAppointments) {
-        const appointment = allAppointments[appointmentId];
-        const appointmentDateTime = new Date(appointment.date + 'T' + appointment.time);
-        const currentDateTime = new Date();
-  
-        if (appointmentDateTime < currentDateTime) {
-          await remove(ref(db, `appointments/${appointmentId}`));
-        }
+  const newHours = (userData.hours || 0) + 1; // Increment hours by 1
+  await set(ref(db, `${userType}/${userId}/hours`), newHours);
+};
+
+// Modify this function to increment total hours count
+const deletePastAppointments = async () => {
+  const appointmentsRef = ref(db, 'appointments');
+  const snapshot = await get(appointmentsRef);
+  const allAppointments = snapshot.val();
+
+  if (allAppointments) {
+    for (const appointmentId in allAppointments) {
+      const appointment = allAppointments[appointmentId];
+      const appointmentDateTime = new Date(appointment.date + 'T' + appointment.time);
+      const currentDateTime = new Date();
+
+      if (appointmentDateTime < currentDateTime) {
+        // Increment hours before deleting the appointment
+        await incrementHours(appointment.userId, 'users'); // for student
+        await incrementHours(appointment.tutorId, 'tutors'); // for tutor
+        
+        // Now remove the appointment
+        await remove(ref(db, `appointments/${appointmentId}`));
       }
-  
-      // Fetch updated upcoming appointments
-      fetchUpcomingAppointments();
     }
-  };
+
+    // Fetch updated upcoming appointments
+    fetchUpcomingAppointments();
+  }
+};
   // Fetch user data on component mount and decide whether the user is a general user or a tutor
   const fetchData = async () => {
     if (auth.currentUser) {
@@ -451,7 +466,7 @@ if (userType === "Tutor") {
       <div className="purple-panel-tutor">
         <h1 className="panel-title-tutor">Your Stats:</h1>
         <h1 className="classes-panel-tutor"><span className="number-subjects-taught">{numberOfSubjectsTaught} </span>Classes <img className="trophy-tutor" src={trophy} /></h1>
-        <h1 className="hours-panel-tutor">Hours</h1>
+        <h1 className="hours-panel-tutor">Hours: {userData.hours || 0}</h1>
         <img className="medal-tutor" src={medal} />
         <h1 className="subject-panel-tutor">Top Subject:</h1>
         <img className="cap-tutor" src={cap} />
@@ -520,7 +535,7 @@ if (userType === "Tutor") {
         <h1 className="panel-title-student">Your Stats:</h1>
         <h1 className="classes-panel-student">Classes</h1>
         <img className="trophy-student" src={trophy} />
-        <h1 className="hours-panel-student">Hours</h1>
+        <h1 className="hours-panel-student">Hours: {userData.hours || 0}</h1>
         <img className="medal-student" src={medal} />
         <h1 className="subject-panel-student">Top Subject:</h1>
         <img className="cap-student" src={cap} />

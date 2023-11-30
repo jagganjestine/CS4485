@@ -47,7 +47,7 @@ function Login() {
         // Clear any previously stored information
         localStorage.removeItem('rememberedEmail');
       }
-      
+      navigate("/homepage"); //DELETE THIS LINE AND UNCOMMENT LINES 51-85 TO ENABLE 2FA
       // // If signInWithEmailAndPassword doesn't throw an error, credentials are correct
       // const min = 100000;
       // const max = 999999;
