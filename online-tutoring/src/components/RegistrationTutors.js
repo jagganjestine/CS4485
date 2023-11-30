@@ -228,7 +228,7 @@ const handleDayChange = (e) => {
                 ></textarea> <div style={{ marginTop: '10px' }}></div>
               </div>
               <div className="availability-section">
-                <h3>Available Days</h3>
+                <h3>Available Hours</h3>
                 <div className="day-checkboxes">
                   {Object.keys(availability).map(day => (
                     <label key={day}>
