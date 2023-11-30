@@ -48,6 +48,16 @@ function TutorRegistration() {
     // You can add other subjects as needed
   });
 
+  const [availability, setAvailability] = useState({
+    Sunday: false,
+    Monday: true, // Assuming Monday as default available day for simplicity
+    Tuesday: false,
+    Wednesday: false,
+    Thursday: false,
+    Friday: false,
+    Saturday: false,
+  });
+  
   const auth = getAuth();
   const db = getDatabase();
 
@@ -58,6 +68,15 @@ function TutorRegistration() {
       [name]: checked
     }));
   };
+
+
+const handleDayChange = (e) => {
+  const { name, checked } = e.target;
+  setAvailability(prevState => ({
+    ...prevState,
+    [name]: checked
+  }));
+};
 
   const generateTimeOptions = () => {
     const options = [];
@@ -83,7 +102,7 @@ function TutorRegistration() {
 
     return password.length >= minLength && hasUppercase && hasLowercase && hasDigit && hasSpecialChar;
   };
-  const writeTutorData = (userId, firstName, lastName, email, phoneNumber, birthday, subjects, aboutMe, startTime, endTime, hashedPassword) => {
+  const writeTutorData = (userId, firstName, lastName, email, phoneNumber, birthday, subjects, aboutMe, availability, startTime, endTime, hashedPassword) => {
 
     set(ref(db, 'tutors/' + userId), {
       first_name: firstName,
@@ -93,6 +112,7 @@ function TutorRegistration() {
       birthday: birthday,
       subjects: subjects,
       about_me: aboutMe,
+      availability: availability,
       password: hashedPassword,
       start_Time: startTime,
       end_Time: endTime,
@@ -141,7 +161,7 @@ function TutorRegistration() {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const storage = getStorage();
 
-      writeTutorData(userCredential.user.uid, firstName, lastName, email, phoneNumber, birthday, subjects, aboutMe, startTime, endTime, hashedPassword);
+      writeTutorData(userCredential.user.uid, firstName, lastName, email, phoneNumber, birthday, subjects, aboutMe, availability, startTime, endTime, hashedPassword);
       const fileRef = sRef(storage, 'profile_pictures/' + userCredential.user.uid)
       await uploadBytes(fileRef, photo)
       const photoURL = await getDownloadURL(fileRef);
@@ -186,55 +206,69 @@ function TutorRegistration() {
           <div>
             <h2 className="tutor-title">Tutor Registration</h2>
             <form onSubmit={handleSubmit}>
-            <div className="form-group">
-            <TextField type="first name" required label="First Name" id="standard-basic" variant="standard" className="proportion" value={firstName} onChange={(e) => setFirstName(e.target.value)}></TextField>
-            </div>
-            <div className="form-group">
-              <TextField type="last name" required label="Last Name" id="standard-basic" variant="standard" className="proportion" value={lastName} onChange={(e) => setLastName(e.target.value)}></TextField>
-            </div>
-            <div className="form-group"> 
-            <TextField type="phone number" required label="Phone Number" id="standard-basic" variant="standard" className="proportion" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}></TextField>
-             </div>
-            <div className="form-group">
-            <TextField type="date" required label="Birthday" id="standard-basic" variant="standard" className="proportion" value={birthday} onChange={(e) => setBirthday(e.target.value)} InputLabelProps={{shrink: true }}></TextField>
-            </div>
-            <div style={{ marginTop: '10px' }}>
-              <textarea
-                style={{ width: '77%' }}
-                placeholder="About Me"
-                rows={4}
-                cols={115}
-                onChange={(e) => setAboutMe(e.target.value)}
-              ></textarea> <div style={{ marginTop: '10px' }}></div>
-            </div>
-            <div className="form-group">
-              <label htmlFor="startTime">Start Time</label>
-              <select
-                id="startTime"
-                value={startTime}
-                onChange={(e) => setStartTime(e.target.value)}
-              >
-                <option value="">Select Start Time</option>
-                {generateTimeOptions().map((time, index) => (
-                  <option key={index} value={time}>{time}</option>
-                ))}
-              </select>
-            </div>
-            <div className="form-group">
-              <label htmlFor="endTime">End Time</label>
-              <select
-                id="endTime"
-                value={endTime}
-                onChange={(e) => setEndTime(e.target.value)}
-              >
-                <option value="">Select End Time</option>
-                {generateTimeOptions().map((time, index) => (
-                  <option key={index} value={time}>{time}</option>
-                ))}
-              </select>
-            </div>
-            
-            
+              <div className="form-group">
+                <TextField type="first name" required label="First Name" id="standard-basic" variant="standard" className="proportion" value={firstName} onChange={(e) => setFirstName(e.target.value)}></TextField>
+              </div>
+              <div className="form-group">
+                <TextField type="last name" required label="Last Name" id="standard-basic" variant="standard" className="proportion" value={lastName} onChange={(e) => setLastName(e.target.value)}></TextField>
+              </div>
+              <div className="form-group">
+                <TextField type="phone number" required label="Phone Number" id="standard-basic" variant="standard" className="proportion" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}></TextField>
+              </div>
+              <div className="form-group">
+                <TextField type="date" required label="Birthday" id="standard-basic" variant="standard" className="proportion" value={birthday} onChange={(e) => setBirthday(e.target.value)} InputLabelProps={{ shrink: true }}></TextField>
+              </div>
+              <div style={{ marginTop: '10px' }}>
+                <textarea
+                  style={{ width: '77%' }}
+                  placeholder="About Me"
+                  rows={4}
+                  cols={115}
+                  onChange={(e) => setAboutMe(e.target.value)}
+                ></textarea> <div style={{ marginTop: '10px' }}></div>
+              </div>
+              <div className="availability-section">
+                <h3>Available Days</h3>
+                <div className="day-checkboxes">
+                  {Object.keys(availability).map(day => (
+                    <label key={day}>
+                      <input
+                        type="checkbox"
+                        name={day}
+                        checked={availability[day]}
+                        onChange={handleDayChange}
+                      />
+                      {day}
+                    </label>
+                  ))}
+                </div>
+              </div>
+              <div className="form-group">
+                <label htmlFor="startTime">Start Time</label>
+                <select
+                  id="startTime"
+                  value={startTime}
+                  onChange={(e) => setStartTime(e.target.value)}
+                >
+                  <option value="">Select Start Time</option>
+                  {generateTimeOptions().map((time, index) => (
+                    <option key={index} value={time}>{time}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="endTime">End Time</label>
+                <select
+                  id="endTime"
+                  value={endTime}
+                  onChange={(e) => setEndTime(e.target.value)}
+                >
+                  <option value="">Select End Time</option>
+                  {generateTimeOptions().map((time, index) => (
+                    <option key={index} value={time}>{time}</option>
+                  ))}
+                </select>
+              </div>
             <div className="form-group"> 
             <TextField type="email" required label="Email" id="standard-basic" variant="standard" className="proportion" value={email} onChange={(e) => setEmail(e.target.value)}></TextField> 
             </div>

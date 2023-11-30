@@ -100,25 +100,40 @@ const handleAllChecked = (event) => {
   const subjects = ["Math", "English", "Science", "History"]; // You can extend this list
   const numberOfSubjectsTaught = Object.keys(userData.subjects || {}).filter(subject => userData.subjects[subject] === true).length;
 
-  // Fetch students's upcoming appointments with tutors
   const fetchUpcomingAppointments = () => {
     const appointmentsRef = ref(db, `appointments`);
     onValue(appointmentsRef, async (snapshot) => {
       const allAppointments = snapshot.val();
       const userAppointments = Object.values(allAppointments || {}).filter(appointment => appointment.userId === auth.currentUser.uid);
-      
-      // Fetching tutor names for each appointment
+  
       const populatedAppointments = await Promise.all(userAppointments.map(async appointment => {
+        if (!appointment.tutorId) {
+          console.error('No tutorId found for appointment:', appointment);
+          return { ...appointment, tutorName: 'Unknown Tutor' };
+        }
+  
         const tutorRef = ref(db, 'tutors/' + appointment.tutorId);
         const tutorSnapshot = await get(tutorRef);
         const tutorData = tutorSnapshot.val();
+  
+        if (!tutorData) {
+          console.error('No data found for tutorId:', appointment.tutorId);
+          return { ...appointment, tutorName: 'Unknown Tutor' };
+        }
+  
         appointment.tutorName = tutorData.first_name + ' ' + tutorData.last_name;
+  
+        if (userType === "Tutor") {
+          appointment.tutorAvailability = tutorData.availability;
+        }
+  
         return appointment;
       }));
   
       setUpcomingAppointments(populatedAppointments);
     });
   };
+  
   
   
   // Fetch tutor's appointments with students
@@ -261,83 +276,105 @@ const isFutureDate = (date, time) => {
         return;
       }
 
-      const { start_Time, end_Time } = tutorData;
-      const selectedDateTime = new Date(appointmentDate + "T" + appointmentTime);
-      const startTime = new Date(appointmentDate + "T" + start_Time);
-      const endTime = new Date(appointmentDate + "T" + end_Time);
+      // Additional check to ensure availability data exists
+  if (!tutorData.availability) {
+    Swal.fire({
+      icon: 'error',
+      title: 'No Availability Data',
+      text: 'Tutor availability data is missing.',
+    });
+    return;
+  }
 
-      // Check if the selected time is within tutor's available hours
-      if (selectedDateTime < startTime || selectedDateTime > endTime) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Unavailable Time Slot',
-          text: 'This time is outside the tutor\'s available hours!',
-        });
-        return;
-      }
+      
+    const { start_Time, end_Time, availability } = tutorData;
+    const selectedDateTime = new Date(appointmentDate + "T" + appointmentTime);
+    const startTime = new Date(appointmentDate + "T" + start_Time);
+    const endTime = new Date(appointmentDate + "T" + end_Time);
+    const dayOfWeek = selectedDateTime.toLocaleString('en-us', { weekday: 'long' });
 
-      const currentDateTime = new Date();
-      if (selectedDateTime <= currentDateTime) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error Scheduling Appointment',
-          text: 'You cannot schedule appointments in the past!',
-        });
-        return;
-      }
+    // Check if the selected time is within tutor's available hours
+    if (selectedDateTime < startTime || selectedDateTime > endTime) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Unavailable Time Slot',
+        text: 'This time is outside the tutor\'s available hours!',
+      });
+      return;
+    }
+    
+    // Check if the tutor is available on the selected day of the week
+    if (!availability[dayOfWeek]) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Unavailable Day',
+        text: `The tutor is not available on ${dayOfWeek}.`,
+      });
+      return;
+    }
 
-      // Check for conflicting appointments
-      const appointmentsRef = ref(db, 'appointments');
-      const existingAppointmentsQuery = query(appointmentsRef, orderByChild('tutorId'), equalTo(selectedTutor.id));
-      try {
-        const snapshot = await get(existingAppointmentsQuery);
-        const existingAppointments = snapshot.val();
-        if (existingAppointments) {
-          for (let existingAppointmentId in existingAppointments) {
-            let appointment = existingAppointments[existingAppointmentId];
-            const existingAppointmentTime = new Date(appointment.date + "T" + appointment.time);
+    const currentDateTime = new Date();
+    if (selectedDateTime <= currentDateTime) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error Scheduling Appointment',
+        text: 'You cannot schedule appointments in the past!',
+      });
+      return;
+    }
 
-            // Check if the selected time is within one hour of an existing appointment
-            if (appointment.date === appointmentDate &&
-              Math.abs(selectedDateTime - existingAppointmentTime) < 3600000) {
-              Swal.fire({
-                icon: 'warning',
-                title: 'Time Conflict',
-                text: 'This time slot is already booked or too close to another booking with the selected tutor!',
-              });
-              return;
-            }
+    // Check for conflicting appointments
+    const appointmentsRef = ref(db, 'appointments');
+    const existingAppointmentsQuery = query(appointmentsRef, orderByChild('tutorId'), equalTo(selectedTutor.id));
+    try {
+      const snapshot = await get(existingAppointmentsQuery);
+      const existingAppointments = snapshot.val();
+      if (existingAppointments) {
+        for (let existingAppointmentId in existingAppointments) {
+          let appointment = existingAppointments[existingAppointmentId];
+          const existingAppointmentTime = new Date(appointment.date + "T" + appointment.time);
+
+          // Check if the selected time is within one hour of an existing appointment
+          if (appointment.date === appointmentDate &&
+            Math.abs(selectedDateTime - existingAppointmentTime) < 3600000) {
+            Swal.fire({
+              icon: 'warning',
+              title: 'Time Conflict',
+              text: 'This time slot is already booked or too close to another booking with the selected tutor!',
+            });
+            return;
           }
         }
-
-        const newAppointment = {
-          id: appointmentId,
-          tutorId: selectedTutor.id,
-          userId: auth.currentUser.uid,
-          date: appointmentDate,
-          time: appointmentTime
-        };
-
-        // Schedule the appointment
-        await set(ref(db, `appointments/${appointmentId}`), newAppointment);
-        setShowScheduleModal(false);
-        Swal.fire({
-          icon: 'success',
-          title: 'Appointment Confirmed',
-          text: 'Appointment scheduled successfully!',
-        });
-        fetchUpcomingAppointments();
-      } catch (error) {
-        console.error("Error scheduling appointment:", error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Error Scheduling Appointment',
-          text: 'There was an error scheduling the appointment. Please try again.',
-        });
       }
-    };
-  
-  
+
+      const newAppointment = {
+        id: appointmentId,
+        tutorId: selectedTutor.id,
+        userId: auth.currentUser.uid,
+        date: appointmentDate,
+        time: appointmentTime
+      };
+
+      // Schedule the appointment
+      await set(ref(db, `appointments/${appointmentId}`), newAppointment);
+      setShowScheduleModal(false);
+      Swal.fire({
+        icon: 'success',
+        title: 'Appointment Confirmed',
+        text: 'Appointment scheduled successfully!',
+      });
+      fetchUpcomingAppointments();
+    } catch (error) {
+      console.error("Error scheduling appointment:", error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error Scheduling Appointment',
+        text: 'There was an error scheduling the appointment. Please try again.',
+      });
+    }
+  };
+
+
   
 
   // Add tutor to user's favorite list
@@ -602,6 +639,7 @@ if (userType === "Tutor") {
                   }}>Schedule Appointment</button></h3>
               </div>
               <h5>Subjects: {Object.keys(tutor.subjects).filter(subject => tutor.subjects[subject] === true).join(', ')}</h5>
+              <h5>Available Days: {Object.entries(tutor.availability || {}).filter(([day, isAvailable]) => isAvailable).map(([day]) => day).join(', ')}</h5>
               <h5>Available Hours: {formatTime(tutor.start_Time)} - {formatTime(tutor.end_Time)}</h5>
               <h5>Phone Number: {tutor.phone_number}</h5>
               {/* Display other tutor details if needed */}
