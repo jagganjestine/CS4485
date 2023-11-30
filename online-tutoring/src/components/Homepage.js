@@ -400,39 +400,41 @@ const isFutureDate = (date, time) => {
     }
   };
   // Fetch user data on component mount and decide whether the user is a general user or a tutor
-  useEffect(() => {
+  const fetchData = async () => {
     if (auth.currentUser) {
-      // First, try to find the user in the /users branch
       const userRef = ref(db, 'users/' + auth.currentUser.uid);
-      onValue(userRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-          setUserData(data);
-          setUserType("user");
-          fetchUpcomingAppointments();
-        } else {
-          // If not found in /users, try the /tutors branch
-          const tutorRef = ref(db, 'tutors/' + auth.currentUser.uid);
-          onValue(tutorRef, (snapshot) => {
-            const tutorData = snapshot.val();
-            
-            if (tutorData) {
-              setUserData(tutorData);
-              setUserType("Tutor");
-              fetchUpcomingAppointments();
-              
-  
-              if (userType === "Tutor") {
-                fetchTutorAppointments();
-                fetchImageURL();
-              }
-            }
-          });
+      const userSnapshot = await get(userRef);
+      const userData = userSnapshot.val();
+
+      if (userData) {
+        setUserData(userData);
+        setUserType("user");
+        fetchUpcomingAppointments();
+      } else {
+        const tutorRef = ref(db, 'tutors/' + auth.currentUser.uid);
+        const tutorSnapshot = await get(tutorRef);
+        const tutorData = tutorSnapshot.val();
+
+        if (tutorData) {
+          setUserData(tutorData);
+          setUserType("Tutor");
+          fetchTutorAppointments();
+          fetchImageURL();
         }
-      });
+      }
       deletePastAppointments();
     }
-  }, [auth, db, userType]);
+  };
+  
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if (user) {
+        fetchData();
+      }
+    });
+
+    return () => unsubscribe(); // Clean up the subscription
+  }, [auth]);
   
 
 
