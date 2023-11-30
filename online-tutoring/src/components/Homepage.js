@@ -31,7 +31,7 @@ function HomePage() {
   const [upcomingAppointments, setUpcomingAppointments] = useState([]);
   const [imageURL, setImageURL] = useState("");
   const [allChecked, setAllChecked] = useState(false);
-
+  const [totalHours, setTotalHours] = useState(0);
 
   const auth = getAuth();
   const db = getDatabase();
@@ -76,6 +76,18 @@ function formatTime(inputTime) {
   const formattedHours = hours > 12 ? hours - 12 : hours;
   return `${formattedHours}:${minutes} ${amOrPm}`;
 }
+
+const updateTotalHours = async (hoursToAdd) => {
+  const userRef = ref(db, `users/${auth.currentUser.uid}`);
+  const userSnapshot = await get(userRef);
+  if (userSnapshot.exists()) {
+    const userData = userSnapshot.val();
+    const updatedHours = (userData.totalHours || 0) + hoursToAdd;
+    await set(ref(db, `users/${auth.currentUser.uid}/totalHours`), updatedHours);
+    setUserData({ ...userData, totalHours: updatedHours }); // Update state
+  }
+};
+
 
 const handleAllChecked = (event) => {
   const checked = event.target.checked;
@@ -166,6 +178,8 @@ const handleCancelAppointment = async (appointmentId) => {
       }
 
       await remove(appointmentRef); // This will delete the appointment entry
+      
+      await updateTotalHours(-1); //Delete appointment from total hours
 
       if (userType === "user") {
         fetchUpcomingAppointments();
@@ -306,6 +320,7 @@ const isFutureDate = (date, time) => {
   
         // Schedule the appointment
         await set(ref(db, `appointments/${appointmentId}`), newAppointment);
+        await updateTotalHours(1); // Add one hour to the total hours
         setShowScheduleModal(false);
         Swal.fire({
           icon: 'success',
@@ -407,7 +422,8 @@ const isFutureDate = (date, time) => {
       const userData = userSnapshot.val();
 
       if (userData) {
-        setUserData(userData);
+        const totalHours = userData.totalHours || 0;
+        setUserData({ ...userData, totalHours });
         setUserType("user");
         fetchUpcomingAppointments();
       } else {
@@ -416,7 +432,8 @@ const isFutureDate = (date, time) => {
         const tutorData = tutorSnapshot.val();
 
         if (tutorData) {
-          setUserData(tutorData);
+          const totalHours = tutorData.totalHours || 0;
+          setUserData({ ...tutorData, totalHours });
           setUserType("Tutor");
           fetchTutorAppointments();
           fetchImageURL();
@@ -451,7 +468,7 @@ if (userType === "Tutor") {
       <div className="purple-panel-tutor">
         <h1 className="panel-title-tutor">Your Stats:</h1>
         <h1 className="classes-panel-tutor"><span className="number-subjects-taught">{numberOfSubjectsTaught} </span>Classes <img className="trophy-tutor" src={trophy} /></h1>
-        <h1 className="hours-panel-tutor">Hours</h1>
+        <h1 className="hours-panel-tutor">{userData.totalHours || 0} Hours</h1>
         <img className="medal-tutor" src={medal} />
         <h1 className="subject-panel-tutor">Top Subject:</h1>
         <img className="cap-tutor" src={cap} />
@@ -520,7 +537,7 @@ if (userType === "Tutor") {
         <h1 className="panel-title-student">Your Stats:</h1>
         <h1 className="classes-panel-student">Classes</h1>
         <img className="trophy-student" src={trophy} />
-        <h1 className="hours-panel-student">Hours</h1>
+        <h1 className="hours-panel-student">{userData.totalHours || 0} Hours</h1>
         <img className="medal-student" src={medal} />
         <h1 className="subject-panel-student">Top Subject:</h1>
         <img className="cap-student" src={cap} />
