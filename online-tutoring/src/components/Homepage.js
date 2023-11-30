@@ -242,7 +242,7 @@ const isFutureDate = (date, time) => {
       const tutorRef = ref(db, `tutors/${selectedTutor.id}`);
       const tutorSnapshot = await get(tutorRef);
       const tutorData = tutorSnapshot.val();
-  
+
       if (!tutorData) {
         Swal.fire({
           icon: 'error',
@@ -251,7 +251,7 @@ const isFutureDate = (date, time) => {
         });
         return;
       }
-  
+
       if (!appointmentTime) {
         Swal.fire({
           icon: 'error',
@@ -260,8 +260,22 @@ const isFutureDate = (date, time) => {
         });
         return;
       }
-  
+
+      const { start_Time, end_Time } = tutorData;
       const selectedDateTime = new Date(appointmentDate + "T" + appointmentTime);
+      const startTime = new Date(appointmentDate + "T" + start_Time);
+      const endTime = new Date(appointmentDate + "T" + end_Time);
+
+      // Check if the selected time is within tutor's available hours
+      if (selectedDateTime < startTime || selectedDateTime > endTime) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Unavailable Time Slot',
+          text: 'This time is outside the tutor\'s available hours!',
+        });
+        return;
+      }
+
       const currentDateTime = new Date();
       if (selectedDateTime <= currentDateTime) {
         Swal.fire({
@@ -271,7 +285,7 @@ const isFutureDate = (date, time) => {
         });
         return;
       }
-  
+
       // Check for conflicting appointments
       const appointmentsRef = ref(db, 'appointments');
       const existingAppointmentsQuery = query(appointmentsRef, orderByChild('tutorId'), equalTo(selectedTutor.id));
@@ -282,10 +296,10 @@ const isFutureDate = (date, time) => {
           for (let existingAppointmentId in existingAppointments) {
             let appointment = existingAppointments[existingAppointmentId];
             const existingAppointmentTime = new Date(appointment.date + "T" + appointment.time);
-  
+
             // Check if the selected time is within one hour of an existing appointment
             if (appointment.date === appointmentDate &&
-                Math.abs(selectedDateTime - existingAppointmentTime) < 3600000) {
+              Math.abs(selectedDateTime - existingAppointmentTime) < 3600000) {
               Swal.fire({
                 icon: 'warning',
                 title: 'Time Conflict',
@@ -295,7 +309,7 @@ const isFutureDate = (date, time) => {
             }
           }
         }
-  
+
         const newAppointment = {
           id: appointmentId,
           tutorId: selectedTutor.id,
@@ -303,7 +317,7 @@ const isFutureDate = (date, time) => {
           date: appointmentDate,
           time: appointmentTime
         };
-  
+
         // Schedule the appointment
         await set(ref(db, `appointments/${appointmentId}`), newAppointment);
         setShowScheduleModal(false);
