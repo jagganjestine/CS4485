@@ -47,42 +47,42 @@ function Login() {
         // Clear any previously stored information
         localStorage.removeItem('rememberedEmail');
       }
+      
+      // // If signInWithEmailAndPassword doesn't throw an error, credentials are correct
+      // const min = 100000;
+      // const max = 999999;
+      // const generatedCode = Math.floor(Math.random() * (max - min + 1)) + min;
+      // setRandomCode(generatedCode);
 
-      // If signInWithEmailAndPassword doesn't throw an error, credentials are correct
-      const min = 100000;
-      const max = 999999;
-      const generatedCode = Math.floor(Math.random() * (max - min + 1)) + min;
-      setRandomCode(generatedCode);
+      // const formValues = {
+      //   toemail: email,
+      //   message: generatedCode,
+      // };
 
-      const formValues = {
-        toemail: email,
-        message: generatedCode,
-      };
-
-      emailjs
-        .send(
-          "service_obyxgvu",
-          "template_zhy667a",
-          formValues,
-          "BujL3gtXVBlpKdIYE"
-        )
-        .then(
-          (result) => {
-            // alert("Code has been sent. Check your email!");
+      // emailjs
+      //   .send(
+      //     "service_obyxgvu",
+      //     "template_zhy667a",
+      //     formValues,
+      //     "BujL3gtXVBlpKdIYE"
+      //   )
+      //   .then(
+      //     (result) => {
+      //       // alert("Code has been sent. Check your email!");
             
-            console.log("Code has been sent");
-            Swal.fire({
-              icon: 'info',
-              title: 'Verification Code',
-              text: 'Verification Code Sent. Please check your email!'
-            });
-            setVerificationSent(true); 
-            // set verification to true
-          },
-          (error) => {
-            console.log(error.text);
-          }
-        );
+      //       console.log("Code has been sent");
+      //       Swal.fire({
+      //         icon: 'info',
+      //         title: 'Verification Code',
+      //         text: 'Verification Code Sent. Please check your email!'
+      //       });
+      //       setVerificationSent(true); 
+      //       // set verification to true
+      //     },
+      //     (error) => {
+      //       console.log(error.text);
+      //     }
+      //   );
     } catch (error) {
       console.error("Invalid credentials:", error);
       //alert("Invalid credentials. Please try again.");
