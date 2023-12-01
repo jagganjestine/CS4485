@@ -46,9 +46,6 @@ const Navbar = () => {
         <li>
           <Link to="/login">Login</Link>
         </li>
-        <li>
-          <Link to="/homepage">Homepage</Link>
-        </li>
         </ul>
         <div className='signup-container'>
         <Link to="/registrationselection">
