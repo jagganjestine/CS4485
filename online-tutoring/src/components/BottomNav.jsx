@@ -17,13 +17,8 @@ const BottomNav = () => {
         </Routes>
 
         <br />
-
-        <Link to="/homepage">Home page</Link>
-        <Routes>
-            <Route path="/homepage" element={<HomePage />} />
-        </Routes>
-
-        <br />
+        
+        <Link to="/registrationselection">Registration</Link>
 
     </div>
     <div className="copyright">© 2023 Jaggan Jestine, Rikhab Yusuf, Taha Ahmed, Abdurrehman Zulfiqar, Sharmin Gaziani, Anish Gajera</div>
