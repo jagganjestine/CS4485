@@ -66,6 +66,11 @@
   border-radius: 50px;
   padding-bottom: 300px;
   padding-top: 100px;
+
+  margin-top: 50px;
+  margin-bottom: 50px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .login-form {

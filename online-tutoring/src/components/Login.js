@@ -208,20 +208,21 @@ function Login() {
 
             <br />
 
-            
-            <Link to="/registrationtutors">Registration for Tutors</Link>
-            <Routes>
-                <Route path="/registrationtutors" element={<RegistrationTutors />} />
-            </Routes>
-
-            <br />
-
             <Link to="/registration">Registration</Link>
             <Routes>
                 <Route path="/registration" element={<Registration />} />
             </Routes>
+            
 
+            <br />
+
+            <Link to="/registrationtutors">Registration for Tutors</Link>
+            <Routes>
+                <Route path="/registrationtutors" element={<RegistrationTutors />} />
+            </Routes>
+            
         </div>
+        <div className="copyright">© 2023 Jaggan Jestine, Rikhab Yusuf, Taha Ahmed, Abdurrehman Zulfiqar, Sharmin Gaziani, Anish Gajera</div>
       </div>
 
     </div>
