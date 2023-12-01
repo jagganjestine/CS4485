@@ -439,7 +439,7 @@ const incrementHours = async (userId, userType) => {
   await set(ref(db, `${userType}/${userId}/hours`), newHours);
 };
 
-// Modify this function to increment total hours count
+// Modify this function to delete appointments only after they have ended
 const deletePastAppointments = async () => {
   const appointmentsRef = ref(db, 'appointments');
   const snapshot = await get(appointmentsRef);
@@ -448,10 +448,11 @@ const deletePastAppointments = async () => {
   if (allAppointments) {
     for (const appointmentId in allAppointments) {
       const appointment = allAppointments[appointmentId];
-      const appointmentDateTime = new Date(appointment.date + 'T' + appointment.time);
+      const appointmentStartTime = new Date(appointment.date + 'T' + appointment.time);
+      const appointmentEndTime = new Date(appointmentStartTime.getTime() + 60 * 60 * 1000); // Assuming appointments are 1 hour long
       const currentDateTime = new Date();
 
-      if (appointmentDateTime < currentDateTime) {
+      if (appointmentEndTime < currentDateTime) {
         // Increment hours before deleting the appointment
         await incrementHours(appointment.userId, 'users'); // for student
         await incrementHours(appointment.tutorId, 'tutors'); // for tutor
@@ -465,6 +466,7 @@ const deletePastAppointments = async () => {
     fetchUpcomingAppointments();
   }
 };
+
   // Fetch user data on component mount and decide whether the user is a general user or a tutor
   const fetchData = async () => {
     if (auth.currentUser) {
