@@ -516,9 +516,9 @@ if (userType === "Tutor") {
     <div className="sidebar-tutor">
       <div className="purple-panel-tutor">
         <h1 className="panel-title-tutor">Your Stats:</h1>
-        <h1 className="classes-panel-tutor"><span className="number-subjects-taught">{numberOfSubjectsTaught} </span>Classes <img className="trophy-tutor" src={trophy} /></h1>
+        <h1 className="classes-panel-tutor"><div className="number-subjects-taught">{numberOfSubjectsTaught} </div>Classes <img className="trophy-tutor" src={trophy} /></h1>
         <div className = "number-tutor-hours">{userData.hours || 0} </div>
-        <h1 className="hours-panel-tutor">Hours:</h1>
+        <h1 className="hours-panel-tutor">Hours </h1>
         <img className="medal-tutor" src={medal} />
         <h1 className="subject-panel-tutor">Top Subject:</h1>
         <img className="cap-tutor" src={cap} />
@@ -585,10 +585,10 @@ if (userType === "Tutor") {
     <div >
       <div className="purple-panel-student">
         <h1 className="panel-title-student">Your Stats:</h1>
-        <h1 className="classes-panel-student">Classes</h1>
+        <h1 className="classes-panel-student">Classes </h1>
         <img className="trophy-student" src={trophy} /> 
         <div className = "number-student-hours">{userData.hours || 0} </div>
-        <h1 className="hours-panel-student">Hours: </h1>
+        <h1 className="hours-panel-student">Hours </h1>
         <img className="medal-student" src={medal} />
         <h1 className="subject-panel-student">Top Subject:</h1>
         <img className="cap-student" src={cap} />
