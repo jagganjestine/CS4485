@@ -4,6 +4,7 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
 import { useNavigate } from "react-router-dom";
 import "./Registration.css";
+import BottomNav from "./BottomNav";
 import { TextField } from "@mui/material";
 import Swal from 'sweetalert2';
 import sha256 from 'crypto-js/sha256';
@@ -157,7 +158,9 @@ function Registration() {
     </div>
     </div>
     </div>
+    <BottomNav />
     </form>
+    
   );
 }
 

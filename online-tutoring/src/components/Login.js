@@ -208,12 +208,6 @@ function Login() {
 
             <br />
 
-            <Link to="/homepage">Home page</Link>
-            <Routes>
-                <Route path="/homepage" element={<HomePage />} />
-            </Routes>
-
-            <br />
             
             <Link to="/registrationtutors">Registration for Tutors</Link>
             <Routes>
@@ -227,12 +221,6 @@ function Login() {
                 <Route path="/registration" element={<Registration />} />
             </Routes>
 
-            <br />
-
-            <Link to="/logout">Logout</Link>
-            <Routes>
-                <Route path="/logout" element={<Logout />} />
-            </Routes>
         </div>
       </div>
 

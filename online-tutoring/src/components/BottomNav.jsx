@@ -25,12 +25,6 @@ const BottomNav = () => {
 
         <br />
 
-        <Link to="/logout">Logout</Link>
-        <Routes>
-            <Route path="/logout" element={<Logout />} />
-        </Routes>
-
-
     </div>
     <div className="copyright">© 2023 Jaggan Jestine, Rikhab Yusuf, Taha Ahmed, Abdurrehman Zulfiqar, Sharmin Gaziani, Anish Gajera</div>
   </div>

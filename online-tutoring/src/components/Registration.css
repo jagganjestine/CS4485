@@ -1,21 +1,23 @@
 /* Registration.css */
 .new_registration-container {
-  padding: 90px 50px 90px 50px; /* top, right, bottom, left */
+  padding: 90px 50px;
   font-size: 20px;
   margin-top: 50px;
+  margin-bottom: 200px; /* this should be at least the height of your footer */
   background: linear-gradient(135deg, #B674E6, #3B2667);
   border-radius: 50px;
-  width: 850px;
-  height: 475px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 850px; /* consider max-width if you want it to be responsive */
+  /* height: 475px; */ /* consider removing fixed height or making it min-height */
+  
+  /* Center the container */
+  margin-left: auto;
+  margin-right: auto;
+  
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  }
+}
 
   .new_registration-container > div {
     width: 80%;  /* Adjust this percentage if you want the internal content to be narrower or wider */
