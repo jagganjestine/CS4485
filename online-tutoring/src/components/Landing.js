@@ -37,7 +37,7 @@ const Landing = () => {
         </div>
         <div className='info-box3'>
             <div className='info3-left'>
-                <h1>Link your appointments to your favorite calendar app.</h1>
+                <h1>Quick and easy appointments.</h1>
             </div>
             <div>
                 <img className="img4" src={img4} />
