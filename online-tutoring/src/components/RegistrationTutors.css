@@ -26,6 +26,21 @@ color: white;
   color: black;
 }
 
+.form-group select{
+  background-color: white;
+  color: black;
+  border-radius: 9px;
+  padding: 8px;
+}
+
+.timings {
+  padding-bottom: 7px;
+}
+
+.form-group select::before {
+  border: 10px;
+}
+
 .upload-container {
 display: flex;
 align-items: center;
@@ -103,7 +118,6 @@ color: white;
 color:black;
 transition: 0.5s;
 }
-
 
 .register-button-2 {
 background-color: #000000;

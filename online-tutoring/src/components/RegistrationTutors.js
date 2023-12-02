@@ -262,6 +262,7 @@ const generateTimeOptions = () => {
                   ))}
                 </div>
               </div>
+              <div className="timings">
               <div className="form-group">
                 <label htmlFor="startTime">Start Time</label>
                 <select
@@ -276,6 +277,8 @@ const generateTimeOptions = () => {
                 </select>
 
               </div>
+              </div>
+              <div className="timings">
               <div className="form-group">
                 <label htmlFor="endTime">End Time</label>
                 <select
@@ -289,6 +292,7 @@ const generateTimeOptions = () => {
                   ))}
                 </select>
 
+              </div>
               </div>
               <div className="form-group">
                 <TextField type="email" required label="Email" id="standard-basic" variant="standard" className="proportion" value={email} onChange={(e) => setEmail(e.target.value)}></TextField>
