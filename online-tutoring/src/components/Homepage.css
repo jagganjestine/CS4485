@@ -589,11 +589,11 @@ margin-right: 50px;
   flex-direction: column;
   font-size: 20px;
   background: #ccc;
-  border-radius: 50px;
   width: 1000px; 
   height: 300px; 
   overflow: auto; 
-  margin-bottom: 50px;
+  margin-top: 35px;
+  margin-bottom: 35px;
 }
 
 .star-fav{

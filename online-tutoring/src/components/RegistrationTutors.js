@@ -306,7 +306,7 @@ const generateTimeOptions = () => {
               </div>
               <div className="upload-container">
               <p className="prof-pic"> Upload a profile picture </p>
-              <label htmlFor="file-upload">Upload Profile Picture</label>
+              <label htmlFor="file-upload">Choose file</label>
               <input className="styled-button" type="file" id="file-upload" onChange={handleChange} />
 
             </div>
