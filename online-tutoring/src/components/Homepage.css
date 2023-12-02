@@ -70,7 +70,7 @@
   font-size: 20px; 
   margin-top: 20px;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
-  font-weight: 500;
+  font-weight: 700;
   padding-top: 35px;
   position: fixed;
   padding-left: 10px;
@@ -81,9 +81,9 @@
   color: white;
   font-size: 15px; 
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
-  font-weight: 500;
-  padding-top: 100px;
-  padding-right: 130px;
+  font-weight: 700;
+  padding-top: 110px;
+  padding-right: 120px;  
   flex-direction: column;
 }
 
@@ -91,28 +91,19 @@
   color: white;
   font-size: 15px; 
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
-  font-weight: 500;
-  padding-top: 70px;
-  padding-right: 140px;
+  font-weight: 700;
+  padding-right: 120px;
   flex-direction: column;
+  margin-top: -5px;
+  padding-top: 5px;
   }
-
-.subject-panel-tutor{
-  color: white;
-  font-size: 15px; 
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
-  font-weight: 500;
-  padding-right: 100px;
-  flex-direction: column;
-  margin-top: 60px;
-}
 
 .trophy-tutor {
   width: 50px;
   height: auto;
   position: fixed; 
   top: 135px; 
-  padding-left: 70px;
+  padding-left: 60px;
   flex-direction: column;
 }
   
@@ -129,13 +120,13 @@
   width: 45px;
   height: auto;
   position: fixed; 
-  top: 220px; 
+  top: 230px; 
   padding-left: 30px;
   flex-direction: column;
 }
 
 .tutor-logout {
-padding-top: 200px
+padding-top: 350px
 }
 
 .tutor-logout-button {
@@ -157,7 +148,7 @@ transition:0.7s;
 
 .number-subjects-taught {
   font-size: 40px;
-  font-weight: 500;
+  font-weight: 250;
 }
 
 
@@ -400,56 +391,46 @@ flex-direction: column;
 .panel-title-student {
   color: white;
   font-size: 20px; 
-  margin-top: 20px;
-  font-weight: 500;
-  padding-top: 35px;
+  font-weight: 700;
   padding-right: 80px;
+  margin-bottom: 200px;
+  margin-top: 50px;
   }
 
 .classes-panel-student{
 color: white;
 font-size: 15px; 
-font-weight: 500;
-padding-top: 60px;
+font-weight: 700;
 padding-right: 120px;
+margin-top: -5px;
 }
 
 .hours-panel-student{
 color: white;
 font-size: 15px; 
-font-weight: 500;
+font-weight: 700;
 padding-right: 120px;
 margin-top: -5px;
-}
-
-.subject-panel-student{
-color: white;
-font-size: 15px; 
-font-weight: 500;
-padding-right: 80px;
 }
 
 .trophy-student {
 width: 50px;
 height: auto;
 position: relative; 
-top: -50px; 
+top: -60px; 
 padding-left: 120px;
 }
 
 .cap-student {
-width: 45px;
-height: auto;
 position: relative; 
-top: -40px; 
-padding-left: 120px;
+padding-left: 10px;
 }
 
 .medal-student {
 width: 45px;
 height: auto;
 position: relative; 
-top: -48px; 
+top: -55px; 
 padding-left: 120px;
 }
 
@@ -626,7 +607,7 @@ transition:0.7s;
 }
 
 .student-logout-button{
-margin-top: 280px;
+margin-top: 350px;
 background-color:transparent;
 color: white; 
 border: none; 
@@ -648,16 +629,54 @@ transition:0.7s;
 
 .number-student-hours{
   font-size: 40px;
-  font-weight: 500;
+  font-weight: 250;
   color: white;
   margin-right: 130px;
 }
 
 .number-tutor-hours{
   font-size: 40px;
-  font-weight: 500;
+  font-weight: 250;
   color: white;
   margin-right: 130px;
-  margin-bottom: -80px;
   align-items: center;
+  padding-top: 20px;
+}
+
+.number-student-classes{
+  font-size: 40px;
+  font-weight: 250;
+  color: white;
+  margin-right: 130px;
+  align-items: center;
+  margin-top: -170px;
+}
+
+.cap-student{
+  width: 30px;
+  height: auto;
+  position: relative; 
+  margin-top: 130px;
+}
+
+.welcome-back-box {
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  background: #ccc;
+  border-radius: 50px;
+  width: 1000px; 
+  height: 300px; 
+  overflow: auto; 
+  margin-bottom: 50px;
+}
+
+.welcome-back-text{
+  color: #919191;
+  margin-top: -50px;
+}
+
+.school-major-text{
+  color: #6b6a6a;
+  font-weight: 700px;
 }

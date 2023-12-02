@@ -522,8 +522,6 @@ if (userType === "Tutor") {
         <div className = "number-tutor-hours">{userData.hours || 0} </div>
         <h1 className="hours-panel-tutor">Hours </h1>
         <img className="medal-tutor" src={medal} />
-        <h1 className="subject-panel-tutor">Top Subject:</h1>
-        <img className="cap-tutor" src={cap} />
         <div className="tutor-logout">
           <button className="tutor-logout-button" onClick={handleLogout}>Logout</button>
         </div>
@@ -587,13 +585,12 @@ if (userType === "Tutor") {
     <div >
       <div className="purple-panel-student">
         <h1 className="panel-title-student">Your Stats:</h1>
+        <div className = "number-student-classes">{userData.hours || 0} </div>
         <h1 className="classes-panel-student">Classes </h1>
         <img className="trophy-student" src={trophy} /> 
         <div className = "number-student-hours">{userData.hours || 0} </div>
         <h1 className="hours-panel-student">Hours </h1>
         <img className="medal-student" src={medal} />
-        <h1 className="subject-panel-student">Top Subject:</h1>
-        <img className="cap-student" src={cap} />
         <div className="student-logout">
           <button className="student-logout-button" onClick={handleLogout}>Logout</button></div>
       </div>
@@ -630,28 +627,37 @@ if (userType === "Tutor") {
 
       {/* Display search results */}
       <div className="search-results-box-container">
-        <div className="search-results-box">
-          {searchResults.map(tutor => (
-            <div key={tutor.id}>
-              <div>
-                <h3>{tutor.first_name} {tutor.last_name}
-                  <button className="favorite-button" onClick={() => addFavoriteTutor(`${tutor.first_name} ${tutor.last_name}`)}>
-                    <img className="star-fav" src={fav} /></button>
-                  <button className="appt-schedule-button" onClick={() => {
-                    setSelectedTutor(tutor);
-                    setShowScheduleModal(true);
-                  }}>Schedule Appointment</button></h3>
-              </div>
-              <h5>Subjects: {Object.keys(tutor.subjects).filter(subject => tutor.subjects[subject] === true).join(', ')}</h5>
-              <h5>Available Days: {Object.entries(tutor.availability || {}).filter(([day, isAvailable]) => isAvailable).map(([day]) => day).join(', ')}</h5>
-              <h5>Available Hours: {formatTime(tutor.start_Time)} - {formatTime(tutor.end_Time)}</h5>
-              <h5>Phone Number: {tutor.phone_number}</h5>
-              {/* Display other tutor details if needed */}
-            </div>
-
-          ))}
+        <div className="welcome-back-box">
+        {searchResults.length === 0 ? ( 
+        <div>
+      <h2 className="welcome-back-text">Welcome Back, {userData.first_name}!<img className="cap-student" src={cap} /></h2>
+      <p className="school-major-text">School: {userData.school}</p>
+      <p className="school-major-text">Major: {userData.major}</p></div>
+      ) : (
+    <div className="search-results-box">
+      {searchResults.map(tutor => (
+        <div key={tutor.id}>
+          <div>
+            <h3>{tutor.first_name} {tutor.last_name}
+              <button className="favorite-button" onClick={() => addFavoriteTutor(`${tutor.first_name} ${tutor.last_name}`)}>
+                <img className="star-fav" src={fav} /></button>
+              <button className="appt-schedule-button" onClick={() => {
+                setSelectedTutor(tutor);
+                setShowScheduleModal(true);
+              }}>Schedule Appointment</button></h3>
+          </div>
+          <h5>Subjects: {Object.keys(tutor.subjects).filter(subject => tutor.subjects[subject] === true).join(', ')}</h5>
+          <h5>Available Days: {Object.entries(tutor.availability || {}).filter(([day, isAvailable]) => isAvailable).map(([day]) => day).join(', ')}</h5>
+          <h5>Available Hours: {formatTime(tutor.start_Time)} - {formatTime(tutor.end_Time)}</h5>
+          <h5>Phone Number: {tutor.phone_number}</h5>
+          {/* Display other tutor details if needed */}
         </div>
-      </div>
+      ))}
+    </div>
+  )}
+</div>
+</div>
+
 
       {/*Display favorite tutor list*/}
       <div className="purple-box">

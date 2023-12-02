@@ -30,6 +30,11 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    color: white;
+  }
+
+  .form-group .MuiInputBase-root {
+    color: white;
   }
 
   .proportion {
