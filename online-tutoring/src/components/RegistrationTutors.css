@@ -185,3 +185,38 @@ box-align: right;
 .questions {
   color: white;
 }
+
+.day-checkboxes{
+  color: white;
+  margin-bottom: 20px;
+}
+
+.availability-section{
+  color: white;
+}
+
+.styled-button{
+  display: none;
+}
+
+label[for="file-upload"] {
+  font-weight: 500;
+  font-size: medium;
+  background-color: white;
+  color: black; 
+  border: none; 
+  padding: 8px 8px; 
+  cursor: pointer; 
+  border-radius: 15px;
+  margin-left: 15px;
+}
+
+label[for="file-upload"]:hover {
+  color: white;
+  background-color:black;
+  transition:0.7s;
+}
+
+.prof-pic{
+  color: white;
+}

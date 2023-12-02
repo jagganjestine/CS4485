@@ -568,7 +568,7 @@ if (userType === "Tutor") {
           <div key={index}>
           <p className="notifs-details">
             <span className="appointment-name2">{appointment.studentName}</span>
-            <span className="appointment-date2"> recently booked a {appointment.date} appointment</span>
+            <span className="appointment-date2"> recently booked a {formatDate(appointment.date)} appointment</span>
           </p>
           {/* Add more appointment details if needed */}
         </div>

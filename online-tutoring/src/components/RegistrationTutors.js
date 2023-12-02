@@ -238,13 +238,16 @@ const generateTimeOptions = () => {
                 <TextField type="date" required label="Birthday" id="standard-basic" variant="standard" className="proportion" value={birthday} onChange={(e) => setBirthday(e.target.value)} InputLabelProps={{ shrink: true }}></TextField>
               </div>
               <div style={{ marginTop: '10px' }}>
-                <textarea
-                  style={{ width: '77%' }}
-                  placeholder="About Me"
-                  rows={4}
-                  cols={115}
-                  onChange={(e) => setAboutMe(e.target.value)}
-                ></textarea> <div style={{ marginTop: '10px' }}></div>
+              
+              <TextField style={{ marginTop: '20px', width: '80%'}}
+              inputProps={{ style: { color: 'white' } }}
+              id="outlined-textarea"
+              label="About me"
+              placeholder="About me"
+              multiline
+              onChange={(e) => setAboutMe(e.target.value)}
+              />
+                <div style={{ marginTop: '10px' }}></div>
               </div>
               <div className="availability-section">
                 <h3>Available Hours</h3>
@@ -256,6 +259,7 @@ const generateTimeOptions = () => {
                         name={day}
                         checked={availability[day]}
                         onChange={handleDayChange}
+                        
                       />
                       {day}
                     </label>
@@ -301,8 +305,10 @@ const generateTimeOptions = () => {
                 <TextField type="password" required label="Password" id="standard-basic" variant="standard" className="proportion" value={password} onChange={(e) => setPassword(e.target.value)} style={{ marginBottom: '20px' }}></TextField>
               </div>
               <div className="upload-container">
-              <label for="file-upload">Upload Profile Picture</label>
-             <input className="styled-button" type="file" onChange={handleChange}/>
+              <p className="prof-pic"> Upload a profile picture </p>
+              <label htmlFor="file-upload">Upload Profile Picture</label>
+              <input className="styled-button" type="file" id="file-upload" onChange={handleChange} />
+
             </div>
            
             <div className = "questions">
