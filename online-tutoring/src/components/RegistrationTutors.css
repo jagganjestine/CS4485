@@ -87,7 +87,7 @@ color: white;
 }
 
 checkboxes .MuiFormControlLabel-root + .MuiFormControlLabel-root {
-margin-left: 10px; /* Adjust as needed for horizontal spacing */
+margin-left: 10px; 
 color: white;
 }
 
@@ -174,7 +174,7 @@ font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, O
 
 
 .MuiCheckbox-root.Mui-checked {
-color: white; /* Change the color to white when checked */
+color: white; 
 }
 
 .proportion2 {
