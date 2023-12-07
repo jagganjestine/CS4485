@@ -137,7 +137,6 @@ function Login() {
       <h1 className="login-title">Login</h1>
 
 
-      {/*Text field for email and password*/}
       <TextField
       type="email"
       label="Email"
@@ -165,7 +164,7 @@ function Login() {
       id="rememberMe"
       name="rememberMe"
       checked={rememberMe}
-      onChange={handleRememberMeChange} // Added onChange handler
+      onChange={handleRememberMeChange}
     />
     <label htmlFor="rememberMe">Remember Me</label> 
   </div>
