@@ -1,4 +1,5 @@
-# Online Tutoring Application - UT Design Project CS 4485 Team 60
+# Online Tutoring Application - UT Design Project CS 4485 
+# Team 60
 An online tutoring platform with secure user/tutor registration, two-factor authentication, tutor search, favorite lists, appointment scheduling, and background checks for tutors.
 
 
