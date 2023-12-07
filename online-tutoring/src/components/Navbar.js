@@ -23,11 +23,10 @@ const Navbar = () => {
     }
   }
 
-  // Add an event listener for the scroll event
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => {
-      // Remove the event listener when the component unmounts
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
