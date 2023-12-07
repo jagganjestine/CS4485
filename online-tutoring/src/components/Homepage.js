@@ -57,7 +57,6 @@ function HomePage() {
   
   // used to reformat date for upcoming appointments (student hp)
 function formatDate(inputDate) {
-  // Append 'T00:00:00' to make sure the date is parsed in local time
   const date = new Date(`${inputDate}T00:00:00`);
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -81,17 +80,14 @@ const handleAllChecked = (event) => {
   const checked = event.target.checked;
   setAllChecked(checked);
   
-  // If 'All Subjects' is checked, set all individual subjects to true, otherwise set to false
   const newCheckedSubjects = {};
   subjects.forEach(subject => {
     newCheckedSubjects[subject] = checked;
   });
   setCheckedSubjects(newCheckedSubjects);
-
-  // If all subjects are checked, modify the handleSearch to search without subject filters
+  
   if (checked) {
-    setSearchResults([]); // Optional: Clear previous search results
-    // Call the search function without subject filter or modify the search function accordingly
+    setSearchResults([]); 
     handleSearch();
   }
 };
@@ -136,14 +132,13 @@ const handleAllChecked = (event) => {
   
   
   
-  // Fetch tutor's appointments with students
+  // fetch tutor appts with students function
   const fetchTutorAppointments = () => {
     const appointmentsRef = ref(db, `appointments`);
     onValue(appointmentsRef, async (snapshot) => {
       const allAppointments = snapshot.val();
       const tutorAppointments = Object.values(allAppointments || {}).filter(appointment => appointment.tutorId === auth.currentUser.uid);
 
-      // Fetching student names for each appointment
       const populatedAppointments = [];
       for (let appointment of tutorAppointments) {
         const studentRef = ref(db, 'users/' + appointment.userId);
@@ -157,7 +152,7 @@ const handleAllChecked = (event) => {
     });
 };
 
-// Cancel appointments function for both tutor and students
+// cancel appts function
 const handleCancelAppointment = async (appointmentId) => {
   const appointmentRef = ref(db, `appointments/${appointmentId}`);
 
@@ -170,7 +165,6 @@ const handleCancelAppointment = async (appointmentId) => {
       const currentDateTime = new Date();
       const timeDifference = appointmentDateTime - currentDateTime;
 
-      // Apply the 24-hour check only for students
       if (userType === "user" && timeDifference <= 24 * 60 * 60 * 1000) {
         Swal.fire({
           icon: 'error',
@@ -180,7 +174,7 @@ const handleCancelAppointment = async (appointmentId) => {
         return;
       }
 
-      await remove(appointmentRef); // This will delete the appointment entry
+      await remove(appointmentRef);
 
       if (userType === "user") {
         fetchUpcomingAppointments();
@@ -212,7 +206,6 @@ const handleCancelAppointment = async (appointmentId) => {
 
 
 
-// Helper function to validate appointment time and date
 const isFutureDate = (date, time) => {
   const appointmentDateTime = new Date(date + " " + time);
   const currentDateTime = new Date();
@@ -220,7 +213,7 @@ const isFutureDate = (date, time) => {
 };
 
 
-  // Handle search for tutors based on name or subjects
+  // search function to search for tutors
   const handleSearch = () => {
     const tutorsRef = ref(db, 'tutors');
 
@@ -237,7 +230,6 @@ const isFutureDate = (date, time) => {
           return checkedSubjects[subject] && data.subjects && data.subjects[subject];
         });
 
-        // If searchQuery is empty and subjects are checked, only consider subject match
         if (searchQuery.trim() === "" && areSubjectsChecked) {
           return doesSubjectMatch;
         }
@@ -249,11 +241,10 @@ const isFutureDate = (date, time) => {
     });
   };
 
-    // Handle scheduling of new appointments
+    // schedule appt function
     const handleScheduleAppointment = async () => {
       const appointmentId = `${auth.currentUser.uid}_${selectedTutor.id}_${Date.now()}`;
   
-      // Fetch the selected tutor's available hours
       const tutorRef = ref(db, `tutors/${selectedTutor.id}`);
       const tutorSnapshot = await get(tutorRef);
       const tutorData = tutorSnapshot.val();
@@ -276,7 +267,6 @@ const isFutureDate = (date, time) => {
         return;
       }
 
-      // Additional check to ensure availability data exists
   if (!tutorData.availability) {
     Swal.fire({
       icon: 'error',
@@ -293,7 +283,6 @@ const isFutureDate = (date, time) => {
     const endTime = new Date(appointmentDate + "T" + end_Time);
     const dayOfWeek = selectedDateTime.toLocaleString('en-us', { weekday: 'long' });
 
-    // Check if the selected time is within tutor's available hours
     if (selectedDateTime < startTime || selectedDateTime > endTime) {
       Swal.fire({
         icon: 'error',
@@ -303,7 +292,6 @@ const isFutureDate = (date, time) => {
       return;
     }
     
-    // Check if the tutor is available on the selected day of the week
     if (!availability[dayOfWeek]) {
       Swal.fire({
         icon: 'error',
@@ -323,7 +311,6 @@ const isFutureDate = (date, time) => {
       return;
     }
 
-    // Check for conflicting appointments
     const appointmentsRef = ref(db, 'appointments');
     const existingAppointmentsQuery = query(appointmentsRef, orderByChild('tutorId'), equalTo(selectedTutor.id));
     try {
@@ -334,7 +321,6 @@ const isFutureDate = (date, time) => {
           let appointment = existingAppointments[existingAppointmentId];
           const existingAppointmentTime = new Date(appointment.date + "T" + appointment.time);
 
-          // Check if the selected time is within one hour of an existing appointment
           if (appointment.date === appointmentDate &&
             Math.abs(selectedDateTime - existingAppointmentTime) < 3600000) {
             Swal.fire({
@@ -355,7 +341,6 @@ const isFutureDate = (date, time) => {
         time: appointmentTime
       };
 
-      // Schedule the appointment
       await set(ref(db, `appointments/${appointmentId}`), newAppointment);
       setShowScheduleModal(false);
       Swal.fire({
@@ -377,11 +362,9 @@ const isFutureDate = (date, time) => {
 
   
 
-  // Add tutor to user's favorite list
+  // add tutor to favorites function
   const addFavoriteTutor = (tutorName) => {
-    // Check if the tutor is already in the favorite list
     if (userData.favoriteTutors && userData.favoriteTutors.includes(tutorName)) {
-      //alert(`${tutorName} is already in your favorites!`);
       Swal.fire({
         icon: 'warning',
         title: 'Tutor Favorited',
@@ -396,24 +379,21 @@ const isFutureDate = (date, time) => {
     setUserData(prevState => ({ ...prevState, favoriteTutors: updatedFavorites }));
   };
 
-  // Remove tutor from user's favorite list
+  // delete tutor from favorites function
   const handleDeleteFavorite = async (tutorId) => {
-    // Create a copy of the favoriteTutors array without the selected tutorId
     const updatedFavorites = userData.favoriteTutors.filter(id => id !== tutorId);
 
-    // Update the user's favoriteTutors data in the database
     await set(ref(db, 'users/' + auth.currentUser.uid + '/favoriteTutors'), updatedFavorites);
 
-    // Update local state
     setUserData(prevData => ({
       ...prevData,
       favoriteTutors: updatedFavorites
     }));
   };
 
-  // Handle change in subject checkboxes
+
   const handleSubjectChange = (subject) => {
-    setSearchResults([]);  // Clear the search results
+    setSearchResults([]);
     setCheckedSubjects(prevState => ({
       ...prevState,
       [subject]: !prevState[subject]
@@ -429,17 +409,17 @@ const isFutureDate = (date, time) => {
     }
   }; 
 
-  // Helper function to increment hours
+ // used to count total tutoring hours
 const incrementHours = async (userId, userType) => {
   const userRef = ref(db, `${userType}/${userId}`);
   const userSnapshot = await get(userRef);
   const userData = userSnapshot.val();
   
-  const newHours = (userData.hours || 0) + 1; // Increment hours by 1
+  const newHours = (userData.hours || 0) + 1; 
   await set(ref(db, `${userType}/${userId}/hours`), newHours);
 };
 
-// Modify this function to delete appointments only after they have ended
+// delete appt after it ends function
 const deletePastAppointments = async () => {
   const appointmentsRef = ref(db, 'appointments');
   const snapshot = await get(appointmentsRef);
@@ -453,21 +433,18 @@ const deletePastAppointments = async () => {
       const currentDateTime = new Date();
 
       if (appointmentEndTime < currentDateTime) {
-        // Increment hours before deleting the appointment
         await incrementHours(appointment.userId, 'users'); // for student
         await incrementHours(appointment.tutorId, 'tutors'); // for tutor
         
-        // Now remove the appointment
         await remove(ref(db, `appointments/${appointmentId}`));
       }
     }
 
-    // Fetch updated upcoming appointments
     fetchUpcomingAppointments();
   }
 };
 
-  // Fetch user data on component mount and decide whether the user is a general user or a tutor
+  // fetch user or tutor data function
   const fetchData = async () => {
     if (auth.currentUser) {
       const userRef = ref(db, 'users/' + auth.currentUser.uid);
@@ -501,16 +478,15 @@ const deletePastAppointments = async () => {
       }
     });
 
-    return () => unsubscribe(); // Clean up the subscription
+    return () => unsubscribe();
   }, [auth]);
   
 
 
-  // If userData hasn't been fetched yet, show loading state
-  // if (!userData.first_name) return <div>Please login</div>;
+ 
 
   
-  // If the user is a tutor, show the tutor-specific homepage
+  // if user is tutor, show tutor homepage
 if (userType === "Tutor") {
   
   return (
@@ -553,7 +529,6 @@ if (userType === "Tutor") {
                   <button className="cancel-appointment" onClick={() => handleCancelAppointment(appointment.id)}>Cancel</button>
                 </div>
             </p>
-            {/* Add more appointment details if needed */}
           </div>
         ))}
       </div>
@@ -570,7 +545,6 @@ if (userType === "Tutor") {
             <span className="appointment-name2">{appointment.studentName}</span>
             <span className="appointment-date2"> recently booked a {formatDate(appointment.date)} appointment</span>
           </p>
-          {/* Add more appointment details if needed */}
         </div>
         ))}
       </div>
@@ -580,7 +554,7 @@ if (userType === "Tutor") {
 }
 
 
-  // If the user is a general user
+  // if user is student, show student homepage
   return (
     <div >
       <div className="purple-panel-student">
@@ -595,7 +569,6 @@ if (userType === "Tutor") {
           <button className="student-logout-button" onClick={handleLogout}>Logout</button></div>
       </div>
 
-      {/* Search functionality */}
       <input className="search-bar"
         type="text"
         value={searchQuery}
@@ -624,8 +597,6 @@ if (userType === "Tutor") {
         ))}
       </div>
 
-
-      {/* Display search results */}
       <div className="search-results-box-container">
         <div className="welcome-back-box">
         {searchResults.length === 0 ? ( 
@@ -650,7 +621,6 @@ if (userType === "Tutor") {
           <h5>Available Days: {Object.entries(tutor.availability || {}).filter(([day, isAvailable]) => isAvailable).map(([day]) => day).join(', ')}</h5>
           <h5>Available Hours: {formatTime(tutor.start_Time)} - {formatTime(tutor.end_Time)}</h5>
           <h5>Phone Number: {tutor.phone_number}</h5>
-          {/* Display other tutor details if needed */}
         </div>
       ))}
     </div>
@@ -659,7 +629,6 @@ if (userType === "Tutor") {
 </div>
 
 
-      {/*Display favorite tutor list*/}
       <div className="purple-box">
         <div className="dashboard-container-student">
           <div className="favorite-tutors">
@@ -672,15 +641,12 @@ if (userType === "Tutor") {
             ))}
           </div>
 
-          {/*Display upcoming appointments*/}
           <div>
-            {/* Moved the title outside the map loop */}
             <div className="upcoming-appts-student-container">
               <h5 className="appt-title-student">Upcoming Appointments:<img className="appt-student" src={appt} /></h5>
               {upcomingAppointments.map((appointment, index) => (
                 <div className="upcoming-appts-student" key={index}>
 
-                  {/* Smiley face cal pic */}
                   <p>
                     <span className="tutor-appointment-name">{appointment.tutorName}</span>
                     <span className="tutor-appointment-date-time">
@@ -693,14 +659,11 @@ if (userType === "Tutor") {
                       Cancel
                     </button>
                   </p>
-                  {/* Add more appointment details if needed */}
                 </div>
               ))}
             </div>
           </div>
 
-          {/*Code for the popup that displays when user trys to schedule appointment*/}
-          {/* DONT MESS W IT :) */}
           {showScheduleModal && (
             <div className="modal">
               <h3>Schedule an appointment with {selectedTutor.first_name} {selectedTutor.last_name}</h3>
@@ -711,7 +674,6 @@ if (userType === "Tutor") {
               <p>Please select a one hour slot</p>
             </div>
           )}
-          {/* DONT MESS W IT :) */}
         </div>
       </div>
     </div>
