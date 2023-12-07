@@ -35,32 +35,20 @@
   .hero-section {
     padding-top: 50px;
     display: flex;
-    justify-content: center; /* Center content horizontally */
-    align-items: center; /* Center content vertically */
+    justify-content: center; 
+    align-items: center; 
   }
 
   .gradient-box {
     border-radius: 50px;
-    width: 1100px; /* Set the width of the box */
-    height: 500px; /* Set the height of the box */
+    width: 1100px; 
+    height: 500px; 
     background: linear-gradient(135deg, #B674E6, #3B2667);
     text-align: center;
-    color: white; /* Set text color to white for better readability */
-    font-size: 20px; /* Set the font size */
+    color: white; /
+    font-size: 20px; 
     display: flex;
-    justify-content: center; /* Horizontally center content */
-    align-items: center; /* Vertically center content */
+    justify-content: center; 
+    align-items: center; 
   }
 
-  /*
-  <div className="registration-container">
-          <div className="registration-form">
-            <h1 className="rsHeader">Are you a</h1>
-            <div className="buttons-container">
-              <Link to="/registration" style={{ textDecoration: 'none' }}className="registration-button">Student</Link>
-              <span className="or-text">or</span>
-              <Link to="/registrationtutors" style={{ textDecoration: 'none' }}className="registration-button">Tutor</Link>
-            </div>
-          </div>
-        </div>
-  */
