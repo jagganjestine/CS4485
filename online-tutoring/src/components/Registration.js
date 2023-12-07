@@ -52,9 +52,9 @@ function Registration() {
   function handleSubmit(event) {
     event.preventDefault(); // Prevent the default form submission
 
-    // Here you can add any additional validation if needed
 
-    handleRegistration(); // Your existing function to handle registration
+
+    handleRegistration(); 
 }
   const handleRegistration = async () => {
     if (!isPasswordStrong(password)) {
@@ -113,27 +113,22 @@ function Registration() {
       <h2>Student Registration</h2>
       
       <div className="form-group">
-      {/* <TextField id="standard-basic" variant="standard" type="first name" placeholder="First Name" onChange={(e) => setFirstName(e.target.value)} /> */}
       <TextField type="first name" required label="First Name" id="standard-basic" variant="standard" className="proportion" value={firstName} onChange={(e) => setFirstName(e.target.value)}></TextField>
       </div>
 
       <div className="form-group">
-      {/* <TextField type="last name" placeholder="Last Name" onChange={(e) => setLastName(e.target.value)} /> */}
       <TextField type="last name" required label="Last Name" id="standard-basic" variant="standard" className="proportion" value={lastName} onChange={(e) => setLastName(e.target.value)}></TextField>    
       </div>
 
       <div className="form-group">
-      { /* <TextField type="date" placeholder="Birthday" onChange={(e) => setBirthday(e.target.value)} /> */}
       <TextField type="date" required label="Birthday" id="standard-basic" variant="standard" className="proportion" value={birthday} onChange={(e) => setBirthday(e.target.value)} InputLabelProps={{shrink: true }}></TextField>
       </div>
 
       <div className="form-group">
-      {/*<TextField type="school" placeholder="School" onChange={(e) => setSchool(e.target.value)} /> */} 
       <TextField type="school" required label="School" id="standard-basic" variant="standard" className="proportion" value={school} onChange={(e) => setSchool(e.target.value)}></TextField>
       </div>
 
       <div className="form-group">
-      { /* <TextField type="major" placeholder="Major" onChange={(e) => setMajor(e.target.value)} /> */}
       <TextField type="major" required label="Major" id="standard-basic" variant="standard" className="proportion" value={major} onChange={(e) => setMajor(e.target.value)}></TextField>
       </div>
 
