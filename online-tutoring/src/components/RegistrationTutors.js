@@ -44,12 +44,11 @@ function TutorRegistration() {
     English: false,
     Science: false,
     History: false,
-    // You can add other subjects as needed
   });
 
   const [availability, setAvailability] = useState({
     Sunday: false,
-    Monday: true, // Assuming Monday as default available day for simplicity
+    Monday: true, 
     Tuesday: false,
     Wednesday: false,
     Thursday: false,
@@ -139,9 +138,9 @@ const generateTimeOptions = () => {
   function handleSubmit(event) {
     event.preventDefault(); // Prevent the default form submission
 
-    // Here you can add any additional validation if needed
+ 
 
-    handleRegistration(); // Your existing function to handle registration
+    handleRegistration(); 
 }
 
   const handleRegistration = async () => {
@@ -329,7 +328,6 @@ const generateTimeOptions = () => {
                 <input type="checkbox" name="History" onChange={handleSubjectChange} />
                 History
               </label>
-              {/* You can add other subjects as needed */}
             </div>
             <div className = "questions">
               <h3>Do you have any felony convictions?</h3>
