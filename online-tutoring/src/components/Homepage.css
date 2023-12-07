@@ -48,9 +48,9 @@
 
 .profileImage {
   border-radius: 50%;
-  width: 100px;  /* Adjust width as necessary */
-  height: 100px;  /* Adjust height as necessary */
-  object-fit: cover;  /* This ensures that the image covers the circle without distortion */
+  width: 100px; 
+  height: 100px; 
+  object-fit: cover; 
 }
 
 .purple-panel-tutor {
@@ -167,8 +167,8 @@ transition:0.7s;
 @media (min-width: 768px) {
   .upcoming-appointments,
   .tutor-notifications {
-    margin-top: 0; /* Remove top margin for larger screens */
-    margin-left: auto; /* Center the box horizontally on larger screens */
+    margin-top: 0; 
+    margin-left: auto; 
     margin-right: auto;
   
   }
@@ -213,9 +213,9 @@ transition:0.7s;
 .profileImage {
     border-color: gray;
     border-radius: 50%;
-    width: 240px;  /* Adjust width as necessary */
-    height: 240px;  /* Adjust height as necessary */
-    object-fit: cover;  /* This ensures that the image covers the circle without distortion */
+    width: 240px;  
+    height: 240px;  
+    object-fit: cover;  
 }
 
 .bold-words {
