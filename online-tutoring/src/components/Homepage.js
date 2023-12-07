@@ -48,9 +48,7 @@ function HomePage() {
       });
       window.localStorage.clear()
       window.location.href = "/"
-      // User logged out successfully
     } catch (error) {
-      // Handle logout errors
       console.error(error);
     }
   };
