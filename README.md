@@ -1,5 +1,5 @@
-# Online Tutoring Application - UT Design Project CS 4485
-An online tutoring platform with secure user/tutor registration, two-factor authentication, tutor search, favorite lists, background checks for tutors, appointment scheduling, and integrated online meeting setup.
+# Online Tutoring Application - UT Design Project CS 4485 Team 60
+An online tutoring platform with secure user/tutor registration, two-factor authentication, tutor search, favorite lists, appointment scheduling, and background checks for tutors.
 
 
 ## Core Features
@@ -12,13 +12,11 @@ An online tutoring platform with secure user/tutor registration, two-factor auth
 - Dashboard: View upcoming appointments and total tutoring hours for both tutors and users.
 
 ## Additional Features
-- Appointment Reminders: Email notifications sent upon booking.
 - Cancellation: Allows users to cancel appointments up to 24 hours in advance.
-- Online Meetings: Integrated with Zoom or Google Meet/Calendar for seamless online tutoring sessions.
 
 
 ## Usage
 1. Register as a user or tutor.
 2. Browse the tutor listings, search by name or expertise, and add to your favorites.
-3. Book appointments with tutors and receive reminders.
-4. Enjoy your online tutoring sessions with the integrated meeting setup!
+3. Book appointments with tutors.
+4. Enjoy your online tutoring sessions!
